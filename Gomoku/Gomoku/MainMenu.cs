@@ -34,16 +34,6 @@ namespace Gomoku
             }
         }
 
-        /*private void MainMenu_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Maximized || WindowState == FormWindowState.Normal)
-            {
-                // Оставляем форму в единственно возможном состоянии - свернутой или развернутой
-                MinimumSize = SIze;
-                MaximumSize = SIze;
-            }
-        }*/
-
         private void MainMenu_SizeChanged(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Maximized)
