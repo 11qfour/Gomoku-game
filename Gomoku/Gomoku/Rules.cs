@@ -51,11 +51,6 @@ namespace Gomoku
             manyrules[page].Show();//показать форму
         }
 
-        private void LNameRules_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void BNext_Click(object sender, EventArgs e)
         {
             page++;

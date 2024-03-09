@@ -53,6 +53,7 @@ namespace Gomoku
             newForm.Size = this.Size;
             newForm.StartPosition = FormStartPosition.Manual;
             newForm.Location = this.Location;
+            newForm.Icon = this.Icon;
             newForm.Show();
         }
 
@@ -70,7 +71,7 @@ namespace Gomoku
 
         private void BGameWithFriend_Click(object sender, EventArgs e)
         {
-            GameWithFriend gameWithFriend = new GameWithFriend();
+            GameWithPC gameWithFriend = new GameWithPC();
             OpenNewFormInSameResolution(gameWithFriend);
         }
 

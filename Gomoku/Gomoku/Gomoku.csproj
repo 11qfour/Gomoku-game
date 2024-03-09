@@ -46,12 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameWithFriend.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameWithFriend.Designer.cs">
-      <DependentUpon>GameWithFriend.cs</DependentUpon>
-    </Compile>
     <Compile Include="GameWithPC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Rules.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +81,9 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GameWithPC.resx">
+      <DependentUpon>GameWithPC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>

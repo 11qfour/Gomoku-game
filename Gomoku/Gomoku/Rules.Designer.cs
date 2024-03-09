@@ -72,7 +72,6 @@ namespace Gomoku
             this.LNameRules.Size = new System.Drawing.Size(111, 45);
             this.LNameRules.TabIndex = 8;
             this.LNameRules.Text = "label1";
-            this.LNameRules.Click += new System.EventHandler(this.LNameRules_Click);
             // 
             // BBackRules
             // 
