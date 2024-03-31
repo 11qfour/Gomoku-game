@@ -15,16 +15,19 @@ namespace Gomoku
         int all_sec=0;
         int steps;
         int white_steps;
-        Image black = Image.FromFile("black.png");
-        Image white = Image.FromFile("white.png");
+        Image black = Image.FromFile("blacknew.png");
+        Image white = Image.FromFile("whitenew.png");
         int black_steps;
+        ToolTip toolTip1 = new ToolTip();
         public GameWithPC()
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedSingle;
             /*Resize += MainMenu_Resize;*/
             SizeChanged += GameWithPC_SizeChanged;
-
+            toolTip1.SetToolTip(BHelp, "Подсказка");
+            toolTip1.SetToolTip(BReturnStep, "Отменить ход");
+            toolTip1.SetToolTip(BExit, "Завершить игру и выйти");
             timer = new Timer();
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
@@ -34,29 +37,44 @@ namespace Gomoku
 
         private void Cell_Click(object sender, EventArgs e)
         {
-            Panel panel = sender as Panel; // Приводим sender к типу Panel
-            if (panel != null) // Проверяем, успешно ли приведение к типу Panel
+            Panel cell = sender as Panel; // Приводим sender к типу Panel
+            if (cell != null) // Проверяем, успешно ли приведение к типу Panel
             {
-                if (panel.BackgroundImage == null)//проверка занята ли ячейка изображением
+                if (cell.BackgroundImage == null)//проверка занята ли ячейка изображением
                 {
-                    panel.BackgroundImageLayout = ImageLayout.Center;
-                    if (panel.BackColor == Color.Transparent)
-                    {
-                        if (steps % 2 == 0) // устанавливаем черный цвет фишки
-                        {//сделать на полный экран
-                            panel.BackgroundImage = black;
-                            steps++;
-                            black_steps++;
-                            LOpp.Text = "Белых";
-                        }
-                        else // устанавливаем белый цвет фишки
+                        // Разрешаем обработку клика только на панели [7,7] когда steps = 0
+                        if (steps == 0)
                         {
-                            panel.BackgroundImage = white;
-                            steps++;
-                            white_steps++;
-                            LOpp.Text = "Черных";
+                            cell.BackgroundImageLayout = ImageLayout.Center;
+                            if (cell.BackColor == Color.Gray)
+                            {
+                                cell.BackgroundImage = black;
+                                steps++;
+                                black_steps++;
+                                LWhoStep.Text = "Белых";
+                            }
                         }
-                    }
+                        else
+                        {
+                            cell.BackgroundImageLayout = ImageLayout.Center;
+                            if (cell.BackColor == Color.Transparent)
+                            {
+                                if (steps % 2 == 0) // устанавливаем черный цвет фишки
+                                {
+                                    cell.BackgroundImage = black;
+                                    steps++;
+                                    black_steps++;
+                                    LWhoStep.Text = "Белых";
+                                }
+                                else // устанавливаем белый цвет фишки
+                                { 
+                                    cell.BackgroundImage = white;
+                                    steps++;
+                                    white_steps++;
+                                    LWhoStep.Text = "Черных";
+                                }
+                            }
+                        }
                 }
             }
         }
@@ -67,13 +85,17 @@ namespace Gomoku
             {
                 for (int j = 0; j < LayGameFieldPC.ColumnCount; j++)
                 {
-                    Panel cell = new Panel
+                    Panel cell = new Panel();
+                    if (i == 7 && j == 7)
                     {
-                        BackColor = Color.Transparent,
-                        Dock = DockStyle.Fill
-                    };
+                        cell.BackColor = Color.Gray;
+                    }
+                    else
+                    {
+                        cell.BackColor = Color.Transparent;
+                    }
+                    cell.Dock = DockStyle.Fill;
                     cell.Click += Cell_Click; // добавляем обработчик события клика на ячейку
-
                     LayGameFieldPC.Controls.Add(cell, j, i); // добавляем ячейку в таблицу
                 }
             }
@@ -86,7 +108,6 @@ namespace Gomoku
             black_steps = 0;
             LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
             LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
-
         }
 
         private void LayGameFieldPC_CellPaint(object sender, TableLayoutCellPaintEventArgs e)//перерисовывание ячейки
@@ -167,6 +188,22 @@ namespace Gomoku
             }
             LTimeMin.Text = minuts.ToString()+"Мин.";
             LTimeSec.Text = seconds.ToString()+"Сек.";
+        }
+
+        private void GameWithPC_Resize(object sender, EventArgs e)
+        {
+            double aspectRatio = 816.0 / 489.0; // Соотношение сторон исходного размера формы
+            int newWidth = this.Width;
+            int newHeight = Convert.ToInt32(newWidth / aspectRatio);
+
+            // Проверка, чтобы TableLayoutPanel не выходил за пределы размеров формы
+            if (newHeight > this.Height)
+            {
+                newHeight = this.Height;
+                newWidth = Convert.ToInt32(this.Height * aspectRatio);
+            }
+
+            LayGameFieldPC.Size = new Size(newWidth, newHeight);
         }
     }
 }

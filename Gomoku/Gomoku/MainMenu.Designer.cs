@@ -29,6 +29,7 @@ namespace Gomoku
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.LNameOfGame = new System.Windows.Forms.Label();
             this.BGameWithPC = new System.Windows.Forms.Button();
@@ -37,6 +38,7 @@ namespace Gomoku
             this.ExitMainButton = new System.Windows.Forms.Button();
             this.MenuMainButton = new System.Windows.Forms.Button();
             this.InfoButton = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // LNameOfGame
@@ -55,9 +57,9 @@ namespace Gomoku
             this.BGameWithPC.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BGameWithPC.BackColor = System.Drawing.Color.Peru;
             this.BGameWithPC.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BGameWithPC.Location = new System.Drawing.Point(188, 133);
+            this.BGameWithPC.Location = new System.Drawing.Point(78, 133);
             this.BGameWithPC.Name = "BGameWithPC";
-            this.BGameWithPC.Size = new System.Drawing.Size(385, 43);
+            this.BGameWithPC.Size = new System.Drawing.Size(650, 43);
             this.BGameWithPC.TabIndex = 1;
             this.BGameWithPC.Text = "Играть с компьютером";
             this.BGameWithPC.UseVisualStyleBackColor = false;
@@ -68,9 +70,9 @@ namespace Gomoku
             this.BGameWithFriend.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BGameWithFriend.BackColor = System.Drawing.Color.Peru;
             this.BGameWithFriend.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BGameWithFriend.Location = new System.Drawing.Point(188, 207);
+            this.BGameWithFriend.Location = new System.Drawing.Point(78, 207);
             this.BGameWithFriend.Name = "BGameWithFriend";
-            this.BGameWithFriend.Size = new System.Drawing.Size(385, 43);
+            this.BGameWithFriend.Size = new System.Drawing.Size(650, 43);
             this.BGameWithFriend.TabIndex = 2;
             this.BGameWithFriend.Text = "Играть с другом";
             this.BGameWithFriend.UseVisualStyleBackColor = false;
@@ -81,9 +83,9 @@ namespace Gomoku
             this.BRules.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BRules.BackColor = System.Drawing.Color.Peru;
             this.BRules.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BRules.Location = new System.Drawing.Point(188, 282);
+            this.BRules.Location = new System.Drawing.Point(78, 282);
             this.BRules.Name = "BRules";
-            this.BRules.Size = new System.Drawing.Size(385, 43);
+            this.BRules.Size = new System.Drawing.Size(650, 43);
             this.BRules.TabIndex = 3;
             this.BRules.Text = "Правила";
             this.BRules.UseVisualStyleBackColor = false;
@@ -128,6 +130,12 @@ namespace Gomoku
             this.InfoButton.UseVisualStyleBackColor = false;
             this.InfoButton.Click += new System.EventHandler(this.InfoButton_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 500;
+            this.toolTip1.ReshowDelay = 0;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,6 +168,8 @@ namespace Gomoku
         private System.Windows.Forms.Button ExitMainButton;
         private System.Windows.Forms.Button MenuMainButton;
         private System.Windows.Forms.Button InfoButton;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }
 

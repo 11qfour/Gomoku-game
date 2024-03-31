@@ -47,7 +47,6 @@ namespace Gomoku
             // 
             // LayGameFieldPC
             // 
-            this.LayGameFieldPC.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LayGameFieldPC.BackColor = System.Drawing.Color.SandyBrown;
             this.LayGameFieldPC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.LayGameFieldPC.ColumnCount = 15;
@@ -67,8 +66,9 @@ namespace Gomoku
             this.LayGameFieldPC.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.019867F));
             this.LayGameFieldPC.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.887417F));
             this.LayGameFieldPC.Cursor = System.Windows.Forms.Cursors.Default;
+            this.LayGameFieldPC.Dock = System.Windows.Forms.DockStyle.Left;
             this.LayGameFieldPC.ForeColor = System.Drawing.Color.Black;
-            this.LayGameFieldPC.Location = new System.Drawing.Point(38, 3);
+            this.LayGameFieldPC.Location = new System.Drawing.Point(0, 0);
             this.LayGameFieldPC.Name = "LayGameFieldPC";
             this.LayGameFieldPC.RowCount = 15;
             this.LayGameFieldPC.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.666666F));
@@ -86,7 +86,7 @@ namespace Gomoku
             this.LayGameFieldPC.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.666666F));
             this.LayGameFieldPC.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.666666F));
             this.LayGameFieldPC.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.666666F));
-            this.LayGameFieldPC.Size = new System.Drawing.Size(484, 435);
+            this.LayGameFieldPC.Size = new System.Drawing.Size(546, 450);
             this.LayGameFieldPC.TabIndex = 0;
             // 
             // timer
@@ -96,10 +96,10 @@ namespace Gomoku
             // 
             // LNowStepsGame
             // 
-            this.LNowStepsGame.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LNowStepsGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LNowStepsGame.AutoSize = true;
             this.LNowStepsGame.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNowStepsGame.Location = new System.Drawing.Point(605, 61);
+            this.LNowStepsGame.Location = new System.Drawing.Point(658, 82);
             this.LNowStepsGame.Name = "LNowStepsGame";
             this.LNowStepsGame.Size = new System.Drawing.Size(130, 25);
             this.LNowStepsGame.TabIndex = 1;
@@ -107,10 +107,10 @@ namespace Gomoku
             // 
             // LWhoStep
             // 
-            this.LWhoStep.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LWhoStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LWhoStep.AutoSize = true;
             this.LWhoStep.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LWhoStep.Location = new System.Drawing.Point(632, 97);
+            this.LWhoStep.Location = new System.Drawing.Point(683, 107);
             this.LWhoStep.Name = "LWhoStep";
             this.LWhoStep.Size = new System.Drawing.Size(73, 21);
             this.LWhoStep.TabIndex = 2;
@@ -118,10 +118,10 @@ namespace Gomoku
             // 
             // LNameTime
             // 
-            this.LNameTime.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LNameTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LNameTime.AutoSize = true;
             this.LNameTime.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNameTime.Location = new System.Drawing.Point(605, 365);
+            this.LNameTime.Location = new System.Drawing.Point(655, 366);
             this.LNameTime.Name = "LNameTime";
             this.LNameTime.Size = new System.Drawing.Size(133, 25);
             this.LNameTime.TabIndex = 3;
@@ -129,10 +129,10 @@ namespace Gomoku
             // 
             // LTimeSec
             // 
-            this.LTimeSec.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LTimeSec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LTimeSec.AutoSize = true;
             this.LTimeSec.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTimeSec.Location = new System.Drawing.Point(698, 408);
+            this.LTimeSec.Location = new System.Drawing.Point(746, 408);
             this.LTimeSec.Name = "LTimeSec";
             this.LTimeSec.Size = new System.Drawing.Size(20, 21);
             this.LTimeSec.TabIndex = 4;
@@ -140,11 +140,11 @@ namespace Gomoku
             // 
             // BHelp
             // 
-            this.BHelp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BHelp.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.BHelp.BackColor = System.Drawing.Color.Peru;
             this.BHelp.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BHelp.Image = ((System.Drawing.Image)(resources.GetObject("BHelp.Image")));
-            this.BHelp.Location = new System.Drawing.Point(610, 131);
+            this.BHelp.Location = new System.Drawing.Point(660, 131);
             this.BHelp.Name = "BHelp";
             this.BHelp.Size = new System.Drawing.Size(125, 58);
             this.BHelp.TabIndex = 5;
@@ -153,11 +153,11 @@ namespace Gomoku
             // 
             // BReturnStep
             // 
-            this.BReturnStep.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BReturnStep.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.BReturnStep.BackColor = System.Drawing.Color.Peru;
             this.BReturnStep.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BReturnStep.Image = ((System.Drawing.Image)(resources.GetObject("BReturnStep.Image")));
-            this.BReturnStep.Location = new System.Drawing.Point(610, 208);
+            this.BReturnStep.Location = new System.Drawing.Point(660, 206);
             this.BReturnStep.Name = "BReturnStep";
             this.BReturnStep.Size = new System.Drawing.Size(125, 67);
             this.BReturnStep.TabIndex = 6;
@@ -166,11 +166,11 @@ namespace Gomoku
             // 
             // BExit
             // 
-            this.BExit.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BExit.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.BExit.BackColor = System.Drawing.Color.Peru;
             this.BExit.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BExit.Image = ((System.Drawing.Image)(resources.GetObject("BExit.Image")));
-            this.BExit.Location = new System.Drawing.Point(610, 300);
+            this.BExit.Location = new System.Drawing.Point(660, 296);
             this.BExit.Name = "BExit";
             this.BExit.Size = new System.Drawing.Size(125, 52);
             this.BExit.TabIndex = 7;
@@ -179,10 +179,10 @@ namespace Gomoku
             // 
             // LNameOpp
             // 
-            this.LNameOpp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LNameOpp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LNameOpp.AutoSize = true;
             this.LNameOpp.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNameOpp.Location = new System.Drawing.Point(605, -6);
+            this.LNameOpp.Location = new System.Drawing.Point(664, 12);
             this.LNameOpp.Name = "LNameOpp";
             this.LNameOpp.Size = new System.Drawing.Size(124, 25);
             this.LNameOpp.TabIndex = 8;
@@ -190,10 +190,10 @@ namespace Gomoku
             // 
             // LOpp
             // 
-            this.LOpp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LOpp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LOpp.AutoSize = true;
             this.LOpp.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LOpp.Location = new System.Drawing.Point(590, 30);
+            this.LOpp.Location = new System.Drawing.Point(656, 37);
             this.LOpp.Name = "LOpp";
             this.LOpp.Size = new System.Drawing.Size(148, 21);
             this.LOpp.TabIndex = 9;
@@ -201,10 +201,10 @@ namespace Gomoku
             // 
             // LTimeMin
             // 
-            this.LTimeMin.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LTimeMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LTimeMin.AutoSize = true;
             this.LTimeMin.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTimeMin.Location = new System.Drawing.Point(621, 408);
+            this.LTimeMin.Location = new System.Drawing.Point(683, 408);
             this.LTimeMin.Name = "LTimeMin";
             this.LTimeMin.Size = new System.Drawing.Size(20, 21);
             this.LTimeMin.TabIndex = 10;
@@ -234,6 +234,7 @@ namespace Gomoku
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameWithPC_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWithPC_FormClosed);
             this.Load += new System.EventHandler(this.GameWithPC_Load);
+            this.Resize += new System.EventHandler(this.GameWithPC_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -12,17 +12,22 @@ namespace Gomoku
 {
     public partial class MainMenu : Form
     {
+        
         public MainMenu()
         {
+            ToolTip toolTip1 = new ToolTip();
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedSingle;
             /*Resize += MainMenu_Resize;*/
-            SizeChanged += MainMenu_SizeChanged;
+            /*SizeChanged += MainMenu_SizeChanged;*/
+            toolTip1.SetToolTip(InfoButton,"Справка");
+            toolTip1.SetToolTip(MenuMainButton, "Настройки и профиль");
+            toolTip1.SetToolTip(ExitMainButton, "Выход");
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void ExitMainButton_Click(object sender, EventArgs e)
@@ -36,7 +41,7 @@ namespace Gomoku
 
         private void MainMenu_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Maximized)
+            /*if (WindowState == FormWindowState.Maximized)
             {
                 float scaleWidth = (float)Width / (float)ClientSize.Width; //коэфициент сохранения ширины
                 float scaleHeight = (float)Height / (float)ClientSize.Height;//коэфициент сохранения высоты
@@ -45,7 +50,7 @@ namespace Gomoku
                 BGameWithFriend.Size = new Size((int)(BGameWithFriend.Width * scaleWidth), (int)(BGameWithFriend.Height * scaleHeight));
                 InfoButton.Size = new Size((int)(InfoButton.Width * scaleWidth), (int)(InfoButton.Height * scaleHeight));
                 ExitMainButton.Size = new Size((int)(ExitMainButton.Width * scaleWidth), (int)(ExitMainButton.Height * scaleHeight));
-            }
+            }*/
         }
 
         private void OpenNewFormInSameResolution(Form newForm)//открытие нового окна в таком эе разрешении
