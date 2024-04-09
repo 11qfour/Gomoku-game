@@ -1,99 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-
 
 namespace Gomoku
 {
-    public partial class Rules : Form
+    class Rules
     {
-        const int sizerules = 5;
-        int page = 0;//счетчик страниц , используется для перелистывания по кнопкам
-        Rules[] manyrules = new Rules[sizerules];//массив форм правил из 5 элементов
-        Image[] Images = new Image[sizerules];//заполнение массива изображений как в девятой лабе сишарп
+        private string[] PagesRules;
+        private int pages;
+        private Image[] Images;
 
-        public Rules()
+        public void SetPages(int cntpages)
         {
-            InitializeComponent();
-           
+            pages = cntpages;
         }
 
-        private Rules SetNameOfRule(Rules ruu,string ru)//переименование формы согласно следованию
+        public int GetPages()
         {
-            ruu.Name = ru;
-            return ruu;
+            return pages;
         }
 
-        private void Rules_Load(object sender, EventArgs e)
+        //использовать в цикле по индексу и тексту, мб считывать из файла
+        public void SetPagesRules(int numpage, string Text) //номер страницы, текст страницы
         {
-            for (int i = 0; i < sizerules; i++)
-            {
-                Rules rule = new Rules();
-                string ru = "Rule" + (i+1).ToString();
-                manyrules[i] = SetNameOfRule(rule, ru);//занесение формы в массив
-            }
-            InitRule();
+            PagesRules[numpage] = Text;
         }
 
-        private void InitRule()//инициализация формы правило
+        public string GetPagesRules(int numpage) //номер страницы
         {
-            //все что должно присваиваться тексту должно быть в массиве строк по этим элементам и будут выводиться значения
-            manyrules[page].LNameRules.Text = "";
-            manyrules[page].LFirstRule.Text = "";
-            manyrules[page].LSecondRule.Text = "";
-            manyrules[page].PBRules.Image = Images[page];
-            manyrules[page].Show();//показать форму
+            return PagesRules[numpage];
         }
 
-        private void BNext_Click(object sender, EventArgs e)
+        public Rules(int numspages)
         {
-            page++;
-            InitRule();
-        }
-
-        private void BBackRules_Click(object sender, EventArgs e)
-        {
-            page--;
-            InitRule();
+            this.pages = numspages;
+            this.PagesRules = new string[this.pages];
+            this.Images = new Image[this.pages];
         }
     }
-
-    /*class Ruless
-    {
-        public void SetForm()
-        {
-            rules = new Rules();
-        }
-
-        public Form GetForm()
-        {
-            return rules;
-        }
-
-        public void SetMainNameRules(string Text)
-        {
-            rules.LNameRules.Text = Text;
-        }
-
-        public void SetLabelFirstRules(string Text)
-        {
-            rules.LFirstRule.Text = Text;
-        }
-
-        public void SetLabelSecondRules(string Text)
-        {
-            rules.LSecondRule.Text = Text;
-        }
-
-        public void SetPBRulesImage(Image image)
-        {
-            rules.PBRules.Image = image;
-        }
-    }*/
 }

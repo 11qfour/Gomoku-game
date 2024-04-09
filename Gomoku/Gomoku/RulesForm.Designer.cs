@@ -1,7 +1,7 @@
 ﻿
 namespace Gomoku
 {
-    partial class Rules
+    partial class RulesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Gomoku
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Rules));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RulesForm));
             this.BNext = new System.Windows.Forms.Button();
             this.ExitMainButton = new System.Windows.Forms.Button();
             this.LNameRules = new System.Windows.Forms.Label();

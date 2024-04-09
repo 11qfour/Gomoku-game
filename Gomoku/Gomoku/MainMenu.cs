@@ -70,7 +70,7 @@ namespace Gomoku
 
         private void BRules_Click(object sender, EventArgs e)
         {
-            Rules rules = new Rules();
+            RulesForm rules = new RulesForm();
             OpenNewFormInSameResolution(rules);
         }
 
