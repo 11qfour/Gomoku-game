@@ -151,6 +151,7 @@ namespace Gomoku
             this.Controls.Add(this.LNameOfGame);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Логическая игра \"Гомоку\"";
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.SizeChanged += new System.EventHandler(this.MainMenu_SizeChanged);

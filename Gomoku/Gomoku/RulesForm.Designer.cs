@@ -57,7 +57,7 @@ namespace Gomoku
             this.ExitMainButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ExitMainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitMainButton.Image = ((System.Drawing.Image)(resources.GetObject("ExitMainButton.Image")));
-            this.ExitMainButton.Location = new System.Drawing.Point(372, 366);
+            this.ExitMainButton.Location = new System.Drawing.Point(375, 366);
             this.ExitMainButton.Name = "ExitMainButton";
             this.ExitMainButton.Size = new System.Drawing.Size(62, 57);
             this.ExitMainButton.TabIndex = 7;
@@ -107,13 +107,13 @@ namespace Gomoku
             // 
             // PBRules
             // 
-            this.PBRules.Location = new System.Drawing.Point(524, 121);
+            this.PBRules.Location = new System.Drawing.Point(509, 121);
             this.PBRules.Name = "PBRules";
-            this.PBRules.Size = new System.Drawing.Size(189, 161);
+            this.PBRules.Size = new System.Drawing.Size(232, 199);
             this.PBRules.TabIndex = 12;
             this.PBRules.TabStop = false;
             // 
-            // Rules
+            // RulesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -125,7 +125,7 @@ namespace Gomoku
             this.Controls.Add(this.LNameRules);
             this.Controls.Add(this.ExitMainButton);
             this.Controls.Add(this.BNext);
-            this.Name = "Rules";
+            this.Name = "RulesForm";
             this.Text = "Rules";
             this.Load += new System.EventHandler(this.Rules_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBRules)).EndInit();

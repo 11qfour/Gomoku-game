@@ -8,6 +8,6 @@ C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.csproj.Generate
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.exe
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.pdb
-C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.Rules.resources
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.GameWithPC.resources
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.Settings.resources
+C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.RulesForm.resources
