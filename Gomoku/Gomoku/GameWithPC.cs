@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -124,15 +125,15 @@ namespace Gomoku
                 float scaleWidth = (float)Width / (float)this.Width; // Коэффициент сохранения ширины
                 float scaleHeight = (float)Height / (float)this.Height; // Коэффициент сохранения высоты
                 LayGameFieldPC.Size = new Size((int)(LayGameFieldPC.Width * scaleWidth), (int)(LayGameFieldPC.Height * scaleHeight));
-                LNameOpp.Size= new Size((int)(LNameOpp.Width * scaleWidth), (int)(LNameOpp.Height * scaleHeight));
-                LNameTime.Size= new Size((int)(LNameTime.Width * scaleWidth), (int)(LNameTime.Height * scaleHeight));
+                LNameOpp.Size = new Size((int)(LNameOpp.Width * scaleWidth), (int)(LNameOpp.Height * scaleHeight));
+                LNameTime.Size = new Size((int)(LNameTime.Width * scaleWidth), (int)(LNameTime.Height * scaleHeight));
                 LTimeSec.Size = new Size((int)(LTimeSec.Width * scaleWidth), (int)(LTimeSec.Height * scaleHeight));
-                LOpp.Size= new Size((int)(LOpp.Width * scaleWidth), (int)(LOpp.Height * scaleHeight));
-                LNowStepsGame.Size= new Size((int)(LNowStepsGame.Width * scaleWidth), (int)(LNowStepsGame.Height * scaleHeight));
-                LWhoStep.Size= new Size((int)(LWhoStep.Width * scaleWidth), (int)(LWhoStep.Height * scaleHeight));
+                LOpp.Size = new Size((int)(LOpp.Width * scaleWidth), (int)(LOpp.Height * scaleHeight));
+                LNowStepsGame.Size = new Size((int)(LNowStepsGame.Width * scaleWidth), (int)(LNowStepsGame.Height * scaleHeight));
+                LWhoStep.Size = new Size((int)(LWhoStep.Width * scaleWidth), (int)(LWhoStep.Height * scaleHeight));
                 BHelp.Size = new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
-                BExit.Size= new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
-                BReturnStep.Size= new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
+                BExit.Size = new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
+                BReturnStep.Size = new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
                 // Дополнительные действия при изменении размера окна
             }
 

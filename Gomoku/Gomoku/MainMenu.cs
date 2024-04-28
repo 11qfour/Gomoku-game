@@ -59,6 +59,7 @@ namespace Gomoku
             newForm.StartPosition = FormStartPosition.Manual;
             newForm.Location = this.Location;
             newForm.Icon = this.Icon;
+            newForm.StartPosition = this.StartPosition;
             newForm.Show();
         }
 
