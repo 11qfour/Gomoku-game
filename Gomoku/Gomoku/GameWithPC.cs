@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,45 +13,46 @@ namespace Gomoku
 {
     public partial class GameWithPC : Form
     {
-        int all_sec=0;
-        int steps;
-        int white_steps;
+        int all_sec = 0;
         Image black = Image.FromFile("blacknew.png");
         Image white = Image.FromFile("whitenew.png");
-        int black_steps;
         ToolTip toolTip1 = new ToolTip();
+        Game game;
+        Profile profile;
         public GameWithPC()
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            /*Resize += MainMenu_Resize;*/
-            SizeChanged += GameWithPC_SizeChanged;
             toolTip1.SetToolTip(BHelp, "Подсказка");
             toolTip1.SetToolTip(BReturnStep, "Отменить ход");
             toolTip1.SetToolTip(BExit, "Завершить игру и выйти");
             timer = new Timer();
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
-
             timer.Start();
         }
 
         private void Cell_Click(object sender, EventArgs e)
         {
-            Panel cell = sender as Panel; // Приводим sender к типу Panel
-            if (cell != null) // Проверяем, успешно ли приведение к типу Panel
+            if (!game.GetGameIsOver())
             {
-                if (cell.BackgroundImage == null)//проверка занята ли ячейка изображением
+                Panel cell = sender as Panel;
+                if (cell != null)
                 {
+                    int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100); // получаем координаты
+                    int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
+                    game.NextTurn(i, j);
+                    if (cell.BackgroundImage == null)//проверка занята ли ячейка изображением
+                    {
                         // Разрешаем обработку клика только на панели [7,7] когда steps = 0
-                        if (steps == 0)
+                        if (game.GetSteps() == 0)
                         {
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             if (cell.BackColor == Color.Gray)
                             {
                                 cell.BackgroundImage = black;
-                                steps++;
-                                black_steps++;
+                                game.SetSteps(game.GetSteps() + 1);
+                                game.SetBlackSteps(game.GetBlackSteps() + 1);
                                 LWhoStep.Text = "Белых";
                             }
                         }
@@ -59,33 +61,60 @@ namespace Gomoku
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             if (cell.BackColor == Color.Transparent)
                             {
-                                if (steps % 2 == 0) // устанавливаем черный цвет фишки
+                                if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                                 {
                                     cell.BackgroundImage = black;
-                                    steps++;
-                                    black_steps++;
+                                    game.SetSteps(game.GetSteps() + 1);
+                                    game.SetBlackSteps(game.GetBlackSteps() + 1);
                                     LWhoStep.Text = "Белых";
                                 }
                                 else // устанавливаем белый цвет фишки
-                                { 
+                                {
                                     cell.BackgroundImage = white;
-                                    steps++;
-                                    white_steps++;
+                                    game.SetSteps(game.GetSteps() + 1);
+                                    game.SetWhiteSteps(game.GetWhiteSteps() + 1);
                                     LWhoStep.Text = "Черных";
                                 }
                             }
                         }
+                    }
+                    int result = game.CheckWinner(i, j);
+                    if (result == 0)
+                    {
+                        MessageBox.Show("Ничья!");
+                        game.SetGameIsOver(true);
+                    }
+                    else if (result == 10)
+                    {
+                        if (game.GetCurrentPlayer() == 'B') //так как уже поменяли в nextturn при ходе
+                        {
+                            MessageBox.Show("Черные выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetBlackSteps() + "\nКоличество ходов проигравшего: " + game.GetWhiteSteps());
+                            game.SetGameIsOver(true);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Белые выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps());
+                            game.SetGameIsOver(true);
+                        }
+                    }
+                    game.ChangeCurrentPlayer();
                 }
+            }
+            else
+            {
+
+                profile.LoadDatas();
             }
         }
 
-        private void LoadPanels()
+        private void LoadPanels() //закраска панелей
         {
+            int num = 0;
             for (int i = 0; i < LayGameFieldPC.RowCount; i++)
             {
                 for (int j = 0; j < LayGameFieldPC.ColumnCount; j++)
                 {
-                    Panel cell = new Panel();
+                    Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
                     if (i == 7 && j == 7)
                     {
                         cell.BackColor = Color.Gray;
@@ -95,48 +124,25 @@ namespace Gomoku
                         cell.BackColor = Color.Transparent;
                     }
                     cell.Dock = DockStyle.Fill;
+                    cell.Name = "Panel" + num.ToString();//для номера панели
+                    cell.Tag = i * 100 + j;
                     cell.Click += Cell_Click; // добавляем обработчик события клика на ячейку
-                    LayGameFieldPC.Controls.Add(cell, j, i); // добавляем ячейку в таблицу
+                    num++;
                 }
             }
         }
 
         private void GameWithPC_Load(object sender, EventArgs e)
         {
-            steps = 0;
-            white_steps = 0;
-            black_steps = 0;
             LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
+            game = new Game();
+            profile = new Profile();
             LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
         }
 
         private void LayGameFieldPC_CellPaint(object sender, TableLayoutCellPaintEventArgs e)//перерисовывание ячейки
         {
             ControlPaint.DrawBorder(e.Graphics, e.CellBounds, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid);
-        }
-
-        private void GameWithPC_SizeChanged(object sender, EventArgs e)
-        {
-            SuspendLayout(); // Приостанавливаем перерисовку контролов
-
-            if (WindowState == FormWindowState.Maximized || WindowState == FormWindowState.Normal)
-            {
-                float scaleWidth = (float)Width / (float)this.Width; // Коэффициент сохранения ширины
-                float scaleHeight = (float)Height / (float)this.Height; // Коэффициент сохранения высоты
-                LayGameFieldPC.Size = new Size((int)(LayGameFieldPC.Width * scaleWidth), (int)(LayGameFieldPC.Height * scaleHeight));
-                LNameOpp.Size= new Size((int)(LNameOpp.Width * scaleWidth), (int)(LNameOpp.Height * scaleHeight));
-                LNameTime.Size= new Size((int)(LNameTime.Width * scaleWidth), (int)(LNameTime.Height * scaleHeight));
-                LTimeSec.Size = new Size((int)(LTimeSec.Width * scaleWidth), (int)(LTimeSec.Height * scaleHeight));
-                LOpp.Size= new Size((int)(LOpp.Width * scaleWidth), (int)(LOpp.Height * scaleHeight));
-                LNowStepsGame.Size= new Size((int)(LNowStepsGame.Width * scaleWidth), (int)(LNowStepsGame.Height * scaleHeight));
-                LWhoStep.Size= new Size((int)(LWhoStep.Width * scaleWidth), (int)(LWhoStep.Height * scaleHeight));
-                BHelp.Size = new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
-                BExit.Size= new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
-                BReturnStep.Size= new Size((int)(BHelp.Width * scaleWidth), (int)(BHelp.Height * scaleHeight));
-                // Дополнительные действия при изменении размера окна
-            }
-
-            ResumeLayout(); // Возобновляем перерисовку контролов
         }
 
         private void GameWithPC_FormClosing(object sender, FormClosingEventArgs e)//действия перед закрытием формы
@@ -168,7 +174,23 @@ namespace Gomoku
 
         private void BReturnStep_Click(object sender, EventArgs e)//возвращение хода
         {
+            int i = 0, j = 0;
+            game.CancelTurn(ref i, ref j);
+            if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
+            {
+                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                if (cell != null)
+                    cell.BackgroundImage = null; //удаляем имейдж
+                if (game.GetCurrentPlayer() == 'W')
+                {
+                    LWhoStep.Text = "Белых";
 
+                }
+                else
+                {
+                    LWhoStep.Text = "Черных";
+                }
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -186,8 +208,8 @@ namespace Gomoku
             {
                 LTimeMin.Visible = true;
             }
-            LTimeMin.Text = minuts.ToString()+"Мин.";
-            LTimeSec.Text = seconds.ToString()+"Сек.";
+            LTimeMin.Text = minuts.ToString() + "Мин.";
+            LTimeSec.Text = seconds.ToString() + "Сек.";
         }
 
         private void GameWithPC_Resize(object sender, EventArgs e)

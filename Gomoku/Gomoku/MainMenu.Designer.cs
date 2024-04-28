@@ -46,7 +46,7 @@ namespace Gomoku
             this.LNameOfGame.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LNameOfGame.AutoSize = true;
             this.LNameOfGame.Font = new System.Drawing.Font("Segoe UI Symbol", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNameOfGame.Location = new System.Drawing.Point(49, 27);
+            this.LNameOfGame.Location = new System.Drawing.Point(601, 332);
             this.LNameOfGame.Name = "LNameOfGame";
             this.LNameOfGame.Size = new System.Drawing.Size(720, 65);
             this.LNameOfGame.TabIndex = 0;
@@ -57,7 +57,7 @@ namespace Gomoku
             this.BGameWithPC.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BGameWithPC.BackColor = System.Drawing.Color.Peru;
             this.BGameWithPC.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BGameWithPC.Location = new System.Drawing.Point(78, 133);
+            this.BGameWithPC.Location = new System.Drawing.Point(630, 438);
             this.BGameWithPC.Name = "BGameWithPC";
             this.BGameWithPC.Size = new System.Drawing.Size(650, 43);
             this.BGameWithPC.TabIndex = 1;
@@ -70,7 +70,7 @@ namespace Gomoku
             this.BGameWithFriend.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BGameWithFriend.BackColor = System.Drawing.Color.Peru;
             this.BGameWithFriend.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BGameWithFriend.Location = new System.Drawing.Point(78, 207);
+            this.BGameWithFriend.Location = new System.Drawing.Point(630, 512);
             this.BGameWithFriend.Name = "BGameWithFriend";
             this.BGameWithFriend.Size = new System.Drawing.Size(650, 43);
             this.BGameWithFriend.TabIndex = 2;
@@ -83,7 +83,7 @@ namespace Gomoku
             this.BRules.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BRules.BackColor = System.Drawing.Color.Peru;
             this.BRules.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BRules.Location = new System.Drawing.Point(78, 282);
+            this.BRules.Location = new System.Drawing.Point(630, 591);
             this.BRules.Name = "BRules";
             this.BRules.Size = new System.Drawing.Size(650, 43);
             this.BRules.TabIndex = 3;
@@ -97,7 +97,7 @@ namespace Gomoku
             this.ExitMainButton.BackColor = System.Drawing.Color.Goldenrod;
             this.ExitMainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitMainButton.Image = ((System.Drawing.Image)(resources.GetObject("ExitMainButton.Image")));
-            this.ExitMainButton.Location = new System.Drawing.Point(354, 362);
+            this.ExitMainButton.Location = new System.Drawing.Point(906, 667);
             this.ExitMainButton.Name = "ExitMainButton";
             this.ExitMainButton.Size = new System.Drawing.Size(58, 55);
             this.ExitMainButton.TabIndex = 6;
@@ -110,7 +110,7 @@ namespace Gomoku
             this.MenuMainButton.BackColor = System.Drawing.Color.Goldenrod;
             this.MenuMainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MenuMainButton.Image = ((System.Drawing.Image)(resources.GetObject("MenuMainButton.Image")));
-            this.MenuMainButton.Location = new System.Drawing.Point(520, 362);
+            this.MenuMainButton.Location = new System.Drawing.Point(1072, 667);
             this.MenuMainButton.Name = "MenuMainButton";
             this.MenuMainButton.Size = new System.Drawing.Size(53, 55);
             this.MenuMainButton.TabIndex = 7;
@@ -123,7 +123,7 @@ namespace Gomoku
             this.InfoButton.BackColor = System.Drawing.Color.Goldenrod;
             this.InfoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InfoButton.Image = ((System.Drawing.Image)(resources.GetObject("InfoButton.Image")));
-            this.InfoButton.Location = new System.Drawing.Point(188, 362);
+            this.InfoButton.Location = new System.Drawing.Point(740, 667);
             this.InfoButton.Name = "InfoButton";
             this.InfoButton.Size = new System.Drawing.Size(57, 55);
             this.InfoButton.TabIndex = 8;
@@ -141,7 +141,7 @@ namespace Gomoku
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1904, 1061);
             this.Controls.Add(this.InfoButton);
             this.Controls.Add(this.MenuMainButton);
             this.Controls.Add(this.ExitMainButton);

@@ -8,8 +8,253 @@ namespace Gomoku
 {
     class Game
     {
-        char [,] board; //элементы: w-белые, b - черные, e - пустая
-        bool GaneIsOver; //флаг - показатель завершенности игры
+        char[,] board = new char[15, 15]; //элементы: W-белые, B - черные, E - пустая
+        char[] players = { 'B', 'W' };
+        List<(int, int)> sequenceOfMoves = new List<(int, int)>();
+        bool GameIsOver; //флаг - показатель завершенности игры
+        char currentPlayer;
+        List<int[]> available = new List<int[]>();
+        List<int[]> succsesssteps = new List<int[]>();
+        private int black_steps;
+        private int steps;
+        private int white_steps;
+
+        public void ChangeCurrentPlayer()
+        {
+            if (currentPlayer == 'W')
+            {
+                currentPlayer = 'B';
+            }
+            else
+            {
+                currentPlayer = 'W';
+            }
+        }
+
+        public void NextTurn(int i, int j)
+        {
+            /*Random rand = new Random();
+            int index = *//*Math.Floor(*//*rand.Next(available.Count);
+            int [] spot = available.ElementAt(index);
+            available.RemoveAt(index);
+            int i = spot[0];
+            int j = spot[1];*/
+            sequenceOfMoves.Add((i, j)); //добавление последовательности шагов
+            board[i, j] = currentPlayer; //присвоении ячейки игроку
+        }
+
+        public void CancelTurn(ref int i, ref int j)
+        {
+            if (sequenceOfMoves.Count > 0)
+            {
+                var lastMove = sequenceOfMoves[sequenceOfMoves.Count - 1];
+                i = lastMove.Item1; // Последний x
+                j = lastMove.Item2; // Последний y
+                // Удаляем последнюю пару из списка
+                sequenceOfMoves.RemoveAt(sequenceOfMoves.Count - 1);
+            }
+            if (board[i, j] == 'W')
+            {
+                currentPlayer = 'W';
+                white_steps--;
+            }
+            else
+            {
+                currentPlayer = 'B';
+                black_steps--;
+            }
+            board[i, j] = 'E'; //клетка пуста
+            steps--;
+        }
+
+        public int CheckWinner(int i, int j)
+        {
+            char player = board[i, j];
+            if (player == 'E') //клетка после хода не может быть пустой
+                Console.WriteLine("Ошибка!");
+            //Параметры проверки
+            int start, finish;
+            start = i;
+            finish = j;
+            int horizontalCount = 1; //по умолчанию 1, т.к. не считаем саму ячейку, где уже есть player
+            int verticalCount = 1;
+            //проверка горизонтали
+            while (j < 14 && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5/*если длинный ряд, прерывается*/)
+            {
+                j++; //вправо
+                if (board[i, j] == player)
+                {
+                    verticalCount++;
+                    if (verticalCount == 5)
+                        return 10;
+                }
+            }
+            verticalCount = 1;
+            j = finish;
+            i = start;
+            while (j > 0 && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5)
+            {
+                j--; //влево
+                if (board[i, j] == player)
+                {
+                    verticalCount++;
+                    if (verticalCount == 5)
+                        return 10;
+                }
+            }
+            //проверка вертикали
+            j = finish;
+            i = start;
+            while (i < 14 && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            {
+                i++; //вверх
+                if (board[i, j] == player)
+                {
+                    horizontalCount++;
+                    if (horizontalCount == 5)
+                        return 10;
+                }
+            }
+            horizontalCount = 1;
+            i = start;
+            j = finish;
+            while (i > 0 && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            {
+                i--; //вниз
+                if (board[i, j] == player)
+                {
+                    horizontalCount++;
+                    if (horizontalCount == 5)
+                        return 10;
+                }
+            }
+            //проверка диагонали
+            int diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j < 14 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j++;
+                i++;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j < 14 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j++;
+                i--;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j > 0 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j--;
+                i++;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j > 0 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j--;
+                i--;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            if (available.Count == 0)
+                return 0; //ничья
+            return 1;  //продолжить игру 
+        }
+
+
+
+        ///////
+
+        public Game()
+        {
+            this.white_steps = 0;
+            this.black_steps = 0;
+            this.steps = 0;
+            currentPlayer = 'B';
+            GameIsOver = false;
+            for (int j = 0; j < 14; j++)
+                for (int i = 0; i < 14; i++)
+                {
+                    board[i, j] = 'E';
+                    available.Add(new int[] { i, j }); //??
+                }
+        }
+
+        public void SetBlackSteps(int cnt)
+        {
+            this.black_steps = cnt;
+        }
+
+        public void SetWhiteSteps(int cnt)
+        {
+            this.white_steps = cnt;
+        }
+
+        public void SetSteps(int cnt)
+        {
+            this.steps = cnt;
+        }
+
+
+        public int GetBlackSteps()
+        {
+            return this.black_steps;
+        }
+
+        public int GetWhiteSteps()
+        {
+            return this.white_steps;
+        }
+
+        public int GetSteps()
+        {
+            return this.steps;
+        }
+
+        public char GetCurrentPlayer()
+        {
+            return currentPlayer;
+        }
+
+        public bool GetGameIsOver()
+        {
+            return GameIsOver;
+        }
+
+        public void SetGameIsOver(bool t)
+        {
+            this.GameIsOver = t;
+        }
+        /////////////////////////////////
 
         private int MiniMaxAlgorithm(int depth, bool isMaximizingPlayer, int MaxDepth)
         {
@@ -38,7 +283,7 @@ namespace Gomoku
                         if (board[i, j] == 'e')
                         {
                             board[i, j] = 'X';
-                            bestScore = Math.Max(bestScore, MiniMaxAlgorithm(depth + 1, !isMaximizingPlayer,MaxDepth));
+                            bestScore = Math.Max(bestScore, MiniMaxAlgorithm(depth + 1, !isMaximizingPlayer, MaxDepth));
                             board[i, j] = 'e';
                         }
                     }
@@ -135,7 +380,7 @@ namespace Gomoku
         }
 
         private int Evaluate()
-        { 
+        {
             int WScore = EvaluatePlayerScore('w'); //Оценка для белых
             int BScore = EvaluatePlayerScore('b'); // Оценка для черны[
             // Возвращаем разницу между оценками игроков
@@ -168,5 +413,7 @@ namespace Gomoku
             // Возвращаем общую оценку для игрока
             return score;
         }
+
+
     }
 }
