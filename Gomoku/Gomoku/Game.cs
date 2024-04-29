@@ -8,8 +8,219 @@ namespace Gomoku
 {
     class Game
     {
-        char [,] board; //элементы: w-белые, b - черные, e - пустая
+        char [,] board = new char[15,15]; //элементы: W-белые, B - черные, E - пустая
+        char[] players = { 'B', 'W' };
+       
         bool GaneIsOver; //флаг - показатель завершенности игры
+        char currentPlayer;
+        List<int []> available = new List<int[]>();
+
+        private int black_steps;
+        private int steps;
+        private int white_steps;
+
+        public void NextTurn(ref int first, ref int second)
+        {
+            Random rand = new Random();
+            int index = /*Math.Floor(*/rand.Next(available.Count);
+            int [] spot = available.ElementAt(index);
+            available.RemoveAt(index);
+            int i = spot[0];
+            int j = spot[1];
+            board[i,j] = currentPlayer;
+            if (currentPlayer == 'W')
+                currentPlayer = 'B';
+            else
+                currentPlayer = 'W';
+            first = i;
+            second = j;
+        }
+
+        public int CheckWinner(int i, int j)
+        {
+            char player = board[i,j];
+            if (player == 'E')
+                Console.WriteLine("Ошибка!");
+            // Проверка горизонтали
+            int horizontalCount = 1;
+            for (int k = 1; k < 5; k++)
+            {
+                // Влево
+                if (j - k >= 0 && board[i, j - k] == player)
+                {
+                    horizontalCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int k = 1; k < 5; k++)
+            {
+                // Вправо
+                if (j + k < 14 && board[i, j + k] == player)
+                {
+                    horizontalCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (horizontalCount >= 5)
+            {
+                return 10; // Победитель найден по горизонтали
+            }
+
+            // Проверка вертикали
+            int verticalCount = 1;
+            for (int k = 1; k < 5; k++)
+            {
+                // Вверх
+                if (i - k >= 0 && board[i - k, j] == player)
+                {
+                    verticalCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int k = 1; k < 5; k++)
+            {
+                // Вниз
+                if (i + k < 14 && board[i + k, j] == player)
+                {
+                    verticalCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (verticalCount >= 5)
+            {
+                return 10; // Победитель найден по вертикали
+            }
+
+            // Проверка диагонали 1 (слева сверху направо вниз)
+            int diagonal1Count = 1;
+            for (int k = 1; k < 5; k++)
+            {
+                // Слева сверху
+                if (i - k >= 0 && j - k >= 0 && board[i - k, j - k] == player)
+                {
+                    diagonal1Count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int k = 1; k < 5; k++)
+            {
+                // Справа снизу
+                if (i + k < 14 && j + k < 14 && board[i + k, j + k] == player)
+                {
+                    diagonal1Count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (diagonal1Count >= 5)
+            {
+                return 10; // Победитель найден по диагонали 1
+            }
+
+            // Проверка диагонали 2 (слева снизу направо сверху)
+            int diagonal2Count = 1;
+            for (int k = 1; k < 5; k++)
+            {
+                // Слева снизу
+                if (i + k < 14 && j - k >= 0 && board[i + k, j - k] == player)
+                {
+                    diagonal2Count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int k = 1; k < 5; k++)
+            {
+                // Справа сверху
+                if (i - k >= 0 && j + k < 14 && board[i - k, j + k] == player)
+                {
+                    diagonal2Count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (diagonal2Count >= 5)
+            {
+                return 10; // Победитель найден по диагонали 2
+            }
+
+
+
+            if (available.Count == 0)
+                return 0;
+            return 1;   
+        }
+
+        ///////
+
+        public Game()
+        {
+            this.white_steps = 0;
+            this.black_steps = 0;
+            this.steps = 0;
+            currentPlayer = 'B';
+            for (int j = 0; j < 14; j++)
+                for (int i = 0; i < 14; i++)
+                    available.Add(new int[] { i, j });
+        }
+
+        public void SetBlackSteps(int cnt)
+        {
+            this.black_steps = cnt;
+        }
+
+        public void SetWhiteSteps(int cnt)
+        {
+            this.white_steps = cnt;
+        }
+
+        public void SetSteps(int cnt)
+        {
+            this.steps = cnt;
+        }
+
+
+        public int GetBlackSteps()
+        {
+            return this.black_steps;
+        }
+
+        public int GetWhiteSteps()
+        {
+            return this.white_steps;
+        }
+
+        public int GetSteps()
+        {
+            return this.steps;
+        }
+
+        public char GetCurrentPlayer()
+        {
+            return currentPlayer;
+        }
+        /////////////////////////////////
 
         private int MiniMaxAlgorithm(int depth, bool isMaximizingPlayer, int MaxDepth)
         {
@@ -168,5 +379,7 @@ namespace Gomoku
             // Возвращаем общую оценку для игрока
             return score;
         }
+        
+
     }
 }

@@ -14,25 +14,23 @@ namespace Gomoku
     public partial class GameWithPC : Form
     {
         int all_sec=0;
-        int steps;
-        int white_steps;
         Image black = Image.FromFile("blacknew.png");
         Image white = Image.FromFile("whitenew.png");
-        int black_steps;
         ToolTip toolTip1 = new ToolTip();
+        Game game = new Game();
         public GameWithPC()
         {
             InitializeComponent();
+
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            /*Resize += MainMenu_Resize;*/
             SizeChanged += GameWithPC_SizeChanged;
             toolTip1.SetToolTip(BHelp, "Подсказка");
             toolTip1.SetToolTip(BReturnStep, "Отменить ход");
             toolTip1.SetToolTip(BExit, "Завершить игру и выйти");
+
             timer = new Timer();
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
-
             timer.Start();
         }
 
@@ -44,15 +42,15 @@ namespace Gomoku
                 if (cell.BackgroundImage == null)//проверка занята ли ячейка изображением
                 {
                         // Разрешаем обработку клика только на панели [7,7] когда steps = 0
-                        if (steps == 0)
+                        if (game.GetSteps() == 0)
                         {
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             if (cell.BackColor == Color.Gray)
                             {
                                 cell.BackgroundImage = black;
-                                steps++;
-                                black_steps++;
-                                LWhoStep.Text = "Белых";
+                            game.SetSteps(game.GetSteps() + 1);
+                            game.SetBlackSteps(game.GetBlackSteps() + 1);
+                            LWhoStep.Text = "Белых";
                             }
                         }
                         else
@@ -60,19 +58,19 @@ namespace Gomoku
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             if (cell.BackColor == Color.Transparent)
                             {
-                                if (steps % 2 == 0) // устанавливаем черный цвет фишки
+                                if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                                 {
-                                    cell.BackgroundImage = black;
-                                    steps++;
-                                    black_steps++;
+                                cell.BackgroundImage = black;
+                                game.SetSteps(game.GetSteps() + 1);
+                                game.SetBlackSteps(game.GetBlackSteps() + 1);
                                     LWhoStep.Text = "Белых";
                                 }
                                 else // устанавливаем белый цвет фишки
                                 { 
                                     cell.BackgroundImage = white;
-                                    steps++;
-                                    white_steps++;
-                                    LWhoStep.Text = "Черных";
+                                game.SetSteps(game.GetSteps() + 1);
+                                game.SetWhiteSteps(game.GetWhiteSteps() + 1);
+                                LWhoStep.Text = "Черных";
                                 }
                             }
                         }
@@ -80,7 +78,7 @@ namespace Gomoku
             }
         }
 
-        private void LoadPanels()
+        private void LoadPanels() //закраска панелей
         {
             for (int i = 0; i < LayGameFieldPC.RowCount; i++)
             {
@@ -104,9 +102,6 @@ namespace Gomoku
 
         private void GameWithPC_Load(object sender, EventArgs e)
         {
-            steps = 0;
-            white_steps = 0;
-            black_steps = 0;
             LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
             LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
         }
@@ -169,7 +164,59 @@ namespace Gomoku
 
         private void BReturnStep_Click(object sender, EventArgs e)//возвращение хода
         {
-
+            int i=0, j=0;
+            game.NextTurn(ref i, ref j);
+            Panel cell = LayGameFieldPC.GetControlFromPosition(i, j) as Panel;
+                if (cell != null && cell.BackgroundImage == null)//проверка занята ли ячейка изображением
+                {
+                    // Разрешаем обработку клика только на панели [7,7] когда steps = 0
+                    if (game.GetSteps() == 0)
+                    {
+                        cell.BackgroundImageLayout = ImageLayout.Center;
+                        if (cell.BackColor == Color.Gray)
+                        {
+                            cell.BackgroundImage = black;
+                            game.SetSteps(game.GetSteps() + 1);
+                            game.SetBlackSteps(game.GetBlackSteps() + 1);
+                            LWhoStep.Text = "Белых";
+                        }
+                    }
+                    else
+                    {
+                        cell.BackgroundImageLayout = ImageLayout.Center;
+                        if (cell.BackColor == Color.Transparent)
+                        {
+                            if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
+                            {
+                                cell.BackgroundImage = black;
+                                game.SetSteps(game.GetSteps() + 1);
+                                game.SetBlackSteps(game.GetBlackSteps() + 1);
+                                LWhoStep.Text = "Белых";
+                            }
+                            else // устанавливаем белый цвет фишки
+                            {
+                                cell.BackgroundImage = white;
+                                game.SetSteps(game.GetSteps() + 1);
+                                game.SetWhiteSteps(game.GetWhiteSteps() + 1);
+                                LWhoStep.Text = "Черных";
+                            }
+                        }
+                    }
+                }
+            int result = game.CheckWinner(i, j);
+            if (result == 0)
+                MessageBox.Show("Ничья!");
+            else if (result == 10)
+            {
+                if (game.GetCurrentPlayer() == 'W') //так как уже поменяли в nextturn при ходе
+                {
+                    MessageBox.Show("Белые выиграли!");
+                }
+                else
+                {
+                    MessageBox.Show("Черные выиграли!");
+                }
+            }          
         }
 
         private void timer_Tick(object sender, EventArgs e)
