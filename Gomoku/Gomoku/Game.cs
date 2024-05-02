@@ -14,10 +14,18 @@ namespace Gomoku
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;
         List<int []> available = new List<int[]>();
-
+        List<int[]> succsesssteps = new List<int[]>(); 
         private int black_steps;
         private int steps;
         private int white_steps;
+
+        public void ChangeCurrentPlayer()
+        {
+            if (currentPlayer == 'W')
+                currentPlayer = 'B';
+            else
+                currentPlayer = 'W';
+        }
 
         public void NextTurn(int i, int j)
         {
@@ -27,11 +35,7 @@ namespace Gomoku
             available.RemoveAt(index);
             int i = spot[0];
             int j = spot[1];*/
-            board[i,j] = currentPlayer;
-            if (currentPlayer == 'W')
-                currentPlayer = 'B';
-            else
-                currentPlayer = 'W';
+            board[i,j] = currentPlayer; //присвоении ячейки игроку
         }
 
         public int CheckWinner(int i, int j)
@@ -41,141 +45,120 @@ namespace Gomoku
                 Console.WriteLine("Ошибка!");
             //Параметры проверки
             int start, finish;
-
-            // Проверка горизонтали
-            start = -5;
-            finish = 5;
-            if (j - 5 < 0) //больше на 1 - проверка на длинный ряд
+            start = i;
+            finish = j;
+            int horizontalCount = 1; //по умолчанию 1, т.к. не считаем саму ячейку, где уже есть player
+            int verticalCount = 1;
+            //проверка горизонтали
+            while (j < 14 && (board[i,j] == 0 || board[i, j] == player) && verticalCount < 5/*если длинный ряд, прерывается*/)
             {
-                start = -j;
-                finish = 4;
-            }
-            else if (j + 5 > 14) {
-                start = -5;
-                finish = 14 - j;
-            }
-
-            int horizontalCount = 0;
-            for (; start <= finish; start++)
-            {
-                if (board[i, j + start] == player)
-                    horizontalCount++;
-                else
+                j++; //вправо
+                if (board[i, j] == player)
                 {
-                    if(horizontalCount == 5) //проверка на длинный ряд
-                        return 10; // Победитель найден по горизонтали
-                    else
-                        horizontalCount = 0;
-                }    
-                if (horizontalCount > 5)//если длинный ряд, то выйти
-                    break;
-                    
-            }
-            if (horizontalCount == 5) //проверка на длинный ряд
-                return 10; // Победитель найден по горизонтали
-
-            // Проверка вертикали
-            start = -5;
-            finish = 5;
-            if (i - 5 < 0) //больше на 1 - проверка на длинный ряд
-            {
-                start = -i;
-                finish = 4;
-            }
-            else if (i + 5 > 14)
-            {
-                start = -5;
-                finish = 14 - i;
-            }
-            int verticalCount = 0;
-            for (; start <= finish; start++)
-            {
-                if (board[i + start, j] == player)
                     verticalCount++;
-               else
-               {
-                    if (verticalCount == 5) //проверка на длинный ряд
-                        return 10; // Победитель найден по горизонтали
-                    else
-                        verticalCount = 0;
-               }
-               if (verticalCount > 5)//если длинный ряд, то выйти
-                break;
+                    if (verticalCount == 5)
+                        return 10;
+                }
             }
-            if (verticalCount == 5)
-                return 10; // Победитель найден по вертикали
-
-
-            // Проверка диагонали 1 (слева сверху направо вниз
-            int length;
-            start = -5;
-            finish = 5;
-            if (i - 5 < 0 || j - 5 < 0 || i + 5 > 14 || j + 5 > 14) //больше на 1 - проверка на длинный ряд
+            verticalCount = 1;
+            j = finish;
+            i = start;
+            while (j > 0 && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5)
             {
-                if (i - 5 < 0 || j - 5 < 0)
+                j--; //влево
+                if (board[i, j] == player)
                 {
-                    start = -(Math.Min(i, j));
+                    verticalCount++;
+                    if (verticalCount == 5)
+                        return 10;
                 }
-                if (i + 5 > 14 || j + 5 > 14)
-                {
-                    finish = (Math.Min(14 - i, 14 - j));
-                }
-            } 
-            int diagonal1Count = 0;
-            length = (finish - start);
-            if (length >= 5)
-            {
-                for (; start <= finish; start++)
-                {
-                    // Слева сверху
-                    if ((board[i + start, j + start] == player))
-                        diagonal1Count++;
-                    else
-                    {
-                        if (diagonal1Count == 5) //проверка на длинный ряд
-                            return 10; // Победитель найден по горизонтали
-                        else
-                            diagonal1Count = 0;
-                    }
-                    if (diagonal1Count > 5)//если длинный ряд, то выйти
-                        break;
-                }
-                if (diagonal1Count == 5)
-                    return 10; // Победитель найден по диагонали 1
             }
-            /* // Проверка диагонали 2 (слева снизу направо сверху)
-             int diagonal2Count = 0;
-             for (int k = 1; k < 6; k++)
-             {
-                 // Слева снизу
-                 if (i + k < 14 && j - k >= 0 && board[i + k, j - k] == player)
-                 {
-                     diagonal2Count++;
-                 }
-                 else
-                 {
-                     break;
-                 }
-             }
-             for (int k = 1; k < 6; k++)
-             {
-                 // Справа сверху
-                 if (i - k >= 0 && j + k < 14 && board[i - k, j + k] == player)
-                 {
-                     diagonal2Count++;
-                 }
-                 else
-                 {
-                     break;
-                 }
-             }
-             if (diagonal2Count == 5)
-             {
-                 return 10; // Победитель найден по диагонали 2
-             }*/
+            //проверка вертикали
+            j = finish;
+            i = start;
+            while (i < 14 && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            {
+                i++; //вверх
+                if (board[i, j] == player)
+                {
+                    horizontalCount++;
+                    if (horizontalCount == 5)
+                        return 10;
+                }
+            }
+            horizontalCount = 1;
+            i = start;
+            j = finish;
+            while (i > 0 && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            {
+                i--; //вниз
+                if (board[i, j] == player)
+                {
+                    horizontalCount++;
+                    if (horizontalCount == 5)
+                        return 10;
+                }
+            }
+            //проверка диагонали
+            int diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j < 14 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j++;
+                i++;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j < 14 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j++;
+                i--;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j > 0 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j--;
+                i++;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
+            diagonalCount = 1;
+            j = finish;
+            i = start;
+            while (j > 0 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            {
+                j--;
+                i--;
+                if (board[i, j] == player)
+                {
+                    diagonalCount++;
+                    if (diagonalCount == 5)
+                        return 10;
+                }
+            }
             if (available.Count == 0)
-                return 0;
-            return 1;   
+                return 0; //ничья
+            return 1;  //продолжить игру 
         }
 
 

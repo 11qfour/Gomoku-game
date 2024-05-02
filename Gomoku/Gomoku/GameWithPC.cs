@@ -18,6 +18,7 @@ namespace Gomoku
         Image white = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
         Game game;
+        Profile profile;
         public GameWithPC()
         {
             InitializeComponent();
@@ -87,16 +88,22 @@ namespace Gomoku
                     {
                         if (game.GetCurrentPlayer() == 'B') //так как уже поменяли в nextturn при ходе
                         {
-                            MessageBox.Show("Белые выиграли!");
+                            MessageBox.Show("Черные выиграли!");
                             game.SetGameIsOver(true);
                         }
                         else
                         {
-                            MessageBox.Show("Черные выиграли!");
+                            MessageBox.Show("Белые выиграли!");
                             game.SetGameIsOver(true);
                         }
                     }
+                    game.ChangeCurrentPlayer();
                 }
+            }
+            else
+            {
+                timer.Stop();
+                profile.LoadDatas();
             }
         }
 
@@ -129,6 +136,7 @@ namespace Gomoku
         {
             LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
             game = new Game();
+            profile = new Profile();
             LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
         }
 
