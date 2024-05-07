@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace Gomoku
         private int LoseMediumMode;
         private int LoseHardMode;
         private int Paritet;
+        public StreamWriter streamWriter;
 
-        public Profile(string Name)
+        public Profile(string Name) //создать нового игрока
         {
             this.Name = Name;
             this.Count_Matches = 0;
@@ -34,7 +36,7 @@ namespace Gomoku
             this.Paritet = 0;
         }
 
-        public Profile()
+        public Profile() //создает рандомный профиль
         {
             Random Rand = new Random();
             int r = Rand.Next(100, 1000);
@@ -98,6 +100,26 @@ namespace Gomoku
             }
             this.Count_Matches++;
             return PresRapid;
+        }
+
+        public void AddGamerInfo(string Name)
+        {
+
+        }
+
+        public void EditGamerInfo(string Name)
+        {
+
+        }
+
+        public void DeleteGamer(string Name) //удалить все сведения об этом игроке
+        {
+
+        }
+
+        public void LoadDatas()
+        {
+            //запомнить текущую дату, время, колиечство ходов своих
         }
     }
 }
