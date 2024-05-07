@@ -88,12 +88,12 @@ namespace Gomoku
                     {
                         if (game.GetCurrentPlayer() == 'B') //так как уже поменяли в nextturn при ходе
                         {
-                            MessageBox.Show("Черные выиграли!");
+                            MessageBox.Show("Черные выиграли!\nВсего ходов: "+game.GetSteps()+"\nКоличество ходов победителя: "+game.GetBlackSteps()+"\nКоличество ходов проигравшего: "+game.GetWhiteSteps());
                             game.SetGameIsOver(true);
                         }
                         else
                         {
-                            MessageBox.Show("Белые выиграли!");
+                            MessageBox.Show("Белые выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps());
                             game.SetGameIsOver(true);
                         }
                     }
@@ -102,7 +102,7 @@ namespace Gomoku
             }
             else
             {
-                timer.Stop();
+
                 profile.LoadDatas();
             }
         }
@@ -174,7 +174,23 @@ namespace Gomoku
 
         private void BReturnStep_Click(object sender, EventArgs e)//возвращение хода
         {
-            //обработка шаг назад
+            int i=0, j=0;
+            game.CancelTurn(ref i, ref j);
+            if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
+            {
+                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                if (cell != null)
+                    cell.BackgroundImage = null; //удаляем имейдж
+                if (game.GetCurrentPlayer() == 'W')
+                {
+                    LWhoStep.Text = "Белых";
+                    
+                }
+                else
+                {
+                    LWhoStep.Text = "Черных";
+                }
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)

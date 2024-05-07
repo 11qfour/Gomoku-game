@@ -10,7 +10,7 @@ namespace Gomoku
     {
         char [,] board = new char[15,15]; //элементы: W-белые, B - черные, E - пустая
         char[] players = { 'B', 'W' };
-       
+        List<(int, int)> sequenceOfMoves = new List<(int, int)>();
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;
         List<int []> available = new List<int[]>();
@@ -22,9 +22,13 @@ namespace Gomoku
         public void ChangeCurrentPlayer()
         {
             if (currentPlayer == 'W')
+            {
                 currentPlayer = 'B';
+            }
             else
+            {
                 currentPlayer = 'W';
+            }
         }
 
         public void NextTurn(int i, int j)
@@ -35,7 +39,32 @@ namespace Gomoku
             available.RemoveAt(index);
             int i = spot[0];
             int j = spot[1];*/
+            sequenceOfMoves.Add((i, j)); //добавление последовательности шагов
             board[i,j] = currentPlayer; //присвоении ячейки игроку
+        }
+
+        public void CancelTurn(ref int i, ref int j)
+        {
+            if (sequenceOfMoves.Count > 0)
+            {
+                var lastMove = sequenceOfMoves[sequenceOfMoves.Count - 1];
+                i = lastMove.Item1; // Последний x
+                j = lastMove.Item2; // Последний y
+                // Удаляем последнюю пару из списка
+                sequenceOfMoves.RemoveAt(sequenceOfMoves.Count - 1);
+            }
+            if (board[i, j] == 'W')
+            {
+                currentPlayer = 'W';
+                white_steps--; 
+            }
+            else
+            {
+                currentPlayer = 'B';
+                black_steps--; 
+            }
+            board[i, j] = 'E'; //клетка пуста
+            steps--;
         }
 
         public int CheckWinner(int i, int j)
