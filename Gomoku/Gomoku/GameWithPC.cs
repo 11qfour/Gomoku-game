@@ -50,6 +50,7 @@ namespace Gomoku
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             if (cell.BackColor == Color.Gray)
                             {
+                                this.WindowState = FormWindowState.Maximized;
                                 cell.BackgroundImage = black;
                                 game.SetSteps(game.GetSteps() + 1);
                                 game.SetBlackSteps(game.GetBlackSteps() + 1);

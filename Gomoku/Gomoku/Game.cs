@@ -9,12 +9,15 @@ namespace Gomoku
     class Game
     {
         char[,] board = new char[15, 15]; //элементы: W-белые, B - черные, E - пустая
+
+
         char[] players = { 'B', 'W' };
         List<(int, int)> sequenceOfMoves = new List<(int, int)>();
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;
         List<int[]> available = new List<int[]>();
         List<int[]> succsesssteps = new List<int[]>();
+
         private int black_steps;
         private int steps;
         private int white_steps;
@@ -413,7 +416,5 @@ namespace Gomoku
             // Возвращаем общую оценку для игрока
             return score;
         }
-
-
     }
 }

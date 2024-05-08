@@ -33,6 +33,7 @@ namespace Gomoku
 
         private void Rules_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             for (int i = 0; i < sizerules; i++)
             {
                 RulesForm rule = new RulesForm();

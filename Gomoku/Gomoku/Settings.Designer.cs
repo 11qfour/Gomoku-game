@@ -29,13 +29,14 @@ namespace Gomoku
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.LChangeDesFieldSett = new System.Windows.Forms.Label();
-            this.LChangeDesStonesSett = new System.Windows.Forms.Label();
-            this.LLastMatches = new System.Windows.Forms.Label();
+            this.LSett4 = new System.Windows.Forms.Label();
+            this.LSett3 = new System.Windows.Forms.Label();
             this.CBDesFieldSett = new System.Windows.Forms.ComboBox();
-            this.CBDesStonesSett = new System.Windows.Forms.ComboBox();
+            this.CBDesStonSett = new System.Windows.Forms.ComboBox();
+            this.LLastMatches = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.textBox19 = new System.Windows.Forms.TextBox();
@@ -85,6 +86,7 @@ namespace Gomoku
             this.BChangeGamerSett = new System.Windows.Forms.Button();
             this.LMainSett = new System.Windows.Forms.Label();
             this.PagesSett = new System.Windows.Forms.TabControl();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.TLPSett.SuspendLayout();
@@ -94,11 +96,11 @@ namespace Gomoku
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Moccasin;
-            this.tabPage1.Controls.Add(this.LChangeDesFieldSett);
-            this.tabPage1.Controls.Add(this.LChangeDesStonesSett);
-            this.tabPage1.Controls.Add(this.LLastMatches);
+            this.tabPage1.Controls.Add(this.LSett4);
+            this.tabPage1.Controls.Add(this.LSett3);
             this.tabPage1.Controls.Add(this.CBDesFieldSett);
-            this.tabPage1.Controls.Add(this.CBDesStonesSett);
+            this.tabPage1.Controls.Add(this.CBDesStonSett);
+            this.tabPage1.Controls.Add(this.LLastMatches);
             this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Controls.Add(this.BExit);
             this.tabPage1.Controls.Add(this.BSaveSett);
@@ -119,59 +121,58 @@ namespace Gomoku
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "1";
             // 
-            // LChangeDesFieldSett
+            // LSett4
             // 
-            this.LChangeDesFieldSett.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.LChangeDesFieldSett.AutoSize = true;
-            this.LChangeDesFieldSett.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LChangeDesFieldSett.Location = new System.Drawing.Point(387, 638);
-            this.LChangeDesFieldSett.Name = "LChangeDesFieldSett";
-            this.LChangeDesFieldSett.Size = new System.Drawing.Size(458, 47);
-            this.LChangeDesFieldSett.TabIndex = 19;
-            this.LChangeDesFieldSett.Text = "Изменить дизайн поля";
+            this.LSett4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.LSett4.AutoSize = true;
+            this.LSett4.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LSett4.Location = new System.Drawing.Point(470, 628);
+            this.LSett4.Name = "LSett4";
+            this.LSett4.Size = new System.Drawing.Size(458, 47);
+            this.LSett4.TabIndex = 21;
+            this.LSett4.Text = "Изменить дизайн поля";
             // 
-            // LChangeDesStonesSett
+            // LSett3
             // 
-            this.LChangeDesStonesSett.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.LChangeDesStonesSett.AutoSize = true;
-            this.LChangeDesStonesSett.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LChangeDesStonesSett.Location = new System.Drawing.Point(387, 557);
-            this.LChangeDesStonesSett.Name = "LChangeDesStonesSett";
-            this.LChangeDesStonesSett.Size = new System.Drawing.Size(509, 47);
-            this.LChangeDesStonesSett.TabIndex = 18;
-            this.LChangeDesStonesSett.Text = "Изменить дизайн камней";
+            this.LSett3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.LSett3.AutoSize = true;
+            this.LSett3.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LSett3.Location = new System.Drawing.Point(469, 566);
+            this.LSett3.Name = "LSett3";
+            this.LSett3.Size = new System.Drawing.Size(509, 47);
+            this.LSett3.TabIndex = 20;
+            this.LSett3.Text = "Изменить дизайн камней";
+            // 
+            // CBDesFieldSett
+            // 
+            this.CBDesFieldSett.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.CBDesFieldSett.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBDesFieldSett.FormattingEnabled = true;
+            this.CBDesFieldSett.Location = new System.Drawing.Point(1057, 639);
+            this.CBDesFieldSett.Name = "CBDesFieldSett";
+            this.CBDesFieldSett.Size = new System.Drawing.Size(283, 38);
+            this.CBDesFieldSett.TabIndex = 19;
+            // 
+            // CBDesStonSett
+            // 
+            this.CBDesStonSett.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.CBDesStonSett.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBDesStonSett.FormattingEnabled = true;
+            this.CBDesStonSett.Location = new System.Drawing.Point(1057, 566);
+            this.CBDesStonSett.Name = "CBDesStonSett";
+            this.CBDesStonSett.Size = new System.Drawing.Size(283, 38);
+            this.CBDesStonSett.TabIndex = 18;
             // 
             // LLastMatches
             // 
             this.LLastMatches.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LLastMatches.AutoSize = true;
             this.LLastMatches.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLastMatches.Location = new System.Drawing.Point(755, 723);
+            this.LLastMatches.Location = new System.Drawing.Point(753, 704);
             this.LLastMatches.Name = "LLastMatches";
             this.LLastMatches.Size = new System.Drawing.Size(359, 47);
             this.LLastMatches.TabIndex = 17;
             this.LLastMatches.Text = "Последние матчи";
-            // 
-            // CBDesFieldSett
-            // 
-            this.CBDesFieldSett.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.CBDesFieldSett.Font = new System.Drawing.Font("Segoe UI Symbol", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CBDesFieldSett.FormattingEnabled = true;
-            this.CBDesFieldSett.Location = new System.Drawing.Point(1194, 638);
-            this.CBDesFieldSett.Name = "CBDesFieldSett";
-            this.CBDesFieldSett.Size = new System.Drawing.Size(225, 40);
-            this.CBDesFieldSett.TabIndex = 16;
-            // 
-            // CBDesStonesSett
-            // 
-            this.CBDesStonesSett.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.CBDesStonesSett.Font = new System.Drawing.Font("Segoe UI Symbol", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CBDesStonesSett.FormattingEnabled = true;
-            this.CBDesStonesSett.Location = new System.Drawing.Point(1194, 557);
-            this.CBDesStonesSett.Name = "CBDesStonesSett";
-            this.CBDesStonesSett.Size = new System.Drawing.Size(225, 40);
-            this.CBDesStonesSett.TabIndex = 15;
-            this.CBDesStonesSett.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -216,40 +217,40 @@ namespace Gomoku
             // textBox20
             // 
             this.textBox20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox20.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox20.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox20.Location = new System.Drawing.Point(475, 211);
             this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(466, 29);
+            this.textBox20.Size = new System.Drawing.Size(466, 45);
             this.textBox20.TabIndex = 21;
             this.textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox19
             // 
             this.textBox19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox19.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox19.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox19.Location = new System.Drawing.Point(3, 211);
             this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(466, 29);
+            this.textBox19.Size = new System.Drawing.Size(466, 45);
             this.textBox19.TabIndex = 20;
             this.textBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox18
             // 
             this.textBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox18.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox18.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox18.Location = new System.Drawing.Point(1419, 211);
             this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(468, 29);
+            this.textBox18.Size = new System.Drawing.Size(468, 45);
             this.textBox18.TabIndex = 19;
             this.textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox17
             // 
             this.textBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox17.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox17.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox17.Location = new System.Drawing.Point(947, 211);
             this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(466, 29);
+            this.textBox17.Size = new System.Drawing.Size(466, 45);
             this.textBox17.TabIndex = 18;
             this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -423,9 +424,9 @@ namespace Gomoku
             this.BExit.BackColor = System.Drawing.Color.Chocolate;
             this.BExit.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BExit.Image = ((System.Drawing.Image)(resources.GetObject("BExit.Image")));
-            this.BExit.Location = new System.Drawing.Point(1642, 101);
+            this.BExit.Location = new System.Drawing.Point(1631, 101);
             this.BExit.Name = "BExit";
-            this.BExit.Size = new System.Drawing.Size(135, 45);
+            this.BExit.Size = new System.Drawing.Size(151, 52);
             this.BExit.TabIndex = 13;
             this.BExit.UseVisualStyleBackColor = false;
             this.BExit.Click += new System.EventHandler(this.BExit_Click);
@@ -446,6 +447,10 @@ namespace Gomoku
             // 
             this.TLPSett.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.TLPSett.ColumnCount = 4;
+            this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -477,14 +482,21 @@ namespace Gomoku
             this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TLPSett.Size = new System.Drawing.Size(1896, 221);
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TLPSett.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TLPSett.Size = new System.Drawing.Size(1896, 232);
             this.TLPSett.TabIndex = 11;
             // 
             // TBPanelSet13
             // 
             this.TBPanelSet13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet13.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet13.Location = new System.Drawing.Point(477, 168);
+            this.TBPanelSet13.Location = new System.Drawing.Point(477, 177);
             this.TBPanelSet13.Name = "TBPanelSet13";
             this.TBPanelSet13.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet13.TabIndex = 17;
@@ -494,7 +506,7 @@ namespace Gomoku
             // 
             this.TBPanelSet14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet14.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet14.Location = new System.Drawing.Point(951, 168);
+            this.TBPanelSet14.Location = new System.Drawing.Point(951, 177);
             this.TBPanelSet14.Name = "TBPanelSet14";
             this.TBPanelSet14.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet14.TabIndex = 16;
@@ -504,7 +516,7 @@ namespace Gomoku
             // 
             this.TBPanelSet15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet15.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet15.Location = new System.Drawing.Point(1425, 168);
+            this.TBPanelSet15.Location = new System.Drawing.Point(1425, 177);
             this.TBPanelSet15.Name = "TBPanelSet15";
             this.TBPanelSet15.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet15.TabIndex = 15;
@@ -514,7 +526,7 @@ namespace Gomoku
             // 
             this.TBPanelSet10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet10.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet10.Location = new System.Drawing.Point(951, 113);
+            this.TBPanelSet10.Location = new System.Drawing.Point(951, 119);
             this.TBPanelSet10.Name = "TBPanelSet10";
             this.TBPanelSet10.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet10.TabIndex = 14;
@@ -524,7 +536,7 @@ namespace Gomoku
             // 
             this.TBPanelSet9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet9.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet9.Location = new System.Drawing.Point(477, 113);
+            this.TBPanelSet9.Location = new System.Drawing.Point(477, 119);
             this.TBPanelSet9.Name = "TBPanelSet9";
             this.TBPanelSet9.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet9.TabIndex = 13;
@@ -534,7 +546,7 @@ namespace Gomoku
             // 
             this.TBPanelSet12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet12.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet12.Location = new System.Drawing.Point(3, 168);
+            this.TBPanelSet12.Location = new System.Drawing.Point(3, 177);
             this.TBPanelSet12.Name = "TBPanelSet12";
             this.TBPanelSet12.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet12.TabIndex = 12;
@@ -544,7 +556,7 @@ namespace Gomoku
             // 
             this.TBPanelSet11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet11.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet11.Location = new System.Drawing.Point(1425, 113);
+            this.TBPanelSet11.Location = new System.Drawing.Point(1425, 119);
             this.TBPanelSet11.Name = "TBPanelSet11";
             this.TBPanelSet11.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet11.TabIndex = 11;
@@ -554,7 +566,7 @@ namespace Gomoku
             // 
             this.TBPanelSet8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet8.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet8.Location = new System.Drawing.Point(3, 113);
+            this.TBPanelSet8.Location = new System.Drawing.Point(3, 119);
             this.TBPanelSet8.Name = "TBPanelSet8";
             this.TBPanelSet8.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet8.TabIndex = 10;
@@ -564,7 +576,7 @@ namespace Gomoku
             // 
             this.TBPanelSet5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet5.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet5.Location = new System.Drawing.Point(477, 58);
+            this.TBPanelSet5.Location = new System.Drawing.Point(477, 61);
             this.TBPanelSet5.Name = "TBPanelSet5";
             this.TBPanelSet5.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet5.TabIndex = 9;
@@ -574,7 +586,7 @@ namespace Gomoku
             // 
             this.TBPanelSet6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet6.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet6.Location = new System.Drawing.Point(951, 58);
+            this.TBPanelSet6.Location = new System.Drawing.Point(951, 61);
             this.TBPanelSet6.Name = "TBPanelSet6";
             this.TBPanelSet6.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet6.TabIndex = 8;
@@ -584,7 +596,7 @@ namespace Gomoku
             // 
             this.TBPanelSet7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet7.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet7.Location = new System.Drawing.Point(1425, 58);
+            this.TBPanelSet7.Location = new System.Drawing.Point(1425, 61);
             this.TBPanelSet7.Name = "TBPanelSet7";
             this.TBPanelSet7.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet7.TabIndex = 7;
@@ -627,7 +639,7 @@ namespace Gomoku
             // 
             this.TBPanelSet4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TBPanelSet4.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet4.Location = new System.Drawing.Point(3, 58);
+            this.TBPanelSet4.Location = new System.Drawing.Point(3, 61);
             this.TBPanelSet4.Name = "TBPanelSet4";
             this.TBPanelSet4.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet4.TabIndex = 3;
@@ -649,7 +661,7 @@ namespace Gomoku
             this.LSett2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LSett2.AutoSize = true;
             this.LSett2.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LSett2.Location = new System.Drawing.Point(781, 246);
+            this.LSett2.Location = new System.Drawing.Point(789, 245);
             this.LSett2.Name = "LSett2";
             this.LSett2.Size = new System.Drawing.Size(306, 47);
             this.LSett2.TabIndex = 10;
@@ -657,10 +669,10 @@ namespace Gomoku
             // 
             // TBRapidSett
             // 
-            this.TBRapidSett.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TBRapidSett.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.TBRapidSett.Enabled = false;
             this.TBRapidSett.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBRapidSett.Location = new System.Drawing.Point(937, 183);
+            this.TBRapidSett.Location = new System.Drawing.Point(948, 180);
             this.TBRapidSett.Name = "TBRapidSett";
             this.TBRapidSett.Size = new System.Drawing.Size(222, 46);
             this.TBRapidSett.TabIndex = 9;
@@ -677,10 +689,10 @@ namespace Gomoku
             // 
             // LSett1
             // 
-            this.LSett1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.LSett1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.LSett1.AutoSize = true;
             this.LSett1.Font = new System.Drawing.Font("Segoe UI Symbol", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LSett1.Location = new System.Drawing.Point(705, 180);
+            this.LSett1.Location = new System.Drawing.Point(705, 179);
             this.LSett1.Name = "LSett1";
             this.LSett1.Size = new System.Drawing.Size(174, 47);
             this.LSett1.TabIndex = 7;
@@ -698,6 +710,8 @@ namespace Gomoku
             this.BChngeNameSett.TabIndex = 6;
             this.BChngeNameSett.UseVisualStyleBackColor = false;
             this.BChngeNameSett.Click += new System.EventHandler(this.BChngeNameSett_Click);
+            this.BChngeNameSett.MouseEnter += new System.EventHandler(this.BChngeNameSett_MouseEnter);
+            this.BChngeNameSett.MouseLeave += new System.EventHandler(this.BChngeNameSett_MouseLeave);
             // 
             // BReloadingForm
             // 
@@ -710,6 +724,9 @@ namespace Gomoku
             this.BReloadingForm.Size = new System.Drawing.Size(47, 48);
             this.BReloadingForm.TabIndex = 5;
             this.BReloadingForm.UseVisualStyleBackColor = false;
+            this.BReloadingForm.Click += new System.EventHandler(this.BReloadingForm_Click);
+            this.BReloadingForm.MouseEnter += new System.EventHandler(this.BReloadingForm_MouseEnter);
+            this.BReloadingForm.MouseLeave += new System.EventHandler(this.BReloadingForm_MouseLeave);
             // 
             // BChangeGamerSett
             // 
@@ -722,6 +739,9 @@ namespace Gomoku
             this.BChangeGamerSett.Size = new System.Drawing.Size(48, 46);
             this.BChangeGamerSett.TabIndex = 3;
             this.BChangeGamerSett.UseVisualStyleBackColor = false;
+            this.BChangeGamerSett.Click += new System.EventHandler(this.BChangeGamerSett_Click);
+            this.BChangeGamerSett.MouseEnter += new System.EventHandler(this.BChangeGamerSett_MouseEnter);
+            this.BChangeGamerSett.MouseLeave += new System.EventHandler(this.BChangeGamerSett_MouseLeave);
             // 
             // LMainSett
             // 
@@ -754,7 +774,6 @@ namespace Gomoku
             this.Name = "Settings";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
-            this.SizeChanged += new System.EventHandler(this.Settings_SizeChanged);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -768,12 +787,11 @@ namespace Gomoku
 
         #endregion
 
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Label LChangeDesFieldSett;
-        private System.Windows.Forms.Label LChangeDesStonesSett;
-        private System.Windows.Forms.Label LLastMatches;
-        private System.Windows.Forms.ComboBox CBDesFieldSett;
-        private System.Windows.Forms.ComboBox CBDesStonesSett;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ComboBox CBDesSett;
+        private System.Windows.Forms.ComboBox CBThemSett;
+        private System.Windows.Forms.Label LDesignStonesSett;
+        private System.Windows.Forms.Label LThemSett;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox textBox20;
         private System.Windows.Forms.TextBox textBox19;
@@ -795,6 +813,8 @@ namespace Gomoku
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.TextBox textBox15;
         private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.Label LLastMatches;
+        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button BExit;
         private System.Windows.Forms.Button BSaveSett;
         private System.Windows.Forms.TableLayoutPanel TLPSett;
@@ -823,5 +843,10 @@ namespace Gomoku
         private System.Windows.Forms.Button BChangeGamerSett;
         private System.Windows.Forms.Label LMainSett;
         private System.Windows.Forms.TabControl PagesSett;
+        private System.Windows.Forms.Label LSett4;
+        private System.Windows.Forms.Label LSett3;
+        private System.Windows.Forms.ComboBox CBDesFieldSett;
+        private System.Windows.Forms.ComboBox CBDesStonSett;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
