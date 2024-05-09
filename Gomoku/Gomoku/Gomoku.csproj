@@ -72,7 +72,6 @@
     <Compile Include="RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Rules.cs" />
     <Compile Include="RulesForm.cs">
       <SubType>Form</SubType>
     </Compile>

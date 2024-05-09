@@ -773,6 +773,7 @@ namespace Gomoku
             this.Controls.Add(this.PagesSett);
             this.Name = "Settings";
             this.Text = "Settings";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Settings_Load);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

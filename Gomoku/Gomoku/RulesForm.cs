@@ -13,89 +13,137 @@ namespace Gomoku
 {
     public partial class RulesForm : Form
     {
-        //все они уже описаны в классе будут
-        const int sizerules = 5;
+        const int sizerules = 4; //всего страниц
         int page = 0;//счетчик страниц , используется для перелистывания по кнопкам
-        RulesForm[] manyrules = new RulesForm[sizerules];//массив форм правил из 5 элементов
-        Image[] Images = new Image[sizerules];//заполнение массива изображений как в девятой лабе сишарп
-
+        Image[] Images;//заполнение массива изображений как в девятой лабе сишарп
         public RulesForm()
         {
             InitializeComponent();
-           
         }
-
-        private RulesForm SetNameOfRule(RulesForm ruu,string ru)//переименование формы согласно следованию
-        {
-            ruu.Name = ru;
-            return ruu;
-        }
-
         private void Rules_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
-            for (int i = 0; i < sizerules; i++)
-            {
-                RulesForm rule = new RulesForm();
-                string ru = "Rule" + (i+1).ToString();
-                manyrules[i] = SetNameOfRule(rule, ru);//занесение формы в массив
-            }
-            InitRule();
+            InitImages();
+            InitRules1(); //первая форма
         }
 
-        private void InitRule()//инициализация формы правило
+        private void InitImages()
         {
-            //все что должно присваиваться тексту должно быть в массиве строк по этим элементам и будут выводиться значения
-            manyrules[page].LNameRules.Text = "";
-            manyrules[page].LFirstRule.Text = "";
-            manyrules[page].LSecondRule.Text = "";
-            manyrules[page].PBRules.Image = Images[page];
-            manyrules[page].Show();//показать форму
+            Images = new Image[8];
+            Images[0] = Image.FromFile("close three.jpg");
+            Images[1] = Image.FromFile("three.jpg");
+            Images[2] = Image.FromFile("close four.jpg");
+            Images[3] = Image.FromFile("four.jpg");
+            Images[4] = Image.FromFile("five.jpg");
+            Images[5] = Image.FromFile("long.jpg");
+            Images[6] = Image.FromFile("33.jpg");
+            Images[7] = Image.FromFile("44.jpg");
+        }
+
+        private void InitRules1()//инициализация формы правило
+        {
+            BBackRules.Visible = false;
+            LNameRules.Text = "Тройка";
+            LFirstRule.Text = "Тройка – тройка, которая на следующий ход образовывает четвёрку," +
+                " противник может\nпомешать этому блоком своей фишки с другой стороны";
+            LSecondRule.Text = "Открытая тройка – тройка, которая угрожает сделать открытую четвёрку," +
+                " противник должен\n«закрыть тройку» - поставить фишку с любой стороны";
+            PB1Rules.Image = Images[0];
+            LUnderPic1Rules.Text = "Тройка / Закрытая тройка";
+            PB2Rules.Image = Images[1];
+            LUnderPic2Rules.Text = "Открытая тройка";
+        }
+
+        private void InitRules2()//инициализация формы правило
+        {
+            BBackRules.Visible = true;
+            LNameRules.Text = "Четверка";
+            LFirstRule.Text = "Четвёрка – четвёрка, угрожающая пятеркой при следующем ходе, " +
+                "достроена до пяти\nможет быть единственно возможным ходом";
+            LSecondRule.Text = "Открытая четверка – гарантированная победа игрока, который её создаст, " +
+                "есть два варианта\nпоставить камень при следующем ходе, чтобы выиграть";
+            PB1Rules.Image = Images[2];
+            LUnderPic1Rules.Text = "Четверка / Закрытая четверка";
+            PB2Rules.Image = Images[3];
+            LUnderPic2Rules.Text = "Открытая четверка";
+        }
+
+        private void InitRules3()//инициализация формы правило
+        {
+            BNext.Visible = true;
+            LNameRules.Text = "Условия выигрыша";
+            LFirstRule.Text = "Пятерка – пять камней, соединённые прямой линией, основное условие победы игрока";
+            LSecondRule.Text = "Длинный ряд – шесть или более камней в ряд, не является выигрышной";
+            PB1Rules.Image = Images[4];
+            LUnderPic1Rules.Text = "Пятерка";
+            PB2Rules.Image = Images[5];
+            LUnderPic2Rules.Text = "Длинный ряд";
+        }
+
+        private void InitRules4()//инициализация формы правило
+        {
+            BNext.Visible = false;
+            LNameRules.Text = "Вилки";
+            LFirstRule.Text = "Вилка 3x3 – ситуация, при которой игрок обеспечивает себе " +
+                "создание открытой четвёрки\nвне зависимости от игры противника";
+            LSecondRule.Text = "Вилка 4x4 - ситуация, при которой образуются 2 закрытых четвёрки," +
+                "перекрывание любой,\nозначает превращение другой в пятерку";
+            PB1Rules.Image = Images[6];
+            LUnderPic1Rules.Text = "Вилка 3x3";
+            PB2Rules.Image = Images[7];
+            LUnderPic2Rules.Text = "Вилка 4x4";
         }
 
         private void BNext_Click(object sender, EventArgs e)
         {
-            page++;
-            InitRule();
+            if (page < sizerules)
+            {
+                page++;
+                if (page == 2)
+                {
+                    InitRules2();
+                }
+                else if (page == 3)
+                {
+                    InitRules3();
+                }
+                else if (page == 4)
+                {
+                    InitRules4();
+                }
+            }
+            else
+            {
+                //обработка если нет выше форм
+            }
         }
 
         private void BBackRules_Click(object sender, EventArgs e)
         {
-            page--;
-            InitRule();
+            if (page > 0)
+            {
+                page--;
+                if (page == 2)
+                {
+                    InitRules2();
+                }
+                else if (page == 3)
+                {
+                    InitRules3();
+                }
+                else if (page == 1)
+                {
+                    InitRules1();
+                }
+            }
+            else
+            {
+                //обработка если нет ниже форм
+            }
+        }
+
+        private void ExitMainButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
-
-    /*class Ruless
-    {
-        public void SetForm()
-        {
-            rules = new Rules();
-        }
-
-        public Form GetForm()
-        {
-            return rules;
-        }
-
-        public void SetMainNameRules(string Text)
-        {
-            rules.LNameRules.Text = Text;
-        }
-
-        public void SetLabelFirstRules(string Text)
-        {
-            rules.LFirstRule.Text = Text;
-        }
-
-        public void SetLabelSecondRules(string Text)
-        {
-            rules.LSecondRule.Text = Text;
-        }
-
-        public void SetPBRulesImage(Image image)
-        {
-            rules.PBRules.Image = image;
-        }
-    }*/
 }

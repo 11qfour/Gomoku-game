@@ -20,7 +20,6 @@ namespace Gomoku
             toolTip1.SetToolTip(BReloadingForm, "Обновить данные");
             toolTip1.SetToolTip(BChangeGamerSett, "Сменить пользователя");
             toolTip1.SetToolTip(BExit, "Выйти");
-            toolTip1.SetToolTip(TBRapidSett, "Текущий рейтинг");
         }
        static bool save = true; //флаг который ответчает за то, сохранены ли данные при изменении
         private void BChngeNameSett_Click(object sender, EventArgs e)
