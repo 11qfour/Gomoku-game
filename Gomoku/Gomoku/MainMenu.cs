@@ -63,6 +63,7 @@ namespace Gomoku
         private void BGameWithFriend_Click(object sender, EventArgs e)
         {
             GameWithPC gameWithFriend = new GameWithPC();
+            gameWithFriend.SetOppName("Друг");
             OpenNewFormInSameResolution(gameWithFriend);
         }
 

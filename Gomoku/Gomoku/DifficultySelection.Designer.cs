@@ -56,7 +56,7 @@ namespace Gomoku
             this.BStartDS.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BStartDS.BackColor = System.Drawing.Color.Peru;
             this.BStartDS.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BStartDS.Location = new System.Drawing.Point(219, 361);
+            this.BStartDS.Location = new System.Drawing.Point(211, 357);
             this.BStartDS.Name = "BStartDS";
             this.BStartDS.Size = new System.Drawing.Size(157, 33);
             this.BStartDS.TabIndex = 1;
@@ -69,7 +69,7 @@ namespace Gomoku
             this.L2DS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.L2DS.AutoSize = true;
             this.L2DS.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L2DS.Location = new System.Drawing.Point(148, 182);
+            this.L2DS.Location = new System.Drawing.Point(148, 168);
             this.L2DS.Name = "L2DS";
             this.L2DS.Size = new System.Drawing.Size(330, 30);
             this.L2DS.TabIndex = 2;
@@ -80,7 +80,7 @@ namespace Gomoku
             this.RBNoTimeDS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RBNoTimeDS.AutoSize = true;
             this.RBNoTimeDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBNoTimeDS.Location = new System.Drawing.Point(171, 234);
+            this.RBNoTimeDS.Location = new System.Drawing.Point(171, 217);
             this.RBNoTimeDS.Name = "RBNoTimeDS";
             this.RBNoTimeDS.Size = new System.Drawing.Size(276, 25);
             this.RBNoTimeDS.TabIndex = 4;
@@ -93,20 +93,20 @@ namespace Gomoku
             this.RBTimerDS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RBTimerDS.AutoSize = true;
             this.RBTimerDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBTimerDS.Location = new System.Drawing.Point(171, 265);
+            this.RBTimerDS.Location = new System.Drawing.Point(171, 259);
             this.RBTimerDS.Name = "RBTimerDS";
             this.RBTimerDS.Size = new System.Drawing.Size(307, 25);
             this.RBTimerDS.TabIndex = 5;
             this.RBTimerDS.TabStop = true;
             this.RBTimerDS.Text = "Задать ограничение по времени";
             this.RBTimerDS.UseVisualStyleBackColor = true;
-            this.RBTimerDS.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.RBTimerDS.CheckedChanged += new System.EventHandler(this.RBTimerDS_CheckedChanged);
             // 
             // TBTimerDS
             // 
             this.TBTimerDS.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.TBTimerDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBTimerDS.Location = new System.Drawing.Point(347, 316);
+            this.TBTimerDS.Location = new System.Drawing.Point(347, 307);
             this.TBTimerDS.Name = "TBTimerDS";
             this.TBTimerDS.Size = new System.Drawing.Size(100, 29);
             this.TBTimerDS.TabIndex = 6;
@@ -118,11 +118,12 @@ namespace Gomoku
             this.L3DS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.L3DS.AutoSize = true;
             this.L3DS.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L3DS.Location = new System.Drawing.Point(166, 312);
+            this.L3DS.Location = new System.Drawing.Point(166, 303);
             this.L3DS.Name = "L3DS";
             this.L3DS.Size = new System.Drawing.Size(95, 30);
             this.L3DS.TabIndex = 7;
             this.L3DS.Text = "Время";
+            this.L3DS.Visible = false;
             // 
             // ChLBDS
             // 
@@ -131,9 +132,9 @@ namespace Gomoku
             this.ChLBDS.FormattingEnabled = true;
             this.ChLBDS.Items.AddRange(new object[] {
             "Простой уровень сложности",
-            "Средний урвоень сложности",
+            "Средний уроень сложности",
             "Высокий уровень сложности"});
-            this.ChLBDS.Location = new System.Drawing.Point(103, 63);
+            this.ChLBDS.Location = new System.Drawing.Point(111, 55);
             this.ChLBDS.Name = "ChLBDS";
             this.ChLBDS.Size = new System.Drawing.Size(403, 94);
             this.ChLBDS.TabIndex = 8;
@@ -156,7 +157,6 @@ namespace Gomoku
             this.Name = "DifficultySelection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор сложности игры противника-компьютера";
-            this.Load += new System.EventHandler(this.DifficultySelection_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

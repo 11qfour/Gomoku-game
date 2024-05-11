@@ -32,6 +32,11 @@ namespace Gomoku
             timer.Start();
         }
 
+        public void SetOppName(string s)
+        {
+            LOpp.Text = s;
+        }
+
         private void Cell_Click(object sender, EventArgs e)
         {
             if (!game.GetGameIsOver())

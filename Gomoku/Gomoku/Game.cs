@@ -16,7 +16,7 @@ namespace Gomoku
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;
         List<int[]> available = new List<int[]>();
-        List<int[]> succsesssteps = new List<int[]>();
+        List<int[]> SuccessSteps = new List<int[]>(); //массив выигрышных ходов, нужно для отображения
 
         private int black_steps;
         private int steps;
@@ -256,6 +256,16 @@ namespace Gomoku
         public void SetGameIsOver(bool t)
         {
             this.GameIsOver = t;
+        }
+
+        public void SetBoardValue(int i, int j, char value)
+        {
+            this.board[i,j] = value;
+        }
+
+        public char GetbBoardValue(int i, int j)
+        {
+            return board[i, j];
         }
         /////////////////////////////////
 

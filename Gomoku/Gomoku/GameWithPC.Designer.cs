@@ -2893,7 +2893,7 @@ namespace Gomoku
             this.LOpp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LOpp.AutoSize = true;
             this.LOpp.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LOpp.Location = new System.Drawing.Point(917, 58);
+            this.LOpp.Location = new System.Drawing.Point(917, 54);
             this.LOpp.Name = "LOpp";
             this.LOpp.Size = new System.Drawing.Size(148, 21);
             this.LOpp.TabIndex = 9;
@@ -2932,6 +2932,7 @@ namespace Gomoku
             this.Name = "GameWithPC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GameWithPC";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameWithPC_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWithPC_FormClosed);
             this.Load += new System.EventHandler(this.GameWithPC_Load);
