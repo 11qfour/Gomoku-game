@@ -16,5 +16,15 @@ namespace Gomoku
         {
             InitializeComponent();
         }
+
+        private void ExitMainButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Info_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

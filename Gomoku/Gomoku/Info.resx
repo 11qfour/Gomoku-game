@@ -117,4 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="RichTBDatasInfo.Text" xml:space="preserve">
+    <value>1 Для авторизации в приложении необходимо нажать на иконку "Профиль" , ввести своё имя, после авторизированный получает возможности: 
+	1. Игры на рейтинг
+	2. Сохранения последней активности:
+		1.2. Сыгранные матчи
+		2.2. Лучшие матчи
+			2.2.1 По меньшему количеству ходов 
+			2.2.2 По лучшему времени матча
+2. Для ознакомления с правилами логической игры необходимо нажать на кнопку "Правила", где содержится информация :
+	3.1. Ключевые позиции
+	3.2. Возможности выигрыша
+3. Чтобы вступить в игру с компьютером предварительно выбрав уровень сложности, необходимол нажать на "Игра с компьютером":
+	4.1. Легкий уровень сложности. Компьютер оказывает слабое сопротивление
+	За победу над компьютером в легком режиме сложности пользователь получает "+2" к рейтингу, а за проигрыш "-1"
+	4.2. Средний уровень сложности. Компьютер играет на равных, просчитывая ходы, выбирая не всегда наилучший
+	За победу над компьютером в среднем режиме сложности пользователь получает "+4" к рейтингу, а за проигрыш "-3"
+	4.3. Сложный уровень. Компьютер просчитывает все ходы наперёд, делает оптимальный ход
+	За победу над компьютером в сложном режиме пользователь получает "+6" к рейтингу, а за проигрыш "-5"
+5. Возможность "Игра с другом":
+	5.1. Каждый игрок ходит поочерёдно
+	5.2. Подсказки отключены
+6. В игре присутсвуют возможности отмены хода и подсказки, воспользоваться этими функциями можно во время игры с компьютером или другом
+7. В зависимости от рейтинга авторизированный пользователь получает звание:
+	6.1. 0-550 – «новичок»
+	6.2. 550-1000 – «опытный»
+	6.3. 1000-1500-«эксперт»
+	6.4. 1500-2000-«мастер»
+
+			                                      
+					GitHub: 11qfour</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ExitMainButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAfdJREFUaEPdmOtOwlAQhHkSQUq4eUU0CLSoIO//SMezjU2mywgU6pblxxfix+oy
+        HY40tEIIVwGVHqHSI1R6hEqPUOkRKj1CpUeoZKzSNGj0TJNQqenetEOZTkjanfxRzzYFlYhceR1EQhR8
+        pFkc479rCZUIDXINjSxms6j5bJNQiUiQogF51M9fClQieRA4E/r5S4FKBBvp/mOQh9H4rItFJWLVCO44
+        ZQ+ViNUZ0UHG/UHUfJZBJWJ5RnCPkM4XUfNZDZWIVSPC28u0FKTK5xSViGUjwiDplfb1u0nUfBahEsFG
+        rD7JMYgwfZ5EzWcLqESsGxFm09fSzmP2UolUOSPfX+udF5Dfmyl3KnofQiUiQfBeSz+PyFsPZ+tm+T6P
+        a/huKpEqjSRxmb6K8gK0O5VssYxr+G4qkbyR3z906BZlu9nsLK8ziN6HUIlUaaQu7gZDFWL/W1qgEqnS
+        SB1s17ut7jsbBVQi1o3oEPfDUdR8FqESsWxEPsXLQW6j5rMaKhGrRiaPTypEtV1UIlaN6BDHnAuESsSi
+        kc8sK4WQ/1p65hBUItaN9DrHnwuESsTqjJwLlYhVI+dCJaIbcf0FHTaSB4Kf9XxTUInoRjCI4OZLbOGv
+        RgQ92xRUMqQZjZ5pEio9QqVHqPQIlR6h0iNUeoRKj1Dpj9D6AUn/ImVLMRjOAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

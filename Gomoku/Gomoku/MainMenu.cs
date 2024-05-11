@@ -27,7 +27,6 @@ namespace Gomoku
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void ExitMainButton_Click(object sender, EventArgs e)
@@ -70,7 +69,7 @@ namespace Gomoku
         private void InfoButton_Click(object sender, EventArgs e)
         {
             Info info = new Info();
-            OpenNewFormInSameResolution(info);
+            info.Show();
         }
 
         private void MenuMainButton_Click(object sender, EventArgs e)

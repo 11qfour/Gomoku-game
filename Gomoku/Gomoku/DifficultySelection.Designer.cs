@@ -143,7 +143,7 @@ namespace Gomoku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Bisque;
+            this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(605, 416);
             this.Controls.Add(this.ChLBDS);
             this.Controls.Add(this.L3DS);
