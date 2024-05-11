@@ -52,7 +52,7 @@ namespace Gomoku
             this.BNext.BackColor = System.Drawing.Color.SandyBrown;
             this.BNext.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BNext.Image = ((System.Drawing.Image)(resources.GetObject("BNext.Image")));
-            this.BNext.Location = new System.Drawing.Point(1597, 899);
+            this.BNext.Location = new System.Drawing.Point(1594, 899);
             this.BNext.Name = "BNext";
             this.BNext.Size = new System.Drawing.Size(79, 57);
             this.BNext.TabIndex = 0;
@@ -77,7 +77,7 @@ namespace Gomoku
             this.LNameRules.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LNameRules.AutoSize = true;
             this.LNameRules.Font = new System.Drawing.Font("Segoe UI Symbol", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNameRules.Location = new System.Drawing.Point(889, 9);
+            this.LNameRules.Location = new System.Drawing.Point(801, 9);
             this.LNameRules.Name = "LNameRules";
             this.LNameRules.Size = new System.Drawing.Size(161, 65);
             this.LNameRules.TabIndex = 8;
@@ -163,6 +163,7 @@ namespace Gomoku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(1904, 1061);
             this.Controls.Add(this.LUnderPic2Rules);
             this.Controls.Add(this.LUnderPic1Rules);

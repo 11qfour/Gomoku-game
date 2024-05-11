@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DifficultySelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DifficultySelection.Designer.cs">
+      <DependentUpon>DifficultySelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameWithPC.cs">
       <SubType>Form</SubType>
@@ -84,8 +90,14 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DifficultySelection.resx">
+      <DependentUpon>DifficultySelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameWithPC.resx">
       <DependentUpon>GameWithPC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Info.resx">
+      <DependentUpon>Info.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>

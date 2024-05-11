@@ -23,10 +23,10 @@ namespace Gomoku
         private void Rules_Load(object sender, EventArgs e)
         {
             InitImages();
-            InitRules1(); //первая форма
+            InitRules1(); 
         }
 
-        private void InitImages()
+        private void InitImages() //иницициализация массива с соответсвующими рисунками
         {
             Images = new Image[8];
             Images[0] = Image.FromFile("close three.jpg");
@@ -39,7 +39,7 @@ namespace Gomoku
             Images[7] = Image.FromFile("44.jpg");
         }
 
-        private void InitRules1()//инициализация формы правило
+        private void InitRules1()//инициализация правил 1
         {
             BBackRules.Visible = false;
             LNameRules.Text = "Тройка";
@@ -53,7 +53,7 @@ namespace Gomoku
             LUnderPic2Rules.Text = "Открытая тройка";
         }
 
-        private void InitRules2()//инициализация формы правило
+        private void InitRules2()//инициализация правил 2
         {
             BBackRules.Visible = true;
             LNameRules.Text = "Четверка";
@@ -67,7 +67,7 @@ namespace Gomoku
             LUnderPic2Rules.Text = "Открытая четверка";
         }
 
-        private void InitRules3()//инициализация формы правило
+        private void InitRules3()//инициализация правил 3
         {
             BNext.Visible = true;
             LNameRules.Text = "Условия выигрыша";
@@ -79,7 +79,7 @@ namespace Gomoku
             LUnderPic2Rules.Text = "Длинный ряд";
         }
 
-        private void InitRules4()//инициализация формы правило
+        private void InitRules4()//инициализация правил 4
         {
             BNext.Visible = false;
             LNameRules.Text = "Вилки";
@@ -93,7 +93,7 @@ namespace Gomoku
             LUnderPic2Rules.Text = "Вилка 4x4";
         }
 
-        private void BNext_Click(object sender, EventArgs e)
+        private void BNext_Click(object sender, EventArgs e) // перейти на следующий список правил
         {
             if (page < sizerules)
             {
@@ -113,11 +113,11 @@ namespace Gomoku
             }
             else
             {
-                //обработка если нет выше форм
+                //обработка если нет выше форм -> можно не обрабатывать, решена visible навигационных кнопок
             }
         }
 
-        private void BBackRules_Click(object sender, EventArgs e)
+        private void BBackRules_Click(object sender, EventArgs e) //перейти на предыдущий список правил
         {
             if (page > 0)
             {
@@ -137,11 +137,11 @@ namespace Gomoku
             }
             else
             {
-                //обработка если нет ниже форм
+                //обработка если нет форм ниже, можно не обрабатывать, решена visible навигационных кнопок
             }
         }
 
-        private void ExitMainButton_Click(object sender, EventArgs e)
+        private void ExitMainButton_Click(object sender, EventArgs e) //выйти в главное меню
         {
             this.Close();
         }

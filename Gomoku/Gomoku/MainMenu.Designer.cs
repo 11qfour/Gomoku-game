@@ -153,8 +153,8 @@ namespace Gomoku
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Логическая игра \"Гомоку\"";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainMenu_Load);
-            this.SizeChanged += new System.EventHandler(this.MainMenu_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

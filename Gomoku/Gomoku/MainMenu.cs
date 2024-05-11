@@ -39,21 +39,7 @@ namespace Gomoku
             }
         }
 
-        private void MainMenu_SizeChanged(object sender, EventArgs e)
-        {
-            /*if (WindowState == FormWindowState.Maximized)
-            {
-                float scaleWidth = (float)Width / (float)ClientSize.Width; //коэфициент сохранения ширины
-                float scaleHeight = (float)Height / (float)ClientSize.Height;//коэфициент сохранения высоты
-                BGameWithPC.Size = new Size((int)(BGameWithPC.Width * scaleWidth), (int)(BGameWithPC.Height * scaleHeight));
-                BRules.Size = new Size((int)(BRules.Width * scaleWidth), (int)(BRules.Height * scaleHeight));
-                BGameWithFriend.Size = new Size((int)(BGameWithFriend.Width * scaleWidth), (int)(BGameWithFriend.Height * scaleHeight));
-                InfoButton.Size = new Size((int)(InfoButton.Width * scaleWidth), (int)(InfoButton.Height * scaleHeight));
-                ExitMainButton.Size = new Size((int)(ExitMainButton.Width * scaleWidth), (int)(ExitMainButton.Height * scaleHeight));
-            }*/
-        }
-
-        private void OpenNewFormInSameResolution(Form newForm)//открытие нового окна в таком эе разрешении
+        private void OpenNewFormInSameResolution(Form newForm)//открытие нового окна в таком же разрешении
         {
             newForm.Size = this.Size;
             newForm.StartPosition = FormStartPosition.Manual;
@@ -65,8 +51,8 @@ namespace Gomoku
 
         private void BGameWithPC_Click(object sender, EventArgs e)
         {
-            GameWithPC gameWithPC = new GameWithPC();
-            OpenNewFormInSameResolution(gameWithPC);
+            DifficultySelection difficultySelection = new DifficultySelection();
+            difficultySelection.Show();
         }
 
         private void BRules_Click(object sender, EventArgs e)

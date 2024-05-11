@@ -772,7 +772,7 @@ namespace Gomoku
             this.ClientSize = new System.Drawing.Size(1904, 1061);
             this.Controls.Add(this.PagesSett);
             this.Name = "Settings";
-            this.Text = "Settings";
+            this.Text = "Настройки и профиль";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Settings_Load);
             this.tabPage1.ResumeLayout(false);
