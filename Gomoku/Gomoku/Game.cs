@@ -212,6 +212,11 @@ namespace Gomoku
                 }
         }
 
+        public void SetCurrentPlayer(char value)
+        {
+            this.currentPlayer = value;
+        }
+
         public void SetBlackSteps(int cnt)
         {
             this.black_steps = cnt;

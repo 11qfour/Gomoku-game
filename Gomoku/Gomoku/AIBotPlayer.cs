@@ -11,11 +11,12 @@ namespace Gomoku
         private char GameLevel; //уровень игры компьютера
         private int TimeLimit=int.MaxValue; //ограничение по времени
         private bool IsTimeLimit; //есть ограничение по времени или нет
-
-        public AIBotPlayer(char level, int limit, bool isTimeLimit)
+        private char BotPlayer;
+        public AIBotPlayer(char level, int limit, bool isTimeLimit, char value)
         {
             this.GameLevel = level;
             this.IsTimeLimit = isTimeLimit;
+            this.BotPlayer = value;
             if (isTimeLimit)
                 this.TimeLimit = limit;
         }
