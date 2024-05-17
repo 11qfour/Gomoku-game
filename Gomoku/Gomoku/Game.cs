@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Gomoku
 {
-    class Game
+    class Game 
     {
         char[,] board = new char[15, 15]; //элементы: W-белые, B - черные, E - пустая
-
-
         char[] players = { 'B', 'W' };
         List<(int, int)> sequenceOfMoves = new List<(int, int)>();
         bool GameIsOver; //флаг - показатель завершенности игры
@@ -73,10 +71,11 @@ namespace Gomoku
         public int CheckWinner(int i, int j)
         {
             char player = board[i, j];
+            SuccessSteps.Add(new int[] { i, j });
+            List<int[]> tempArraySuccess = SuccessSteps;
             if (player == 'E') //клетка после хода не может быть пустой
                 Console.WriteLine("Ошибка!");
-            //Параметры проверки
-            int start, finish;
+            int start, finish; //параметры проверки
             start = i;
             finish = j;
             int horizontalCount = 1; //по умолчанию 1, т.к. не считаем саму ячейку, где уже есть player
@@ -88,10 +87,12 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     verticalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (verticalCount == 5)
                         return 10;
                 }
             }
+            SuccessSteps=tempArraySuccess;
             verticalCount = 1;
             j = finish;
             i = start;
@@ -101,10 +102,12 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     verticalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (verticalCount == 5)
                         return 10;
                 }
             }
+            SuccessSteps = tempArraySuccess;
             //проверка вертикали
             j = finish;
             i = start;
@@ -114,10 +117,12 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     horizontalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (horizontalCount == 5)
                         return 10;
                 }
             }
+            SuccessSteps = tempArraySuccess;
             horizontalCount = 1;
             i = start;
             j = finish;
@@ -127,10 +132,12 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     horizontalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (horizontalCount == 5)
                         return 10;
                 }
             }
+            SuccessSteps = tempArraySuccess;
             //проверка диагонали
             int diagonalCount = 1;
             j = finish;
@@ -142,11 +149,13 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     diagonalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (diagonalCount == 5)
                         return 10;
                 }
             }
             diagonalCount = 1;
+            SuccessSteps = tempArraySuccess;
             j = finish;
             i = start;
             while (j < 14 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
@@ -156,11 +165,13 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     diagonalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (diagonalCount == 5)
                         return 10;
                 }
             }
             diagonalCount = 1;
+            SuccessSteps = tempArraySuccess;
             j = finish;
             i = start;
             while (j > 0 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
@@ -170,11 +181,13 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     diagonalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (diagonalCount == 5)
                         return 10;
                 }
             }
             diagonalCount = 1;
+            SuccessSteps = tempArraySuccess;
             j = finish;
             i = start;
             while (j > 0 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
@@ -184,10 +197,12 @@ namespace Gomoku
                 if (board[i, j] == player)
                 {
                     diagonalCount++;
+                    SuccessSteps.Add(new int[] { i, j });
                     if (diagonalCount == 5)
                         return 10;
                 }
             }
+            SuccessSteps.Clear();
             if (available.Count == 0)
                 return 0; //ничья
             return 1;  //продолжить игру 
@@ -271,6 +286,11 @@ namespace Gomoku
         public char GetbBoardValue(int i, int j)
         {
             return board[i, j];
+        }
+
+        public List<int[]> GetSuccessSteps()
+        {
+            return SuccessSteps;
         }
         /////////////////////////////////
 

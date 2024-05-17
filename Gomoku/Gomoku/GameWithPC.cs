@@ -37,18 +37,17 @@ namespace Gomoku
             LOpp.Text = s;
         }
 
-        private void Cell_Click(object sender, EventArgs e)
+        private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля
         {
             if (!game.GetGameIsOver())
             {
                 Panel cell = sender as Panel;
-                if (cell != null)
+                if (cell != null && cell.BackgroundImage == null)
                 {
-                    int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100); // получаем координаты
+                    int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100);
                     int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
                     game.NextTurn(i, j);
-                    if (cell.BackgroundImage == null)//проверка занята ли ячейка изображением
-                    {
+                    
                         // Разрешаем обработку клика только на панели [7,7] когда steps = 0
                         if (game.GetSteps() == 0)
                         {
@@ -83,7 +82,7 @@ namespace Gomoku
                                 }
                             }
                         }
-                    }
+                    
                     int result = game.CheckWinner(i, j);
                     if (result == 0)
                     {
@@ -92,6 +91,7 @@ namespace Gomoku
                     }
                     else if (result == 10)
                     {
+                        PaintWinnerPanels(game.GetSuccessSteps());
                         if (game.GetCurrentPlayer() == 'B') //так как уже поменяли в nextturn при ходе
                         {
                             MessageBox.Show("Черные выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetBlackSteps() + "\nКоличество ходов проигравшего: " + game.GetWhiteSteps());
@@ -109,8 +109,27 @@ namespace Gomoku
             else
             {
 
-                profile.LoadDatas();
+                profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нудно решить проеелму
             }
+        }
+
+        private void PaintWinnerPanels(List<int[]> array)//закраска выигрышнх клеток
+        {
+            for (int i = 0; i < array.Count; i++)
+            {
+                int row = array[i][0]; // Первый элемент массива - это строка
+                int col = array[i][1]; // Второй элемент массива - это столбец
+                Panel cell = LayGameFieldPC.GetControlFromPosition(col, row) as Panel;
+                if (cell != null)
+                {
+                    cell.BackColor = Color.Gold;
+                }
+            }
+        }
+
+        private void PaintChoosePanel()
+        {
+            //изменение панели, на которую был сделано последний ход
         }
 
         private void LoadPanels() //закраска панелей
@@ -141,8 +160,9 @@ namespace Gomoku
         private void GameWithPC_Load(object sender, EventArgs e)
         {
             LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
+
             game = new Game();
-            profile = new Profile();
+
             LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
         }
 

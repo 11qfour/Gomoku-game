@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Gomoku
 {
-    class AIBotPlayer : Game //наследуем от Game все методы
+    class AIBotPlayer //наследуем от Game все методы
     {
         private char GameLevel; //уровень игры компьютера
         private int TimeLimit=int.MaxValue; //ограничение по времени
         private bool IsTimeLimit; //есть ограничение по времени или нет
-        private char BotPlayer;
+        private char BotPlayer; //за какую сторону играет Бот
         public AIBotPlayer(char level, int limit, bool isTimeLimit, char value)
         {
             this.GameLevel = level;
