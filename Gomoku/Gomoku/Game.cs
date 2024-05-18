@@ -44,6 +44,11 @@ namespace Gomoku
             board[i, j] = currentPlayer; //присвоении ячейки игроку
         }
 
+        public List<(int, int)> GetSequenceOfMoves()
+        {
+            return sequenceOfMoves;
+        }
+
         public void CancelTurn(ref int i, ref int j)
         {
             if (sequenceOfMoves.Count > 0)

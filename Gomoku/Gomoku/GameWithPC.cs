@@ -32,7 +32,7 @@ namespace Gomoku
             timer.Start();
         }
 
-        public void SetOppName(string s)
+        public void SetOppName(string s) //вывод имени противника
         {
             LOpp.Text = s;
         }
@@ -46,43 +46,40 @@ namespace Gomoku
                 {
                     int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100);
                     int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
+                    cell.BackgroundImageLayout = ImageLayout.Center;
                     game.NextTurn(i, j);
-                    
-                        // Разрешаем обработку клика только на панели [7,7] когда steps = 0
-                        if (game.GetSteps() == 0)
+                    if (game.GetSteps() == 0)
+                    {
+                        if (cell.BackColor == Color.Gray)
                         {
-                            cell.BackgroundImageLayout = ImageLayout.Center;
-                            if (cell.BackColor == Color.Gray)
+                            this.WindowState = FormWindowState.Maximized;
+                            cell.BackgroundImage = black;
+                            game.SetSteps(game.GetSteps() + 1);
+                            game.SetBlackSteps(game.GetBlackSteps() + 1);
+                            LWhoStep.Text = "Белых";
+                        }
+                    }
+                    else
+                    {
+                        if (cell.BackColor == Color.Transparent)
+                        {
+                            if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                             {
-                                this.WindowState = FormWindowState.Maximized;
                                 cell.BackgroundImage = black;
                                 game.SetSteps(game.GetSteps() + 1);
                                 game.SetBlackSteps(game.GetBlackSteps() + 1);
                                 LWhoStep.Text = "Белых";
                             }
-                        }
-                        else
-                        {
-                            cell.BackgroundImageLayout = ImageLayout.Center;
-                            if (cell.BackColor == Color.Transparent)
+                            else // устанавливаем белый цвет фишки
                             {
-                                if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
-                                {
-                                    cell.BackgroundImage = black;
-                                    game.SetSteps(game.GetSteps() + 1);
-                                    game.SetBlackSteps(game.GetBlackSteps() + 1);
-                                    LWhoStep.Text = "Белых";
-                                }
-                                else // устанавливаем белый цвет фишки
-                                {
-                                    cell.BackgroundImage = white;
-                                    game.SetSteps(game.GetSteps() + 1);
-                                    game.SetWhiteSteps(game.GetWhiteSteps() + 1);
-                                    LWhoStep.Text = "Черных";
-                                }
+                                cell.BackgroundImage = white;
+                                game.SetSteps(game.GetSteps() + 1);
+                                game.SetWhiteSteps(game.GetWhiteSteps() + 1);
+                                LWhoStep.Text = "Черных";
                             }
                         }
-                    
+                    }
+                    PaintChoosePanel();
                     int result = game.CheckWinner(i, j);
                     if (result == 0)
                     {
@@ -113,7 +110,7 @@ namespace Gomoku
             }
         }
 
-        private void PaintWinnerPanels(List<int[]> array)//закраска выигрышнх клеток
+        private void PaintWinnerPanels(List<int[]> array) //закраска выигрышнх клеток
         {
             for (int i = 0; i < array.Count; i++)
             {
@@ -127,9 +124,33 @@ namespace Gomoku
             }
         }
 
-        private void PaintChoosePanel()
+        private void PaintChoosePanel()//изменение панели, на которую был сделан ход
         {
-            //изменение панели, на которую был сделано последний ход
+            int i=7, j=7;
+            if (game.GetSequenceOfMoves().Count == 1) //первый ход всегда в центр
+            {
+                var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
+                i = lastMove.Item1; // Последний x
+                j = lastMove.Item2; // Последний y
+                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                cell.BackColor = Color.Peru;
+            }
+            else if (game.GetSequenceOfMoves().Count > 1)
+            {
+                var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
+                var previousLastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 2];
+                i = lastMove.Item1; // Последний x
+                j = lastMove.Item2; // Последний y
+                int prevI = previousLastMove.Item1;
+                int prevJ = previousLastMove.Item2;
+                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                cell.BackColor = Color.Peru;
+                Panel prevCell = LayGameFieldPC.GetControlFromPosition(prevJ, prevI) as Panel;
+                if (prevI==7 && prevJ == 7)
+                    prevCell.BackColor= Color.Gray;
+                else
+                    prevCell.BackColor = Color.Transparent;
+            }
         }
 
         private void LoadPanels() //закраска панелей
@@ -207,6 +228,11 @@ namespace Gomoku
                 Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
                 if (cell != null)
                     cell.BackgroundImage = null; //удаляем имейдж
+                if (i == 7 && j == 7)
+                    cell.BackColor = Color.Gray;
+                else
+                    cell.BackColor = Color.Transparent;
+                PaintChoosePanel();
                 if (game.GetCurrentPlayer() == 'W')
                 {
                     LWhoStep.Text = "Белых";
