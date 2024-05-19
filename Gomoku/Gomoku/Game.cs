@@ -10,6 +10,9 @@ namespace Gomoku
     {
         char[,] board = new char[15, 15]; //элементы: W-белые, B - черные, E - пустая
         char[] players = { 'B', 'W' };
+
+        bool gameWithFriend;
+
         List<(int, int)> sequenceOfMoves = new List<(int, int)>();
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;

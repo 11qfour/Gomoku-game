@@ -153,5 +153,10 @@ namespace Gomoku
                 MessageBox.Show(ee.Message);
             }
         }
+
+        private void DifficultySelection_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

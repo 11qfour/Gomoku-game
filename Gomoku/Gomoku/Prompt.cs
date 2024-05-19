@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Gomoku
 {
-    class Prompt //подсказка - найти алгорит, но скорее всего адаптировать минмакс
+    class Prompt : Game //подсказка - найти алгорит, но скорее всего адаптировать минмакс
     {
+        public void Minimax()
+        {
+            
+        }
 
     }
 }

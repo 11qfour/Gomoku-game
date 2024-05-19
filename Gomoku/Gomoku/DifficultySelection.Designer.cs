@@ -213,6 +213,7 @@ namespace Gomoku
             this.Name = "DifficultySelection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор сложности игры противника-компьютера";
+            this.Load += new System.EventHandler(this.DifficultySelection_Load);
             this.GBDS.ResumeLayout(false);
             this.GBDS.PerformLayout();
             this.ResumeLayout(false);
