@@ -19,6 +19,7 @@ namespace Gomoku
         ToolTip toolTip1 = new ToolTip();
         Game game;
         Profile profile;
+        AIBotPlayer botPlayer;
         public GameWithPC()
         {
             InitializeComponent();
@@ -31,6 +32,12 @@ namespace Gomoku
             timer.Tick += timer_Tick;
             timer.Start();
         }
+
+       /* public GameWithPC(AIBotPlayer tempBotPlayer) : this()
+        {
+            InitializeComponent();
+            this.botPlayer = tempBotPlayer;
+        }*/
 
         public void SetOppName(string s) //вывод имени противника
         {

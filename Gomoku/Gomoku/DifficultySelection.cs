@@ -16,107 +16,66 @@ namespace Gomoku
         {
             InitializeComponent();
         }
+
+        private void startGame(char level, int time, bool hasTimeLimit, char botPlayer, string botName)
+        {
+            AIBotPlayer aIBot = new AIBotPlayer(level, time, hasTimeLimit, botPlayer);
+            GameWithPC gamewithpc = new GameWithPC();
+            gamewithpc.SetOppName(botName);
+            gamewithpc.Show();
+        }
+
         private void BStartDS_Click(object sender, EventArgs e)
         {
             try
             {
-
-                if (ChLBDS.CheckedIndices.Count > 0 && ChLBDS.CheckedIndices.Count < 2) //если выбран только один режим игры
+                if (ChLBDS.CheckedIndices.Count == 1) // если выбран только один режим игры
                 {
-                    char BotPlayer = 'E'; //по умолчанию неприсвоено
+                    char BotPlayer = 'E'; // по умолчанию неприсвоено
+
                     if (RBBlackDS.Checked)
                     {
-                        BotPlayer = 'B'; //бот играет черных - ходит первым
+                        BotPlayer = 'B'; // бот играет черных - ходит первым
                     }
                     else if (RBWhiteDS.Checked)
                     {
-                        BotPlayer = 'W'; //бот играет черных - ходит вторым
+                        BotPlayer = 'W'; // бот играет белыми - ходит вторым
                     }
                     else
                     {
                         MessageBox.Show("Не выбрана сторона!");
                         return;
                     }
-                    if (ChLBDS.GetItemChecked(0)) //простой уровень
-                    {
-                        if (RBNoTimeDS.Checked) //нет ограничения по времени
-                        {
-                            char level = 'S'; //simple
-                            AIBotPlayer aIBot = new AIBotPlayer(level, 0, false, BotPlayer);
-                            GameWithPC gamewithpc = new GameWithPC();
-                            gamewithpc.SetOppName("Бот новичок");
-                            gamewithpc.Show();
 
-                        }
-                        else if (RBTimerDS.Checked) //есть ограничение по времени
-                        {
-                            char level = 'S'; //simple
-                            int time = int.Parse(TBTimerDS.Text);
-                            AIBotPlayer aIBot = new AIBotPlayer(level, time, true, BotPlayer);
-                            GameWithPC gamewithpc = new GameWithPC();
-                            gamewithpc.SetOppName("Бот новичок");
-                            gamewithpc.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не выбран параметр ограничения!");
-                            return;
-                        }
-                    }
-                    else if (ChLBDS.GetItemChecked(1)) //средний уровень
-                    {
-                        if (RBNoTimeDS.Checked)
-                        {
-                            char level = 'M'; //medium
-                            AIBotPlayer aIBot = new AIBotPlayer(level, 0, false, BotPlayer);
-                            GameWithPC gamewithpc = new GameWithPC();
-                            gamewithpc.SetOppName("Опытный Бот");
-                            gamewithpc.Show();
-                        }
-                        else if (RBTimerDS.Checked)
-                        {
-                            char level = 'M';
-                            int time = int.Parse(TBTimerDS.Text);
-                            AIBotPlayer aIBot = new AIBotPlayer(level, time, true, BotPlayer);
-                            GameWithPC gamewithpc = new GameWithPC();
-                            gamewithpc.SetOppName("Опытный Бот");
-                            gamewithpc.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не выбран параметр ограничения!");
-                            return;
-                        }
-                    }
-                    else if (ChLBDS.GetItemChecked(2)) //выоский уровень
-                    {
+                    char level;
+                    int time = 0;
+                    bool hasTimeLimit = false;
 
-                        char level = 'H'; //hard
-                        AIBotPlayer aIBot = new AIBotPlayer(level, 0, false, BotPlayer);
-                        GameWithPC gamewithpc = new GameWithPC();
-                        gamewithpc.SetOppName("Бот Профи");
-                        gamewithpc.Show();
+                    if (RBTimerDS.Checked)
+                    {
+                        time = int.Parse(TBTimerDS.Text);
+                        hasTimeLimit = true;
+                    }
 
-                    }
-                    else if (RBTimerDS.Checked)
+                    if (ChLBDS.GetItemChecked(0)) // простой уровень
                     {
-                        char level = 'H';
-                        int time = int.Parse(TBTimerDS.Text);
-                        AIBotPlayer aIBot = new AIBotPlayer(level, time, true, BotPlayer);
-                        GameWithPC gamewithpc = new GameWithPC();
-                        gamewithpc.SetOppName("Бот Профи");
-                        gamewithpc.Show();
+                        level = 'S'; // simple
+                        startGame(level, time, hasTimeLimit, BotPlayer, "Бот новичок");
                     }
-                    else
+                    else if (ChLBDS.GetItemChecked(1)) // средний уровень
                     {
-                        MessageBox.Show("Не выбран параметр ограничения!");
-                        return;
+                        level = 'M'; // medium
+                        startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
+                    }
+                    else if (ChLBDS.GetItemChecked(2)) // высокий уровень
+                    {
+                        level = 'H'; // hard
+                        startGame(level, time, hasTimeLimit, BotPlayer, "Бот Профи");
                     }
                 }
                 else
                 {
                     MessageBox.Show("Не выбрать параметр сложности игры!");
-                    return;
                 }
             }
             catch (Exception ee)
@@ -156,7 +115,7 @@ namespace Gomoku
 
         private void DifficultySelection_Load(object sender, EventArgs e)
         {
-
+             
         }
     }
 }
