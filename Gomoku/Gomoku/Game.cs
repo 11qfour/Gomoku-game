@@ -35,7 +35,7 @@ namespace Gomoku
             }
         }
 
-        public void NextTurn(int i, int j)
+        public void NextTurn(int i, int j, char side)
         {
             /*Random rand = new Random();
             int index = *//*Math.Floor(*//*rand.Next(available.Count);
@@ -44,7 +44,7 @@ namespace Gomoku
             int i = spot[0];
             int j = spot[1];*/
             sequenceOfMoves.Add((i, j)); //добавление последовательности шагов
-            board[i, j] = currentPlayer; //присвоении ячейки игроку
+            board[i, j] = side; //присвоении ячейки игроку
         }
 
         public List<(int, int)> GetSequenceOfMoves()
@@ -59,7 +59,6 @@ namespace Gomoku
                 var lastMove = sequenceOfMoves[sequenceOfMoves.Count - 1];
                 i = lastMove.Item1; // Последний x
                 j = lastMove.Item2; // Последний y
-                // Удаляем последнюю пару из списка
                 sequenceOfMoves.RemoveAt(sequenceOfMoves.Count - 1);
             }
             if (board[i, j] == 'W')
@@ -73,7 +72,7 @@ namespace Gomoku
                 black_steps--;
             }
             board[i, j] = 'E'; //клетка пуста
-            steps--;
+            steps --;
         }
 
         public int CheckWinner(int i, int j)
@@ -254,8 +253,6 @@ namespace Gomoku
         {
             this.steps = cnt;
         }
-
-
         public int GetBlackSteps()
         {
             return this.black_steps;
@@ -291,7 +288,7 @@ namespace Gomoku
             this.board[i,j] = value;
         }
 
-        public char GetbBoardValue(int i, int j)
+        public char GetBoardValue(int i, int j)
         {
             return board[i, j];
         }

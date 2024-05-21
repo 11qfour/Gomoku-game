@@ -17,9 +17,19 @@ namespace Gomoku
         Image black = Image.FromFile("blacknew.png");
         Image white = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
-        Game game;
+        Game game = new Game();
         Profile profile;
-        AIBotPlayer botPlayer;
+
+        BotPlayer botPlayer;
+        bool gameWithBot = false;
+        private int dataTimeLimit = int.MaxValue; //ограничение по времени
+        private bool IsTimeLimit; //есть ограничение по времени или нет
+
+        public void SetGameWithBot(bool flag)
+        {
+            this.gameWithBot = flag;
+        }
+
         public GameWithPC()
         {
             InitializeComponent();
@@ -33,130 +43,322 @@ namespace Gomoku
             timer.Start();
         }
 
-       /* public GameWithPC(AIBotPlayer tempBotPlayer) : this()
+        public void setIsTimeLimit(char level, int time, bool hasTimeLimit, char botPlayerSide) //установление временных ограничений
         {
-            InitializeComponent();
-            this.botPlayer = tempBotPlayer;
-        }*/
+            this.IsTimeLimit = hasTimeLimit;
+            if (IsTimeLimit)
+                this.dataTimeLimit = time;
+            this.botPlayer = new BotPlayer(level, botPlayerSide);
+            if (botPlayerSide=='W')
+                botPlayer.SetCurrentPlayer('B');
+            else
+                botPlayer.SetCurrentPlayer('W');
+        }
+
+        private void SetTimeLimit(bool flag) //контроль за временными ограничениями
+        {
+            //описание таймеров
+        }
 
         public void SetOppName(string s) //вывод имени противника
         {
             LOpp.Text = s;
         }
 
-        private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля
+        private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля при игре 1 на 1
         {
-            if (!game.GetGameIsOver())
+            try
             {
-                Panel cell = sender as Panel;
-                if (cell != null && cell.BackgroundImage == null)
+                if (!game.GetGameIsOver())
                 {
-                    int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100);
-                    int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
-                    cell.BackgroundImageLayout = ImageLayout.Center;
-                    game.NextTurn(i, j);
-                    if (game.GetSteps() == 0)
+                    Panel cell = sender as Panel;
+                    if (cell != null && cell.BackgroundImage == null)
                     {
-                        if (cell.BackColor == Color.Gray)
+                        int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100);
+                        int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
+                        cell.BackgroundImageLayout = ImageLayout.Center;
+                        game.NextTurn(i, j, game.GetCurrentPlayer());
+                        UpdateGameUI(cell, i, j);
+                        int result = game.CheckWinner(i, j);
+                        if (result == 0)
                         {
-                            this.WindowState = FormWindowState.Maximized;
-                            cell.BackgroundImage = black;
-                            game.SetSteps(game.GetSteps() + 1);
-                            game.SetBlackSteps(game.GetBlackSteps() + 1);
-                            LWhoStep.Text = "Белых";
-                        }
-                    }
-                    else
-                    {
-                        if (cell.BackColor == Color.Transparent)
-                        {
-                            if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
-                            {
-                                cell.BackgroundImage = black;
-                                game.SetSteps(game.GetSteps() + 1);
-                                game.SetBlackSteps(game.GetBlackSteps() + 1);
-                                LWhoStep.Text = "Белых";
-                            }
-                            else // устанавливаем белый цвет фишки
-                            {
-                                cell.BackgroundImage = white;
-                                game.SetSteps(game.GetSteps() + 1);
-                                game.SetWhiteSteps(game.GetWhiteSteps() + 1);
-                                LWhoStep.Text = "Черных";
-                            }
-                        }
-                    }
-                    PaintChoosePanel();
-                    int result = game.CheckWinner(i, j);
-                    if (result == 0)
-                    {
-                        MessageBox.Show("Ничья!");
-                        game.SetGameIsOver(true);
-                    }
-                    else if (result == 10)
-                    {
-                        PaintWinnerPanels(game.GetSuccessSteps());
-                        if (game.GetCurrentPlayer() == 'B') //так как уже поменяли в nextturn при ходе
-                        {
-                            MessageBox.Show("Черные выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetBlackSteps() + "\nКоличество ходов проигравшего: " + game.GetWhiteSteps());
+                            MessageBox.Show("Ничья!");
                             game.SetGameIsOver(true);
+                            return;
                         }
-                        else
+                        else if (result == 10)
                         {
-                            MessageBox.Show("Белые выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps());
-                            game.SetGameIsOver(true);
+                            EndGame(game.GetCurrentPlayer());
+                            return;
                         }
                     }
-                    game.ChangeCurrentPlayer();
+                }
+                else
+                {
+
+                    profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нудно решить проеелму
                 }
             }
-            else
+            catch (Exception ee)
             {
-
-                profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нудно решить проеелму
+                MessageBox.Show(ee.Message);
             }
         }
 
         private void PaintWinnerPanels(List<int[]> array) //закраска выигрышнх клеток
         {
-            for (int i = 0; i < array.Count; i++)
+            try
             {
-                int row = array[i][0]; // Первый элемент массива - это строка
-                int col = array[i][1]; // Второй элемент массива - это столбец
-                Panel cell = LayGameFieldPC.GetControlFromPosition(col, row) as Panel;
-                if (cell != null)
+                for (int i = 0; i < array.Count; i++)
                 {
-                    cell.BackColor = Color.Gold;
+                    int row = array[i][0]; // Первый элемент массива - это строка
+                    int col = array[i][1]; // Второй элемент массива - это столбец
+                    Panel cell = LayGameFieldPC.GetControlFromPosition(col, row) as Panel;
+                    if (cell != null)
+                    {
+                        cell.BackColor = Color.Gold;
+                    }
                 }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
             }
         }
 
         private void PaintChoosePanel()//изменение панели, на которую был сделан ход
         {
-            int i=7, j=7;
-            if (game.GetSequenceOfMoves().Count == 1) //первый ход всегда в центр
+            try
             {
-                var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
-                i = lastMove.Item1; // Последний x
-                j = lastMove.Item2; // Последний y
-                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
-                cell.BackColor = Color.Peru;
-            }
-            else if (game.GetSequenceOfMoves().Count > 1)
-            {
-                var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
-                var previousLastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 2];
-                i = lastMove.Item1; // Последний x
-                j = lastMove.Item2; // Последний y
-                int prevI = previousLastMove.Item1;
-                int prevJ = previousLastMove.Item2;
-                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
-                cell.BackColor = Color.Peru;
-                Panel prevCell = LayGameFieldPC.GetControlFromPosition(prevJ, prevI) as Panel;
-                if (prevI==7 && prevJ == 7)
-                    prevCell.BackColor= Color.Gray;
+                int i = 7, j = 7;
+                if (gameWithBot)
+                {
+                    if (botPlayer.GetSequenceOfMoves().Count == 1) //первый ход всегда в центр
+                    {
+                        var lastMove = botPlayer.GetSequenceOfMoves()[botPlayer.GetSequenceOfMoves().Count - 1];
+                        i = lastMove.Item1; // Последний x
+                        j = lastMove.Item2; // Последний y
+                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        cell.BackColor = Color.Peru;
+                    }
+                    else if (botPlayer.GetSequenceOfMoves().Count > 1)
+                    {
+                        var lastMove = botPlayer.GetSequenceOfMoves()[botPlayer.GetSequenceOfMoves().Count - 1];
+                        var previousLastMove = botPlayer.GetSequenceOfMoves()[botPlayer.GetSequenceOfMoves().Count - 2];
+                        i = lastMove.Item1; // Последний x
+                        j = lastMove.Item2; // Последний y
+                        int prevI = previousLastMove.Item1;
+                        int prevJ = previousLastMove.Item2;
+                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        cell.BackColor = Color.Peru;
+                        Panel prevCell = LayGameFieldPC.GetControlFromPosition(prevJ, prevI) as Panel;
+                        if (prevI == 7 && prevJ == 7)
+                            prevCell.BackColor = Color.Gray;
+                        else
+                            prevCell.BackColor = Color.Transparent;
+                    }
+                }
                 else
-                    prevCell.BackColor = Color.Transparent;
+                {
+                    if (game.GetSequenceOfMoves().Count == 1) //первый ход всегда в центр
+                    {
+                        var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
+                        i = lastMove.Item1; // Последний x
+                        j = lastMove.Item2; // Последний y
+                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        cell.BackColor = Color.Peru;
+                    }
+                    else if (game.GetSequenceOfMoves().Count > 1)
+                    {
+                        var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
+                        var previousLastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 2];
+                        i = lastMove.Item1; // Последний x
+                        j = lastMove.Item2; // Последний y
+                        int prevI = previousLastMove.Item1;
+                        int prevJ = previousLastMove.Item2;
+                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        cell.BackColor = Color.Peru;
+                        Panel prevCell = LayGameFieldPC.GetControlFromPosition(prevJ, prevI) as Panel;
+                        if (prevI == 7 && prevJ == 7)
+                            prevCell.BackColor = Color.Gray;
+                        else
+                            prevCell.BackColor = Color.Transparent;
+                    }
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+        }
+
+        private void Cell_Click_Bot(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!botPlayer.GetGameIsOver())
+                {
+                    Panel cell = sender as Panel;
+                    if (cell != null && cell.BackgroundImage == null)
+                    {
+                        int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100);
+                        int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
+                        cell.BackgroundImageLayout = ImageLayout.Center;
+                        botPlayer.NextTurn(i, j, botPlayer.GetCurrentPlayer());
+                        UpdateGameUI(cell, i, j);
+                        int result = botPlayer.CheckWinner(i, j);
+                        if (result == 0)
+                        {
+                            MessageBox.Show("Ничья!");
+                            botPlayer.SetGameIsOver(true);
+                            return;
+                        }
+                        else if (result == 10)
+                        {
+                            EndGame(botPlayer.GetCurrentPlayer());
+                            return;
+                        }
+                        // Ход бота
+                        if (!botPlayer.GetGameIsOver())
+                        {
+                            List<(int, int)> botMove = botPlayer.DoStep();
+                            int botI = botMove[0].Item1;
+                            int botJ = botMove[0].Item2;
+                            Panel botCell = LayGameFieldPC.GetControlFromPosition(botJ, botI) as Panel;
+                            if (botCell != null && botCell.BackgroundImage == null)
+                            {
+                                botCell.BackgroundImageLayout = ImageLayout.Center;
+                                botPlayer.NextTurn(botI, botJ, botPlayer.GetBotPlayerSide());
+                                UpdateGameUI(botCell, botI, botJ);
+                                result = botPlayer.CheckWinner(botI, botJ);
+                                if (result == 0)
+                                {
+                                    MessageBox.Show("Ничья!");
+                                    botPlayer.SetGameIsOver(true);
+                                    return;
+                                }
+                                else if (result == 10)
+                                {
+                                    EndGame(botPlayer.GetBotPlayerSide());
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нужно решить проблему
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+        }
+
+        private void UpdateGameUI(Panel cell, int i, int j)
+        {
+            if (gameWithBot)
+            {
+                if (botPlayer.GetSteps() == 0)
+                {
+                    if (cell.BackColor == Color.Gray)
+                    {
+                        this.WindowState = FormWindowState.Maximized;
+                        cell.BackgroundImage = black;
+                        botPlayer.SetSteps(botPlayer.GetSteps() + 1);
+                        botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
+                        LWhoStep.Text = "Белых";
+                    }
+                }
+                else
+                {
+                    if (cell.BackColor == Color.Transparent)
+                    {
+                        if (botPlayer.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
+                        {
+                            cell.BackgroundImage = black;
+                            botPlayer.SetSteps(botPlayer.GetSteps() + 1);
+                            botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
+                            LWhoStep.Text = "Белых";
+                        }
+                        else // устанавливаем белый цвет фишки
+                        {
+                            cell.BackgroundImage = white;
+                            botPlayer.SetSteps(botPlayer.GetSteps() + 1);
+                            botPlayer.SetWhiteSteps(botPlayer.GetWhiteSteps() + 1);
+                            LWhoStep.Text = "Черных";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (game.GetSteps() == 0)
+                {
+                    if (cell.BackColor == Color.Gray)
+                    {
+                        this.WindowState = FormWindowState.Maximized;
+                        cell.BackgroundImage = black;
+                        game.SetSteps(game.GetSteps() + 1);
+                        game.SetBlackSteps(game.GetBlackSteps() + 1);
+                        LWhoStep.Text = "Белых";
+                    }
+                }
+                else
+                {
+                    if (cell.BackColor == Color.Transparent)
+                    {
+                        if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
+                        {
+                            cell.BackgroundImage = black;
+                            game.SetSteps(game.GetSteps() + 1);
+                            game.SetBlackSteps(game.GetBlackSteps() + 1);
+                            LWhoStep.Text = "Белых";
+                        }
+                        else // устанавливаем белый цвет фишки
+                        {
+                            cell.BackgroundImage = white;
+                            game.SetSteps(game.GetSteps() + 1);
+                            game.SetWhiteSteps(game.GetWhiteSteps() + 1);
+                            LWhoStep.Text = "Черных";
+                        }
+                    }
+                }
+                game.ChangeCurrentPlayer();
+            }
+            PaintChoosePanel();
+        }
+
+        private void EndGame(char player)
+        {
+            
+            if (gameWithBot)
+            {
+                botPlayer.SetGameIsOver(true);
+                PaintWinnerPanels(botPlayer.GetSuccessSteps());
+                if (botPlayer.GetBotPlayerSide() == player) //так как уже поменяли в nextturn при ходе
+                {
+                    MessageBox.Show("Вы проиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetBlackSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetWhiteSteps());
+                }
+                else
+                {
+                    MessageBox.Show("Вы выиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetBlackSteps());
+                }
+            }
+            else
+            {
+                game.SetGameIsOver(true);
+                PaintWinnerPanels(game.GetSuccessSteps());
+                if (game.GetCurrentPlayer() == 'W')//так как уже поменяли в nextturn при ходе
+                {
+                    MessageBox.Show("Черные выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetBlackSteps() + "\nКоличество ходов проигравшего: " + game.GetWhiteSteps());
+                }
+                else
+                {
+                    MessageBox.Show("Белые выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps());
+                }
             }
         }
 
@@ -168,9 +370,21 @@ namespace Gomoku
                 for (int j = 0; j < LayGameFieldPC.ColumnCount; j++)
                 {
                     Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                    if (gameWithBot)
+                        cell.Click += Cell_Click_Bot; //игру с ботом
+                    else
+                        cell.Click += Cell_Click; // добавляем обработчик события клика на ячейку
                     if (i == 7 && j == 7)
                     {
                         cell.BackColor = Color.Gray;
+                        if (gameWithBot && botPlayer.GetCurrentPlayer() == 'W')
+                        {
+                            cell.BackgroundImageLayout = ImageLayout.Center;
+                            botPlayer.SetBoardValue(i, j, 'B');
+                            cell.BackgroundImage = black;
+                            botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
+                            botPlayer.SetSteps(botPlayer.GetSteps() + 1);
+                        }
                     }
                     else
                     {
@@ -179,7 +393,6 @@ namespace Gomoku
                     cell.Dock = DockStyle.Fill;
                     cell.Name = "Panel" + num.ToString();//для номера панели
                     cell.Tag = i * 100 + j;
-                    cell.Click += Cell_Click; // добавляем обработчик события клика на ячейку
                     num++;
                 }
             }
@@ -188,9 +401,6 @@ namespace Gomoku
         private void GameWithPC_Load(object sender, EventArgs e)
         {
             LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
-
-            game = new Game();
-
             LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
         }
 
@@ -228,27 +438,64 @@ namespace Gomoku
 
         private void BReturnStep_Click(object sender, EventArgs e)//возвращение хода
         {
-            int i = 0, j = 0;
-            game.CancelTurn(ref i, ref j);
-            if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
+            try
             {
-                Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
-                if (cell != null)
-                    cell.BackgroundImage = null; //удаляем имейдж
-                if (i == 7 && j == 7)
-                    cell.BackColor = Color.Gray;
-                else
-                    cell.BackColor = Color.Transparent;
-                PaintChoosePanel();
-                if (game.GetCurrentPlayer() == 'W')
+                int i = 0, j = 0;
+                if (gameWithBot)
                 {
-                    LWhoStep.Text = "Белых";
-
+                    int repeat = 2;
+                    while (repeat != 0)
+                    {
+                        botPlayer.CancelTurn(ref i, ref j);
+                        if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
+                        {
+                            Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                            if (cell != null)
+                                cell.BackgroundImage = null; //удаляем имейдж
+                            if (i == 7 && j == 7)
+                                cell.BackColor = Color.Gray;
+                            else
+                                cell.BackColor = Color.Transparent;
+                            PaintChoosePanel();
+                            if (botPlayer.GetCurrentPlayer() == 'W')
+                            {
+                                LWhoStep.Text = "Белых";
+                            }
+                            else
+                            {
+                                LWhoStep.Text = "Черных";
+                            }
+                        }
+                        repeat--;
+                    }
                 }
                 else
                 {
-                    LWhoStep.Text = "Черных";
+                    game.CancelTurn(ref i, ref j);
+                    if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
+                    {
+                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        if (cell != null)
+                            cell.BackgroundImage = null; //удаляем имейдж
+                        if (i == 7 && j == 7)
+                            cell.BackColor = Color.Gray;
+                        else
+                            cell.BackColor = Color.Transparent;
+                        PaintChoosePanel();
+                        if (game.GetCurrentPlayer() == 'W')
+                        {
+                            LWhoStep.Text = "Белых";
+                        }
+                        else
+                        {
+                            LWhoStep.Text = "Черных";
+                        }
+                    }
                 }
+            }
+            catch(Exception ee)
+            {
+                MessageBox.Show(ee.Message);
             }
         }
 

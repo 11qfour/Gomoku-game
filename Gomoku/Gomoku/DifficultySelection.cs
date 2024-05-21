@@ -19,9 +19,10 @@ namespace Gomoku
 
         private void startGame(char level, int time, bool hasTimeLimit, char botPlayer, string botName)
         {
-            AIBotPlayer aIBot = new AIBotPlayer(level, time, hasTimeLimit, botPlayer);
             GameWithPC gamewithpc = new GameWithPC();
+            gamewithpc.setIsTimeLimit(level, time, hasTimeLimit, botPlayer);
             gamewithpc.SetOppName(botName);
+            gamewithpc.SetGameWithBot(true);
             gamewithpc.Show();
         }
 
@@ -35,11 +36,11 @@ namespace Gomoku
 
                     if (RBBlackDS.Checked)
                     {
-                        BotPlayer = 'B'; // бот играет черных - ходит первым
+                        BotPlayer ='W'; // бот играет белыми - ходит вторым
                     }
                     else if (RBWhiteDS.Checked)
                     {
-                        BotPlayer = 'W'; // бот играет белыми - ходит вторым
+                        BotPlayer = 'B'; // бот играет за черных - ходит первым
                     }
                     else
                     {
