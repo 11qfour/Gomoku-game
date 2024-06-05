@@ -21,10 +21,5 @@ namespace Gomoku
         {
             this.Close();
         }
-
-        private void Info_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

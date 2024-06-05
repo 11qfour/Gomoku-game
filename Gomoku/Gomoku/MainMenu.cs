@@ -78,5 +78,11 @@ namespace Gomoku
             Settings settings = new Settings();
             OpenNewFormInSameResolution(settings);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Experiment exp = new Experiment();
+            exp.Show();
+        }
     }
 }

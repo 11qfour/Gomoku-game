@@ -13,3 +13,4 @@ C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.Settings.resour
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.RulesForm.resources
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.DifficultySelection.resources
 C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.Info.resources
+C:\Users\user\Desktop\proj\Gomoku\Gomoku\Gomoku\obj\Debug\Gomoku.Experiment.resources

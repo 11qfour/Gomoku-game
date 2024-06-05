@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,59 +10,47 @@ using System.Windows.Forms;
 
 namespace Gomoku
 {
-    public partial class GameWithPC : Form
+    public partial class Experiment : Form
     {
         int all_sec = 0;
         Image black = Image.FromFile("blacknew.png");
         Image white = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
         Game game = new Game();
-        Profile profile;
         GameWithBot botPlayer;
-        bool gameWithBot = false;
+        bool gameWithBot = true;
         private int dataTimeLimit = int.MaxValue; //ограничение по времени
         private bool IsTimeLimit; //есть ограничение по времени или нет
-
-        public void SetGameWithBot(bool flag)
-        {
-            this.gameWithBot = flag;
-        }
-
-        public GameWithPC()
+        public Experiment()
         {
             InitializeComponent();
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            toolTip1.SetToolTip(BHelp, "Подсказка");
-            toolTip1.SetToolTip(BReturnStep, "Отменить ход");
-            toolTip1.SetToolTip(BExit, "Завершить игру и выйти");
             timer = new Timer();
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
             timer.Start();
         }
 
-        public void setIsTimeLimit(char level, int time, bool hasTimeLimit, char botPlayerSide) //установление временных ограничений
+        private void Experiment_Load(object sender, EventArgs e)
         {
-            this.IsTimeLimit = hasTimeLimit;
-            if (IsTimeLimit)
-                this.dataTimeLimit = time;
-            this.botPlayer = new GameWithBot(level, botPlayerSide);
-            if (botPlayerSide=='W') //установиваем противоположное значение стороны, за которую играет пользователь
-                botPlayer.SetCurrentPlayer('B');
-            else
-                botPlayer.SetCurrentPlayer('W');
+            LoadPanels();
+            SetGameWithBot(true);
+            botPlayer = new GameWithBot('M', 'W');
         }
 
-        private void SetTimeLimit(bool flag) //контроль за временными ограничениями
+        public void SetGameWithBot(bool flag)
         {
-            //описание таймеров
+            this.gameWithBot = flag;
         }
 
-        public void SetOppName(string s) //вывод имени противника
+        private void timer_Tick(object sender, EventArgs e)
         {
-            LOpp.Text = s;
+            int currentValue = all_sec;
+            all_sec++;
+            currentValue++;
+            int minuts = (currentValue / 60);
+            int seconds = (currentValue % 60);
+            TimeLabel.Text = seconds.ToString() + " Сек.";
         }
-
         private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля при игре 1 на 1
         {
             try
@@ -95,7 +82,7 @@ namespace Gomoku
                 else
                 {
 
-                    profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нудно решить проеелму
+                  
                 }
             }
             catch (Exception ee)
@@ -112,7 +99,7 @@ namespace Gomoku
                 {
                     int row = array[i][0]; // Первый элемент массива - это строка
                     int col = array[i][1]; // Второй элемент массива - это столбец
-                    Panel cell = LayGameFieldPC.GetControlFromPosition(col, row) as Panel;
+                    Panel cell = tableLayoutPanel1.GetControlFromPosition(col, row) as Panel;
                     if (cell != null)
                     {
                         cell.BackColor = Color.Gold;
@@ -137,7 +124,7 @@ namespace Gomoku
                         var lastMove = botPlayer.GetSequenceOfMoves()[botPlayer.GetSequenceOfMoves().Count - 1];
                         i = lastMove.Item1; // Последний x
                         j = lastMove.Item2; // Последний y
-                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        Panel cell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
                         cell.BackColor = Color.Peru;
                     }
                     else if (botPlayer.GetSequenceOfMoves().Count > 1)
@@ -148,9 +135,9 @@ namespace Gomoku
                         j = lastMove.Item2; // Последний y
                         int prevI = previousLastMove.Item1;
                         int prevJ = previousLastMove.Item2;
-                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        Panel cell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
                         cell.BackColor = Color.Peru;
-                        Panel prevCell = LayGameFieldPC.GetControlFromPosition(prevJ, prevI) as Panel;
+                        Panel prevCell = tableLayoutPanel1.GetControlFromPosition(prevJ, prevI) as Panel;
                         if (prevI == 7 && prevJ == 7)
                             prevCell.BackColor = Color.Gray;
                         else
@@ -164,7 +151,7 @@ namespace Gomoku
                         var lastMove = game.GetSequenceOfMoves()[game.GetSequenceOfMoves().Count - 1];
                         i = lastMove.Item1; // Последний x
                         j = lastMove.Item2; // Последний y
-                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        Panel cell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
                         cell.BackColor = Color.Peru;
                     }
                     else if (game.GetSequenceOfMoves().Count > 1)
@@ -175,9 +162,9 @@ namespace Gomoku
                         j = lastMove.Item2; // Последний y
                         int prevI = previousLastMove.Item1;
                         int prevJ = previousLastMove.Item2;
-                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                        Panel cell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
                         cell.BackColor = Color.Peru;
-                        Panel prevCell = LayGameFieldPC.GetControlFromPosition(prevJ, prevI) as Panel;
+                        Panel prevCell = tableLayoutPanel1.GetControlFromPosition(prevJ, prevI) as Panel;
                         if (prevI == 7 && prevJ == 7)
                             prevCell.BackColor = Color.Gray;
                         else
@@ -190,7 +177,6 @@ namespace Gomoku
                 MessageBox.Show(ee.Message);
             }
         }
-
         private void Cell_Click_Bot(object sender, EventArgs e)
         {
             try
@@ -203,7 +189,7 @@ namespace Gomoku
                         int i = Math.Abs(Convert.ToInt32(cell.Tag) / 100);
                         int j = Math.Abs(Convert.ToInt32(cell.Tag) % 100);
                         cell.BackgroundImageLayout = ImageLayout.Center;
-                        botPlayer.NextTurn(i, j, botPlayer.GetCurrentPlayer());
+                        botPlayer.NextTurn(i, j, 'B');
                         UpdateGameUI(cell, i, j);
                         int result = botPlayer.CheckWinner(i, j);
                         if (result == 0)
@@ -220,10 +206,17 @@ namespace Gomoku
                         // Ход бота
                         if (!botPlayer.GetGameIsOver())
                         {
-                            List<(int, int)> botMove = botPlayer.DoStep(); //бот делает ход
-                            int botI = botMove[0].Item1;
-                            int botJ = botMove[0].Item2;
-                            Panel botCell = LayGameFieldPC.GetControlFromPosition(botJ, botI) as Panel;
+                            int botI;
+                            int botJ;
+                            Panel botCell;
+                            do
+                            {
+                                List<(int, int)> botMove = botPlayer.DoStep(); //бот делает ход
+                                botI = botMove[0].Item1;
+                                botJ = botMove[0].Item2;
+                                botCell = tableLayoutPanel1.GetControlFromPosition(botJ, botI) as Panel;
+                            } while (botCell.BackgroundImage != null);
+                            
                             if (botCell != null && botCell.BackgroundImage == null)
                             {
                                 botCell.BackgroundImageLayout = ImageLayout.Center;
@@ -247,7 +240,7 @@ namespace Gomoku
                 }
                 else
                 {
-                    profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нужно решить проблему
+                    
                 }
             }
             catch (Exception ee)
@@ -260,79 +253,53 @@ namespace Gomoku
         {
             if (gameWithBot)
             {
-                if (botPlayer.GetSteps() == 0)
+                if (cell.BackgroundImage == null)
                 {
-                    if (cell.BackColor == Color.Gray)
+                    if (botPlayer.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                     {
-                        this.WindowState = FormWindowState.Maximized;
                         cell.BackgroundImage = black;
                         botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                         botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
-                        LWhoStep.Text = "Белых";
+                        WhoStep.Text = "Белых";
                     }
-                }
-                else
-                {
-                    if (cell.BackColor == Color.Transparent)
+                    else // устанавливаем белый цвет фишки
                     {
-                        if (botPlayer.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
-                        {
-                            cell.BackgroundImage = black;
-                            botPlayer.SetSteps(botPlayer.GetSteps() + 1);
-                            botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
-                            LWhoStep.Text = "Белых";
-                        }
-                        else // устанавливаем белый цвет фишки
-                        {
-                            cell.BackgroundImage = white;
-                            botPlayer.SetSteps(botPlayer.GetSteps() + 1);
-                            botPlayer.SetWhiteSteps(botPlayer.GetWhiteSteps() + 1);
-                            LWhoStep.Text = "Черных";
-                        }
+                        cell.BackgroundImage = white;
+                        botPlayer.SetSteps(botPlayer.GetSteps() + 1);
+                        botPlayer.SetWhiteSteps(botPlayer.GetWhiteSteps() + 1);
+                        WhoStep.Text = "Черных";
                     }
                 }
             }
             else
             {
-                if (game.GetSteps() == 0)
+
+                if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                 {
-                    if (cell.BackColor == Color.Gray)
-                    {
-                        this.WindowState = FormWindowState.Maximized;
-                        cell.BackgroundImage = black;
-                        game.SetSteps(game.GetSteps() + 1);
-                        game.SetBlackSteps(game.GetBlackSteps() + 1);
-                        LWhoStep.Text = "Белых";
-                    }
+                    cell.BackgroundImage = black;
+                    game.SetSteps(game.GetSteps() + 1);
+                    game.SetBlackSteps(game.GetBlackSteps() + 1);
+                    WhoStep.Text = "Белых";
                 }
-                else
+                else // устанавливаем белый цвет фишки
                 {
-                    if (cell.BackColor == Color.Transparent)
-                    {
-                        if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
-                        {
-                            cell.BackgroundImage = black;
-                            game.SetSteps(game.GetSteps() + 1);
-                            game.SetBlackSteps(game.GetBlackSteps() + 1);
-                            LWhoStep.Text = "Белых";
-                        }
-                        else // устанавливаем белый цвет фишки
-                        {
-                            cell.BackgroundImage = white;
-                            game.SetSteps(game.GetSteps() + 1);
-                            game.SetWhiteSteps(game.GetWhiteSteps() + 1);
-                            LWhoStep.Text = "Черных";
-                        }
-                    }
+                    cell.BackgroundImage = white;
+                    game.SetSteps(game.GetSteps() + 1);
+                    game.SetWhiteSteps(game.GetWhiteSteps() + 1);
+                    WhoStep.Text = "Черных";
                 }
-                game.ChangeCurrentPlayer();
             }
+            game.ChangeCurrentPlayer();
             PaintChoosePanel();
         }
+            
+
+
+        
 
         private void EndGame(char player)
         {
-            
+
             if (gameWithBot)
             {
                 botPlayer.SetGameIsOver(true);
@@ -361,14 +328,19 @@ namespace Gomoku
             }
         }
 
+        private void Experiment_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            timer.Stop();//подумать над сохранением в формклоусед
+        }
+
         private void LoadPanels() //закраска панелей
         {
             int num = 0;
-            for (int i = 0; i < LayGameFieldPC.RowCount; i++)
+            for (int i = 0; i < tableLayoutPanel1.RowCount; i++)
             {
-                for (int j = 0; j < LayGameFieldPC.ColumnCount; j++)
+                for (int j = 0; j < tableLayoutPanel1.ColumnCount; j++)
                 {
-                    Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
+                    Panel cell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
                     if (gameWithBot)
                         cell.Click += Cell_Click_Bot; //игру с ботом
                     else
@@ -397,140 +369,9 @@ namespace Gomoku
             }
         }
 
-        private void GameWithPC_Load(object sender, EventArgs e)
-        {
-            LayGameFieldPC.CellPaint += LayGameFieldPC_CellPaint;
-            LoadPanels();//нужно более быстрая перерисовка панелей при изменении размеров окна
-        }
-
-        private void LayGameFieldPC_CellPaint(object sender, TableLayoutCellPaintEventArgs e)//перерисовывание ячейки
+        private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, e.CellBounds, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid);
-        }
-
-        private void GameWithPC_FormClosing(object sender, FormClosingEventArgs e)//действия перед закрытием формы
-        {
-            /*В обработчике этого события можно выполнить действия для подготовки к закрытию формы, например, сохранить данные, проверить наличие несохраненных изменений и запросить подтверждение пользователя.
-Если отменить закрытие формы в обработчике FormClosing, вызвав e.Cancel = true;, форма останется открытой и закрытие будет отменено. */
-        }
-
-        private void GameWithPC_FormClosed(object sender, FormClosedEventArgs e)//действия уже после закрытия формы
-        {
-            timer.Stop();//подумать над сохранением в формклоусед
-            /*Используйте это событие, если вам нужно выполнить какие-то действия после того, например, очистить временные данные или выполнить завершающие действия. */
-        }
-
-        private void BExit_Click(object sender, EventArgs e)
-        {
-            DialogResult resultdialog = MessageBox.Show("Вы уверены что хотите закончить игровую сессию?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (resultdialog == DialogResult.Yes)
-            {
-                timer.Stop();//подумать над сохранением в формклоусед
-                this.Close();
-            }
-        }
-
-        private void BHelp_Click(object sender, EventArgs e)//подсказка
-        {
-
-        }
-
-        private void BReturnStep_Click(object sender, EventArgs e)//возвращение хода
-        {
-            try
-            {
-                int i = 0, j = 0;
-                if (gameWithBot)
-                {
-                    int repeat = 2;
-                    while (repeat != 0) //2 отмены хода: посл. ход бота и игрока
-                    {
-                        botPlayer.CancelTurn(ref i, ref j);
-                        if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
-                        {
-                            Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
-                            if (cell != null)
-                                cell.BackgroundImage = null; //удаляем имейдж
-                            if (i == 7 && j == 7)
-                                cell.BackColor = Color.Gray;
-                            else
-                                cell.BackColor = Color.Transparent;
-                            PaintChoosePanel();
-                            if (botPlayer.GetCurrentPlayer() == 'W')
-                            {
-                                LWhoStep.Text = "Белых";
-                            }
-                            else
-                            {
-                                LWhoStep.Text = "Черных";
-                            }
-                        }
-                        repeat--;
-                    }
-                }
-                else
-                {
-                    game.CancelTurn(ref i, ref j);
-                    if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
-                    {
-                        Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
-                        if (cell != null)
-                            cell.BackgroundImage = null; //удаляем имейдж
-                        if (i == 7 && j == 7)
-                            cell.BackColor = Color.Gray;
-                        else
-                            cell.BackColor = Color.Transparent;
-                        PaintChoosePanel();
-                        if (game.GetCurrentPlayer() == 'W')
-                        {
-                            LWhoStep.Text = "Белых";
-                        }
-                        else
-                        {
-                            LWhoStep.Text = "Черных";
-                        }
-                    }
-                }
-            }
-            catch(Exception ee)
-            {
-                MessageBox.Show(ee.Message);
-            }
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            int currentValue = all_sec;
-            all_sec++;
-            currentValue++;
-            int minuts = (currentValue / 60);
-            int seconds = (currentValue % 60);
-            if (minuts == 0)
-            {
-                LTimeMin.Visible = false;
-            }
-            else
-            {
-                LTimeMin.Visible = true;
-            }
-            LTimeMin.Text = minuts.ToString() + " Мин.";
-            LTimeSec.Text = seconds.ToString() + " Сек.";
-        }
-
-        private void GameWithPC_Resize(object sender, EventArgs e)
-        {
-            double aspectRatio = 816.0 / 489.0; // Соотношение сторон исходного размера формы
-            int newWidth = this.Width;
-            int newHeight = Convert.ToInt32(newWidth / aspectRatio);
-
-            // Проверка, чтобы TableLayoutPanel не выходил за пределы размеров формы
-            if (newHeight > this.Height)
-            {
-                newHeight = this.Height;
-                newWidth = Convert.ToInt32(this.Height * aspectRatio);
-            }
-
-            LayGameFieldPC.Size = new Size(newWidth, newHeight);
         }
     }
 }

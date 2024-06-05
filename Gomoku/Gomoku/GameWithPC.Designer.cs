@@ -2892,10 +2892,10 @@ namespace Gomoku
             // 
             this.LOpp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LOpp.AutoSize = true;
-            this.LOpp.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LOpp.Location = new System.Drawing.Point(917, 54);
+            this.LOpp.Font = new System.Drawing.Font("Segoe UI Symbol", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LOpp.Location = new System.Drawing.Point(942, 55);
             this.LOpp.Name = "LOpp";
-            this.LOpp.Size = new System.Drawing.Size(148, 21);
+            this.LOpp.Size = new System.Drawing.Size(137, 20);
             this.LOpp.TabIndex = 9;
             this.LOpp.Text = "Имя противника";
             // 
@@ -2929,6 +2929,7 @@ namespace Gomoku
             this.Controls.Add(this.LNowStepsGame);
             this.Controls.Add(this.LayGameFieldPC);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameWithPC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GameWithPC";

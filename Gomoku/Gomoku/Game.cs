@@ -8,11 +8,10 @@ namespace Gomoku
 {
     class Game 
     {
-        char[,] board = new char[15, 15]; //элементы: W-белые, B - черные, E - пустая
+        const int size = 15;
+        //const int size = 6;
+        char[,] board = new char[size,size]; //элементы: W-белые, B - черные, E - пустая
         char[] players = { 'B', 'W' };
-
-        bool gameWithFriend;
-
         List<(int, int)> sequenceOfMoves = new List<(int, int)>();
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;
@@ -37,12 +36,6 @@ namespace Gomoku
 
         public void NextTurn(int i, int j, char side)
         {
-            /*Random rand = new Random();
-            int index = *//*Math.Floor(*//*rand.Next(available.Count);
-            int [] spot = available.ElementAt(index);
-            available.RemoveAt(index);
-            int i = spot[0];
-            int j = spot[1];*/
             sequenceOfMoves.Add((i, j)); //добавление последовательности шагов
             board[i, j] = side; //присвоении ячейки игроку
         }
@@ -88,7 +81,7 @@ namespace Gomoku
             int horizontalCount = 1; //по умолчанию 1, т.к. не считаем саму ячейку, где уже есть player
             int verticalCount = 1;
             //проверка горизонтали
-            while (j < 14 && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5/*если длинный ряд, прерывается*/)
+            while (j < (size - 1) && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5/*если длинный ряд, прерывается*/)
             {
                 j++; //вправо
                 if (board[i, j] == player)
@@ -118,7 +111,7 @@ namespace Gomoku
             //проверка вертикали
             j = finish;
             i = start;
-            while (i < 14 && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            while (i < (size - 1) && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
             {
                 i++; //вверх
                 if (board[i, j] == player)
@@ -149,7 +142,7 @@ namespace Gomoku
             int diagonalCount = 1;
             j = finish;
             i = start;
-            while (j < 14 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            while (j < (size - 1) && i < (size - 1) && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
             {
                 j++;
                 i++;
@@ -165,7 +158,7 @@ namespace Gomoku
             SuccessSteps = tempArraySuccess;
             j = finish;
             i = start;
-            while (j < 14 && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            while (j < (size-1) && i > 0 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
             {
                 j++;
                 i--;
@@ -181,7 +174,7 @@ namespace Gomoku
             SuccessSteps = tempArraySuccess;
             j = finish;
             i = start;
-            while (j > 0 && i < 14 && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
+            while (j > 0 && i < (size-1) && (board[i, j] == 'E' || board[i, j] == player) && diagonalCount < 5)
             {
                 j--;
                 i++;
@@ -210,12 +203,26 @@ namespace Gomoku
                 }
             }
             SuccessSteps.Clear();
-            if (available.Count == 0)
+            if (IsEmptySquares()) //(available.Count == 0)
                 return 0; //ничья
             return 1;  //продолжить игру 
         }
 
-
+        public bool IsEmptySquares()
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i, j] == 'E')
+                    {
+                        return false;
+                    }
+                }
+            }
+            SetGameIsOver(true);
+            return true;
+        }
 
         ///////
 
@@ -226,8 +233,8 @@ namespace Gomoku
             this.steps = 0;
             currentPlayer = 'B';
             GameIsOver = false;
-            for (int j = 0; j < 14; j++)
-                for (int i = 0; i < 14; i++)
+            for (int j = 0; j < board.GetLength(0); j++)
+                for (int i = 0; i < board.GetLength(1); i++)
                 {
                     board[i, j] = 'E';
                     available.Add(new int[] { i, j }); //??
@@ -273,7 +280,7 @@ namespace Gomoku
             return currentPlayer;
         }
 
-        public bool GetGameIsOver()
+        public bool GetGameIsOver()//проверка на завершённость игры
         {
             return GameIsOver;
         }
@@ -297,6 +304,11 @@ namespace Gomoku
         {
             return SuccessSteps;
         }
+
+        public char[,] GetBoard()
+        {
+            return board;
+        } 
         /////////////////////////////////
 
         private int MiniMaxAlgorithm(int depth, bool isMaximizingPlayer, int MaxDepth)

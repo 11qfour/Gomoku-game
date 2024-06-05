@@ -39,6 +39,7 @@ namespace Gomoku
             this.MenuMainButton = new System.Windows.Forms.Button();
             this.InfoButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LNameOfGame
@@ -136,12 +137,23 @@ namespace Gomoku
             this.toolTip1.InitialDelay = 500;
             this.toolTip1.ReshowDelay = 0;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(827, 754);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(234, 66);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(1904, 1061);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.InfoButton);
             this.Controls.Add(this.MenuMainButton);
             this.Controls.Add(this.ExitMainButton);
@@ -171,6 +183,7 @@ namespace Gomoku
         private System.Windows.Forms.Button InfoButton;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

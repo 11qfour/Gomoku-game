@@ -50,7 +50,7 @@ namespace Gomoku
             // 
             this.L1DS.AutoSize = true;
             this.L1DS.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L1DS.Location = new System.Drawing.Point(41, 9);
+            this.L1DS.Location = new System.Drawing.Point(41, 18);
             this.L1DS.Name = "L1DS";
             this.L1DS.Size = new System.Drawing.Size(533, 30);
             this.L1DS.TabIndex = 0;
@@ -61,7 +61,7 @@ namespace Gomoku
             this.BStartDS.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BStartDS.BackColor = System.Drawing.Color.Peru;
             this.BStartDS.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BStartDS.Location = new System.Drawing.Point(211, 357);
+            this.BStartDS.Location = new System.Drawing.Point(238, 362);
             this.BStartDS.Name = "BStartDS";
             this.BStartDS.Size = new System.Drawing.Size(157, 33);
             this.BStartDS.TabIndex = 1;
@@ -111,7 +111,7 @@ namespace Gomoku
             // 
             this.TBTimerDS.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.TBTimerDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBTimerDS.Location = new System.Drawing.Point(316, 308);
+            this.TBTimerDS.Location = new System.Drawing.Point(337, 311);
             this.TBTimerDS.Name = "TBTimerDS";
             this.TBTimerDS.Size = new System.Drawing.Size(100, 29);
             this.TBTimerDS.TabIndex = 6;
@@ -123,7 +123,7 @@ namespace Gomoku
             this.L3DS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.L3DS.AutoSize = true;
             this.L3DS.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L3DS.Location = new System.Drawing.Point(162, 308);
+            this.L3DS.Location = new System.Drawing.Point(198, 310);
             this.L3DS.Name = "L3DS";
             this.L3DS.Size = new System.Drawing.Size(95, 30);
             this.L3DS.TabIndex = 7;
@@ -139,9 +139,9 @@ namespace Gomoku
             "Простой уровень сложности",
             "Средний уроень сложности",
             "Высокий уровень сложности"});
-            this.ChLBDS.Location = new System.Drawing.Point(111, 55);
+            this.ChLBDS.Location = new System.Drawing.Point(121, 65);
             this.ChLBDS.Name = "ChLBDS";
-            this.ChLBDS.Size = new System.Drawing.Size(403, 94);
+            this.ChLBDS.Size = new System.Drawing.Size(366, 94);
             this.ChLBDS.TabIndex = 8;
             this.ChLBDS.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
@@ -161,7 +161,7 @@ namespace Gomoku
             this.RBBlackDS.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.RBBlackDS.AutoSize = true;
             this.RBBlackDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBBlackDS.Location = new System.Drawing.Point(6, 57);
+            this.RBBlackDS.Location = new System.Drawing.Point(11, 61);
             this.RBBlackDS.Name = "RBBlackDS";
             this.RBBlackDS.Size = new System.Drawing.Size(93, 25);
             this.RBBlackDS.TabIndex = 10;
@@ -174,7 +174,7 @@ namespace Gomoku
             this.RBWhiteDS.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.RBWhiteDS.AutoSize = true;
             this.RBWhiteDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBWhiteDS.Location = new System.Drawing.Point(6, 19);
+            this.RBWhiteDS.Location = new System.Drawing.Point(11, 14);
             this.RBWhiteDS.Name = "RBWhiteDS";
             this.RBWhiteDS.Size = new System.Drawing.Size(83, 25);
             this.RBWhiteDS.TabIndex = 11;

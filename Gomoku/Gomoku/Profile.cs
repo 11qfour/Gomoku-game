@@ -12,7 +12,7 @@ namespace Gomoku
         private string Name;
 
         private int Rapid;
-        private int Count_Matches;
+        private int CountMatches;
         private int WinEasyMode;
         private int WinMediumMode;
         private int WinHardMode;
@@ -25,7 +25,7 @@ namespace Gomoku
         public Profile(string Name) //создать нового игрока
         {
             this.Name = Name;
-            this.Count_Matches = 0;
+            this.CountMatches = 0;
             this.Rapid = 600;
             this.WinEasyMode = 0;
             this.WinMediumMode = 0;
@@ -41,7 +41,7 @@ namespace Gomoku
             Random Rand = new Random();
             int r = Rand.Next(100, 1000);
             Name = "Player" + r.ToString();
-            this.Count_Matches = 0;
+            this.CountMatches = 0;
             this.Rapid = 600;
             this.WinEasyMode = 0;
             this.WinMediumMode = 0;
@@ -98,7 +98,7 @@ namespace Gomoku
                     this.LoseHardMode++;
                 }
             }
-            this.Count_Matches++;
+            this.CountMatches++;
             return PresRapid;
         }
 
