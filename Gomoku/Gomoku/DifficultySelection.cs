@@ -34,17 +34,17 @@ namespace Gomoku
                 {
                     char BotPlayer = 'E'; // по умолчанию неприсвоено
 
-                    if (RBBlackDS.Checked)
+                    if (RBBlackDS.Checked) //пользователь играет черными
                     {
                         BotPlayer ='W'; // бот играет белыми - ходит вторым
                     }
-                    else if (RBWhiteDS.Checked)
+                    else if (RBWhiteDS.Checked)//пользователь играет белыми
                     {
                         BotPlayer = 'B'; // бот играет за черных - ходит первым
                     }
                     else
                     {
-                        MessageBox.Show("Не выбрана сторона!");
+                        MessageBox.Show("Не выбрана сторона пользователя!");
                         return;
                     }
 
@@ -52,7 +52,7 @@ namespace Gomoku
                     int time = 0;
                     bool hasTimeLimit = false;
 
-                    if (RBTimerDS.Checked)
+                    if (RBTimerDS.Checked) //ограничение на время
                     {
                         time = int.Parse(TBTimerDS.Text);
                         hasTimeLimit = true;
@@ -68,15 +68,10 @@ namespace Gomoku
                         level = 'M'; // medium
                         startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
                     }
-                    else if (ChLBDS.GetItemChecked(2)) // высокий уровень
-                    {
-                        level = 'H'; // hard
-                        startGame(level, time, hasTimeLimit, BotPlayer, "Бот Профи");
-                    }
                 }
                 else
                 {
-                    MessageBox.Show("Не выбрать параметр сложности игры!");
+                    MessageBox.Show("Не выбран параметр сложности игры!");
                 }
             }
             catch (Exception ee)

@@ -13,7 +13,12 @@ namespace Gomoku
         private int stepJ;
         private char botPlayerSide;
         Players[] players = new Players[2];
+        string[] patterns = new string[24]; //всевозможные ситуации на игровом поле
 
+        public char GetLevel()
+        {
+            return GameLevel;
+        }
 
         public char GetBotPlayerSide()
         {
@@ -36,6 +41,13 @@ namespace Gomoku
             }
             players[0] = new Players(Player.BotPlayer, botSide, 1);
             players[1] = new Players(Player.Human, humanSide, 2);
+        }
+
+        public bool rightCoordination(int i, int j)
+        {
+            if (i < 0 ||j <0 || i >= GetBoard().GetLength(0) || j >= GetBoard().GetLength(1))
+                return false;
+            return true;
         }
 
         public char GetGameLevel()
@@ -75,8 +87,8 @@ namespace Gomoku
             } while (!checkEmptyPanel(stepI, stepJ) && cntAvailableSteps != 0);
             while (!checkEmptyPanel(stepI, stepJ))
             {
-                stepI = rand.Next(0, 14);
-                stepJ = rand.Next(0, 14);
+                stepI = rand.Next(0, GetBoard().Length-1);
+                stepJ = rand.Next(0, GetBoard().Length-1);
             }
             List<(int, int)> BotStep = new List<(int, int)> { (stepI, stepJ) };
             return BotStep;
@@ -104,15 +116,11 @@ namespace Gomoku
             return Moore;
         }
 
-        public List<(int, int)> AlphaBetaPruning()
-        {
-            List<(int, int)> BotStep = new List<(int, int)> { (stepI, stepJ) };
-            return BotStep;
 
-        }
 
         private List<(int, int)> bestMove(Players players)
         {
+            bool changing = false;
             List<(int, int)> BotStep = new List<(int, int)> { (stepI, stepJ) };
             int bestScore = int.MinValue;
             for (int i = 0; i < GetBoard().GetLength(0); i++)
@@ -121,71 +129,295 @@ namespace Gomoku
                 {
                     if (GetBoardValue(i, j) == 'E')
                     {
-                        SetBoardValue(i, j, players.PlayerMarker);
-                        int moveScore = Minimax(0, GetOpponent(players), int.MinValue, int.MaxValue);
-                        SetBoardValue(i, j, 'E');
+                        /*SetBoardValue(i, j, players.PlayerMarker);*/
+                        int moveScore = evaluation(GetOpponent(players));
+                       /* SetBoardValue(i, j, 'E');*/
                         if (moveScore > bestScore)
                         {
                             bestScore = moveScore;
+                            changing = true;
                             BotStep.Clear();
-                            int row = i;
-                            int col = j;
-                            BotStep.Add((row, col)); //добавляем координаты оптимального хода
+                            BotStep.Add((stepI, stepJ)); //добавляем координаты оптимального хода
                         }
                     }
+                }
+            }
+            if (GetBoardValue(stepI, stepJ) != 'E')
+                changing = false;
+            if (!changing) //если не нашлось подходящих паттернов
+            {
+                while (!checkEmptyPanel(stepI, stepJ))
+                {
+                    Random rand = new Random();
+                    stepI = rand.Next(0, GetBoard().Length - 1);
+                    stepJ = rand.Next(0, GetBoard().Length - 1);
+                    BotStep.Clear();
+                    BotStep.Add((stepI, stepJ));
                 }
             }
             return BotStep;
         }
 
-        private int Minimax(int depth, Players currentPlayer, int alpha, int beta)
+        private void initPattens(Players currentPlayer) //инициализируем всевозможные ситуации на игровом поле
         {
-            if (IsWinner(currentPlayer)) 
-                return 10;
-            currentPlayer=GetOpponent(currentPlayer);
-            if (IsWinner(currentPlayer)) 
-                return 10;
-            currentPlayer=GetOpponent(currentPlayer);
-            if (IsEmptySquares() || depth == 3) 
-                return 0;
+            char currValue = currentPlayer.PlayerMarker;
+            char oppValue = (currValue == 'B') ? 'W' : 'B';
 
-            int bestValue = currentPlayer.Player == Player.BotPlayer ? int.MinValue : int.MaxValue;
+            string openForth = "E"+new string (currValue,4)+"E";
+            string closeForth1 = "E" + new string(currValue, 4) + oppValue.ToString();
+            string closeForth2 = oppValue.ToString() + new string(currValue, 4) + "E";
 
-            for (int i = 0; i <GetBoard().GetLength(0); i++)
+            string openThird = "E" + new string(currValue, 3) + "E";
+            string closeThird1 = "E"+new string(currValue, 3)+ oppValue.ToString();
+            string closeThird2 = oppValue.ToString() + new string(currValue, 3) + "E";
+
+            string openSecond = "E" + new string(currValue, 2) + "E";
+            string closeSecond1 = "E" + new string(currValue, 2) + oppValue.ToString();
+            string closeSecond2 = oppValue.ToString() + new string(currValue, 2) + "E";
+
+            string openFirst = "E" + currValue.ToString() + "E";
+            string closeFirst1 = "E" + currValue.ToString() + oppValue.ToString();
+            string closeFirst2 = oppValue.ToString() + currValue.ToString() + "E";
+
+            string openOppForth = "E" + new string(oppValue, 4) + "E";
+            string closeOppForth1 = "E" + new string(oppValue, 4) + currValue.ToString();
+            string closeOppForth2 = currValue.ToString() + new string(oppValue, 4) + "E";
+
+            string openOppThird = "E" + new string(oppValue, 3) + "E";
+            string closeOppThird1 = "E" + new string(oppValue, 3) + currValue.ToString();
+            string closeOppThird2 = currValue.ToString() + new string(oppValue, 3) + "E";
+
+            string openOppSecond = "E" + new string(oppValue, 2) + "E";
+            string closeOppSecond1 = "E" + new string(oppValue, 2) + currValue.ToString();
+            string closeOppSecond2 = currValue.ToString() + new string(oppValue, 2) + "E";
+
+            string openOppFirst = "E" + oppValue.ToString() + "E";
+            string closeOppFirst1 = "E" + oppValue.ToString() + currValue.ToString();
+            string closeOppFirst2 = currValue.ToString() + oppValue.ToString() + "E";
+
+            patterns[0] = openForth;
+            patterns[1] = closeForth1;
+            patterns[2] = closeForth2;
+            patterns[3] = openThird;
+            patterns[4] = closeThird1;
+            patterns[5] = closeThird2;
+            patterns[6] = openSecond;
+            patterns[7] = closeSecond1;
+            patterns[8] = closeSecond2;
+            patterns[9] = openFirst;
+            patterns[10] = closeFirst1;
+            patterns[11] = closeFirst2;
+
+            patterns[12] = openOppForth;
+            patterns[13] = closeOppForth1;
+            patterns[14] = closeOppForth2;
+            patterns[15] = openOppThird;
+            patterns[16] = closeOppThird1;
+            patterns[17] = closeOppThird2;
+            patterns[18] = openOppSecond;
+            patterns[19] = closeOppSecond1;
+            patterns[20] = closeOppSecond2;
+            patterns[21] = openOppFirst;
+            patterns[22] = closeOppFirst1;
+            patterns[23] = closeOppFirst2;
+        }
+        private int positionValue(Players currentPlayer, int i, int j) //получаем лучшее эвристическое значение клетки
+        {
+            char player = GetBoardValue(i, j);
+            initPattens(currentPlayer);
+            if (CheckPatternHorizontal(i, j, patterns[0]) || CheckPatternVertical(i,j,patterns[0]) || CheckPatternAscendingDiagonal(i,j,patterns[0]) || CheckPatternDescendingDiagonal(i, j, patterns[0]))
+                return 100000000;
+            if (CheckPatternHorizontal(i, j, patterns[1]) || CheckPatternVertical(i, j, patterns[1]) || CheckPatternAscendingDiagonal(i, j, patterns[1]) || CheckPatternDescendingDiagonal(i, j, patterns[1]))
+                return 100000000;
+            if (CheckPatternHorizontal(i, j, patterns[2]) || CheckPatternVertical(i, j, patterns[2]) || CheckPatternAscendingDiagonal(i, j, patterns[2]) || CheckPatternDescendingDiagonal(i, j, patterns[2]))
+                return 100000000;
+            if (CheckPatternHorizontal(i, j, patterns[3]) || CheckPatternVertical(i, j, patterns[3]) || CheckPatternAscendingDiagonal(i, j, patterns[3]) || CheckPatternDescendingDiagonal(i, j, patterns[3]))
+                return 99999999;
+            if (CheckPatternHorizontal(i, j, patterns[4]) || CheckPatternVertical(i, j, patterns[4]) || CheckPatternAscendingDiagonal(i, j, patterns[4]) || CheckPatternDescendingDiagonal(i, j, patterns[4]))
+                return 4000000;
+            if (CheckPatternHorizontal(i, j, patterns[5]) || CheckPatternVertical(i, j, patterns[5]) || CheckPatternAscendingDiagonal(i, j, patterns[5]) || CheckPatternDescendingDiagonal(i, j, patterns[5]))
+                return 4000000;
+            if (CheckPatternHorizontal(i, j, patterns[6]) || CheckPatternVertical(i, j, patterns[6]) || CheckPatternAscendingDiagonal(i, j, patterns[6]) || CheckPatternDescendingDiagonal(i, j, patterns[6]))
+                return 500;
+            if (CheckPatternHorizontal(i, j, patterns[7]) || CheckPatternVertical(i, j, patterns[7]) || CheckPatternAscendingDiagonal(i, j, patterns[7]) || CheckPatternDescendingDiagonal(i, j, patterns[7]))
+                return 50;
+            if (CheckPatternHorizontal(i, j, patterns[8]) || CheckPatternVertical(i, j, patterns[8]) || CheckPatternAscendingDiagonal(i, j, patterns[8]) || CheckPatternDescendingDiagonal(i, j, patterns[8]))
+                return 50;
+            if (CheckPatternHorizontal(i, j, patterns[9]) || CheckPatternVertical(i, j, patterns[9]) || CheckPatternAscendingDiagonal(i, j, patterns[9]) || CheckPatternDescendingDiagonal(i, j, patterns[9]))
+                return 25;
+            if (CheckPatternHorizontal(i, j, patterns[10]) || CheckPatternVertical(i, j, patterns[10]) || CheckPatternAscendingDiagonal(i, j, patterns[10]) || CheckPatternDescendingDiagonal(i, j, patterns[10]))
+                return 25;
+            if (CheckPatternHorizontal(i, j, patterns[11]) || CheckPatternVertical(i, j, patterns[11]) || CheckPatternAscendingDiagonal(i, j, patterns[11]) || CheckPatternDescendingDiagonal(i, j, patterns[11]))
+                return 25;
+
+            if (CheckPatternHorizontal(i, j, patterns[12]) || CheckPatternVertical(i, j, patterns[12]) || CheckPatternAscendingDiagonal(i, j, patterns[12]) || CheckPatternDescendingDiagonal(i, j, patterns[12]))
+                return -100000000;
+            if (CheckPatternHorizontal(i, j, patterns[13]) || CheckPatternVertical(i, j, patterns[13]) || CheckPatternAscendingDiagonal(i, j, patterns[13]) || CheckPatternDescendingDiagonal(i, j, patterns[13]))
+                return -100000000;
+            if (CheckPatternHorizontal(i, j, patterns[14]) || CheckPatternVertical(i, j, patterns[14]) || CheckPatternAscendingDiagonal(i, j, patterns[14]) || CheckPatternDescendingDiagonal(i, j, patterns[14]))
+                return -100000000;
+            if (CheckPatternHorizontal(i, j, patterns[15]) || CheckPatternVertical(i, j, patterns[15]) || CheckPatternAscendingDiagonal(i, j, patterns[15]) || CheckPatternDescendingDiagonal(i, j, patterns[15]))
+                return -99999999;
+            if (CheckPatternHorizontal(i, j, patterns[16]) || CheckPatternVertical(i, j, patterns[16]) || CheckPatternAscendingDiagonal(i, j, patterns[16]) || CheckPatternDescendingDiagonal(i, j, patterns[16]))
+                return -4000000;
+            if (CheckPatternHorizontal(i, j, patterns[17]) || CheckPatternVertical(i, j, patterns[17]) || CheckPatternAscendingDiagonal(i, j, patterns[17]) || CheckPatternDescendingDiagonal(i, j, patterns[17]))
+                return -4000000;
+            if (CheckPatternHorizontal(i, j, patterns[18]) || CheckPatternVertical(i, j, patterns[18]) || CheckPatternAscendingDiagonal(i, j, patterns[18]) || CheckPatternDescendingDiagonal(i, j, patterns[18]))
+                return -500;
+            if (CheckPatternHorizontal(i, j, patterns[19]) || CheckPatternVertical(i, j, patterns[19]) || CheckPatternAscendingDiagonal(i, j, patterns[19]) || CheckPatternDescendingDiagonal(i, j, patterns[19]))
+                return -50;
+            if (CheckPatternHorizontal(i, j, patterns[20]) || CheckPatternVertical(i, j, patterns[20]) || CheckPatternAscendingDiagonal(i, j, patterns[20]) || CheckPatternDescendingDiagonal(i, j, patterns[20]))
+                return -50;
+            if (CheckPatternHorizontal(i, j, patterns[21]) || CheckPatternVertical(i, j, patterns[21]) || CheckPatternAscendingDiagonal(i, j, patterns[21]) || CheckPatternDescendingDiagonal(i, j, patterns[21]))
+                return -25;
+            if (CheckPatternHorizontal(i, j, patterns[22]) || CheckPatternVertical(i, j, patterns[22]) || CheckPatternAscendingDiagonal(i, j, patterns[22]) || CheckPatternDescendingDiagonal(i, j, patterns[22]))
+                return -25;
+            if (CheckPatternHorizontal(i, j, patterns[23]) || CheckPatternVertical(i, j, patterns[23]) || CheckPatternAscendingDiagonal(i, j, patterns[23]) || CheckPatternDescendingDiagonal(i, j, patterns[23]))
+                return -25;
+            return int.MinValue;  //шаблона не найдено
+        }
+
+        private bool CheckPatternHorizontal(int row, int col, string pattern) //проверка паттерна по горизонтали
+        {
+            bool flag = true; ;
+            for (int i = 0; i < pattern.Length; i++)
             {
-                for (int j = 0; j < GetBoard().GetLength(1); j++)
+                if (col + i >= GetBoard().GetLength(0) || GetBoardValue(row, col + i) != pattern[i])
                 {
-                    if (GetBoardValue(i, j) == 'E')
-                    {
-                        SetBoardValue(i, j, currentPlayer.PlayerMarker);
-                        int moveValue = Minimax(depth + 1, GetOpponent(currentPlayer), alpha, beta);
-                        SetBoardValue(i, j, 'E');
+                    flag=false;
+                    break;
+                }
+            }
+            if (flag)
+                return flag;
+            flag = true;
+            for (int i = 0; i < pattern.Length; i++)
+            {
+                if ((col - i) < 0 || GetBoardValue(row, col - i) != pattern[i])
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
+        }
 
-                        if (currentPlayer.Player == Player.BotPlayer)
+        private bool CheckPatternVertical(int row, int col, string pattern) //проверка паттерна по вертикали
+        {
+            bool flag = true; ;
+            for (int i = 0; i < pattern.Length; i++)
+            {
+                if (row + i >= GetBoard().GetLength(0) || GetBoardValue(row + i, col) != pattern[i])
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+                return flag;
+            flag = true;
+            for (int i = 0; i < pattern.Length; i++)
+            {
+                if ((row - i) < 0 || GetBoardValue(row-i, col) != pattern[i])
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
+        }
+
+        private bool CheckPatternAscendingDiagonal(int row, int col, string pattern) //проверка паттерна по восходящей диагонали
+        {
+            for (int i = 0; i < pattern.Length; i++)
+            {
+                if (row - i < 0 || col + i >= GetBoard().GetLength(1) || GetBoardValue(row - i, col + i) != pattern[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool CheckPatternDescendingDiagonal(int row, int col, string pattern) //проверка по главной диагонали(нисходящей)
+        {
+            for (int i = 0; i < pattern.Length; i++)
+            {
+                if (row + i >= GetBoard().GetLength(0) || col + i >= GetBoard().GetLength(1) || GetBoardValue(row + i, col + i) != pattern[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private int evaluation(Players currentPlayer)
+        {
+            int bestScore = int.MinValue;
+            char[,] tempBoard = GetBoard();
+            for (int i = 0; i < tempBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < tempBoard.GetLength(1); j++)
+                {
+                    int score = positionValue(currentPlayer,i, j);
+                    if (score > bestScore)
+                    {
+                        stepI = i;
+                        stepJ = j;
+                        bestScore = score;
+                        //break;
+                    }
+                }
+            }
+            return bestScore;
+        }
+
+        private int AplhaBetaPruning(int depth, Players currentPlayer, int alpha, int beta)
+        {
+            if (evaluation(currentPlayer) == int.MinValue)
+            {
+                if (IsEmptySquares())
+                    return 0; //ничья
+                int bestValue = currentPlayer.Player == Player.BotPlayer ? int.MinValue : int.MaxValue;
+
+                for (int i = 0; i < GetBoard().GetLength(0); i++)
+                {
+                    for (int j = 0; j < GetBoard().GetLength(1); j++)
+                    {
+                        if (GetBoardValue(i, j) == 'E')
                         {
-                            bestValue = Math.Max(bestValue, moveValue);
-                            alpha = Math.Max(alpha, bestValue);
-                            stepI = i;
-                            stepJ = j;
-                            if (beta <= alpha)
+                            SetBoardValue(i, j, currentPlayer.PlayerMarker);
+                            int moveValue = AplhaBetaPruning(depth + 1, GetOpponent(currentPlayer), alpha, beta);
+                            SetBoardValue(i, j, 'E');
+
+                            if (currentPlayer.Player == Player.BotPlayer)
                             {
-                                break;
+                                bestValue = Math.Max(bestValue, moveValue);
+                                alpha = Math.Max(alpha, bestValue);
+                                stepI = i;
+                                stepJ = j;
+                                if (beta <= alpha)
+                                {
+                                    break;
+                                }
                             }
-                        }
-                        else
-                        {
-                            bestValue = Math.Min(bestValue, moveValue);
-                            beta = Math.Min(beta, bestValue);
-                            if (beta <= alpha)
+                            else
                             {
-                                break;
+                                bestValue = Math.Min(bestValue, moveValue);
+                                beta = Math.Min(beta, bestValue);
+                                if (beta <= alpha)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            return bestValue;
+                return bestValue;
+            }
+            else
+                return evaluation(currentPlayer);
         }
 
         private Players GetOpponent(Players curentPlayer) //смена игрока для алгоритма
@@ -214,6 +446,6 @@ namespace Gomoku
             }
             return false;
         }
-        
+
     }
 }

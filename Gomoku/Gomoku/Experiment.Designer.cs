@@ -32,6 +32,7 @@ namespace Gomoku
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Experiment));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel36 = new System.Windows.Forms.Panel();
             this.panel35 = new System.Windows.Forms.Panel();
             this.panel34 = new System.Windows.Forms.Panel();
             this.panel33 = new System.Windows.Forms.Panel();
@@ -72,7 +73,7 @@ namespace Gomoku
             this.TimeLabel = new System.Windows.Forms.Label();
             this.ResultTB = new System.Windows.Forms.TextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.panel36 = new System.Windows.Forms.Panel();
+            this.BBotStepExp = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,6 +135,15 @@ namespace Gomoku
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1005, 645);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
+            // 
+            // panel36
+            // 
+            this.panel36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel36.Location = new System.Drawing.Point(0, 535);
+            this.panel36.Margin = new System.Windows.Forms.Padding(0);
+            this.panel36.Name = "panel36";
+            this.panel36.Size = new System.Drawing.Size(167, 110);
+            this.panel36.TabIndex = 35;
             // 
             // panel35
             // 
@@ -456,7 +466,7 @@ namespace Gomoku
             this.BHelp.BackColor = System.Drawing.Color.Peru;
             this.BHelp.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BHelp.Image = ((System.Drawing.Image)(resources.GetObject("BHelp.Image")));
-            this.BHelp.Location = new System.Drawing.Point(1170, 227);
+            this.BHelp.Location = new System.Drawing.Point(1153, 175);
             this.BHelp.Name = "BHelp";
             this.BHelp.Size = new System.Drawing.Size(125, 58);
             this.BHelp.TabIndex = 6;
@@ -466,7 +476,7 @@ namespace Gomoku
             // 
             this.WhoStep.AutoSize = true;
             this.WhoStep.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WhoStep.Location = new System.Drawing.Point(1173, 48);
+            this.WhoStep.Location = new System.Drawing.Point(1156, 30);
             this.WhoStep.Name = "WhoStep";
             this.WhoStep.Size = new System.Drawing.Size(122, 30);
             this.WhoStep.TabIndex = 7;
@@ -476,7 +486,7 @@ namespace Gomoku
             // 
             this.TimeLabel.AutoSize = true;
             this.TimeLabel.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLabel.Location = new System.Drawing.Point(1173, 139);
+            this.TimeLabel.Location = new System.Drawing.Point(1156, 105);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(105, 30);
             this.TimeLabel.TabIndex = 8;
@@ -485,24 +495,28 @@ namespace Gomoku
             // ResultTB
             // 
             this.ResultTB.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResultTB.Location = new System.Drawing.Point(1116, 442);
+            this.ResultTB.Location = new System.Drawing.Point(1107, 398);
             this.ResultTB.Name = "ResultTB";
             this.ResultTB.Size = new System.Drawing.Size(238, 43);
             this.ResultTB.TabIndex = 9;
             this.ResultTB.Text = "Результат";
+            this.ResultTB.Visible = false;
             // 
             // timer
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // panel36
+            // BBotStepExp
             // 
-            this.panel36.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel36.Location = new System.Drawing.Point(0, 535);
-            this.panel36.Margin = new System.Windows.Forms.Padding(0);
-            this.panel36.Name = "panel36";
-            this.panel36.Size = new System.Drawing.Size(167, 110);
-            this.panel36.TabIndex = 35;
+            this.BBotStepExp.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.BBotStepExp.BackColor = System.Drawing.Color.Peru;
+            this.BBotStepExp.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BBotStepExp.Location = new System.Drawing.Point(1153, 285);
+            this.BBotStepExp.Name = "BBotStepExp";
+            this.BBotStepExp.Size = new System.Drawing.Size(125, 58);
+            this.BBotStepExp.TabIndex = 10;
+            this.BBotStepExp.Text = "Ход Бота";
+            this.BBotStepExp.UseVisualStyleBackColor = false;
             // 
             // Experiment
             // 
@@ -510,6 +524,7 @@ namespace Gomoku
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(1424, 643);
+            this.Controls.Add(this.BBotStepExp);
             this.Controls.Add(this.ResultTB);
             this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.WhoStep);
@@ -571,5 +586,6 @@ namespace Gomoku
         private System.Windows.Forms.TextBox ResultTB;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Panel panel36;
+        private System.Windows.Forms.Button BBotStepExp;
     }
 }

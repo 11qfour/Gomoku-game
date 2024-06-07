@@ -18,12 +18,14 @@ namespace Gomoku
         Image white = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
         Game game = new Game();
-        Profile profile;
-        GameWithBot botPlayer;
+
         bool gameWithBot = false;
+        GameWithBot botPlayer;
+
         private int dataTimeLimit = int.MaxValue; //ограничение по времени
         private bool IsTimeLimit; //есть ограничение по времени или нет
-
+       /* private readonly IFileServices _fileService = new FileServices();
+        private readonly ILoggerService<GameWithBot> _loggerService = new LoggerService<GameWithBot>(_fileService);*/
         public void SetGameWithBot(bool flag)
         {
             this.gameWithBot = flag;
@@ -40,6 +42,8 @@ namespace Gomoku
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
             timer.Start();
+
+            //_loggerService = new LoggerService<Game>(_fileService);
         }
 
         public void setIsTimeLimit(char level, int time, bool hasTimeLimit, char botPlayerSide) //установление временных ограничений
@@ -81,6 +85,7 @@ namespace Gomoku
                         int result = game.CheckWinner(i, j);
                         if (result == 0)
                         {
+                            game.AddToFile("tie",'f',game.GetCurrentPlayer());
                             MessageBox.Show("Ничья!");
                             game.SetGameIsOver(true);
                             return;
@@ -91,11 +96,6 @@ namespace Gomoku
                             return;
                         }
                     }
-                }
-                else
-                {
-
-                    profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нудно решить проеелму
                 }
             }
             catch (Exception ee)
@@ -195,6 +195,7 @@ namespace Gomoku
         {
             try
             {
+               // _loggerService.Log(Microsoft.Extensions.Logging.LogLevel.Information, "Hello");
                 if (!botPlayer.GetGameIsOver())
                 {
                     Panel cell = sender as Panel;
@@ -232,6 +233,7 @@ namespace Gomoku
                                 result = botPlayer.CheckWinner(botI, botJ);
                                 if (result == 0)
                                 {
+                                    botPlayer.AddToFile("tie",botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
                                     MessageBox.Show("Ничья!");
                                     botPlayer.SetGameIsOver(true);
                                     return;
@@ -244,10 +246,6 @@ namespace Gomoku
                             }
                         }
                     }
-                }
-                else
-                {
-                    profile.LoadDatas(); //внимание на то что каждый раз создается новый, значит нужно решить проблему
                 }
             }
             catch (Exception ee)
@@ -339,10 +337,12 @@ namespace Gomoku
                 PaintWinnerPanels(botPlayer.GetSuccessSteps());
                 if (botPlayer.GetBotPlayerSide() == player) //так как уже поменяли в nextturn при ходе
                 {
+                    botPlayer.AddToFile("human", botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
                     MessageBox.Show("Вы проиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetBlackSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetWhiteSteps());
                 }
                 else
                 {
+                    botPlayer.AddToFile("bot", botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
                     MessageBox.Show("Вы выиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetBlackSteps());
                 }
             }
@@ -352,10 +352,12 @@ namespace Gomoku
                 PaintWinnerPanels(game.GetSuccessSteps());
                 if (game.GetCurrentPlayer() == 'W')//так как уже поменяли в nextturn при ходе
                 {
+                    botPlayer.AddToFile("черные",'f', game.GetCurrentPlayer());
                     MessageBox.Show("Черные выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetBlackSteps() + "\nКоличество ходов проигравшего: " + game.GetWhiteSteps());
                 }
                 else
                 {
+                    botPlayer.AddToFile("белые", 'f', game.GetCurrentPlayer());
                     MessageBox.Show("Белые выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps());
                 }
             }

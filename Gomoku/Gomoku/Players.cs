@@ -21,7 +21,7 @@ namespace Gomoku
             this.PlayerID = playerID;
         }
 
-        public char GetPlayerMarker()
+       /* public char GetPlayerMarker()
         {
             return this.PlayerMarker;
         }
@@ -34,6 +34,6 @@ namespace Gomoku
         public Player GetPlayer()
         {
             return this.Player;
-        }
+        }*/
     }
 }

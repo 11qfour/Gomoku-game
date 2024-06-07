@@ -43,7 +43,9 @@ namespace Gomoku
             this.RBBlackDS = new System.Windows.Forms.RadioButton();
             this.RBWhiteDS = new System.Windows.Forms.RadioButton();
             this.GBDS = new System.Windows.Forms.GroupBox();
+            this.GBDS2 = new System.Windows.Forms.GroupBox();
             this.GBDS.SuspendLayout();
+            this.GBDS2.SuspendLayout();
             this.SuspendLayout();
             // 
             // L1DS
@@ -85,7 +87,7 @@ namespace Gomoku
             this.RBNoTimeDS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RBNoTimeDS.AutoSize = true;
             this.RBNoTimeDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBNoTimeDS.Location = new System.Drawing.Point(46, 216);
+            this.RBNoTimeDS.Location = new System.Drawing.Point(15, 21);
             this.RBNoTimeDS.Name = "RBNoTimeDS";
             this.RBNoTimeDS.Size = new System.Drawing.Size(276, 25);
             this.RBNoTimeDS.TabIndex = 4;
@@ -98,7 +100,7 @@ namespace Gomoku
             this.RBTimerDS.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RBTimerDS.AutoSize = true;
             this.RBTimerDS.Font = new System.Drawing.Font("Segoe UI Symbol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBTimerDS.Location = new System.Drawing.Point(46, 263);
+            this.RBTimerDS.Location = new System.Drawing.Point(15, 61);
             this.RBTimerDS.Name = "RBTimerDS";
             this.RBTimerDS.Size = new System.Drawing.Size(307, 25);
             this.RBTimerDS.TabIndex = 5;
@@ -137,11 +139,10 @@ namespace Gomoku
             this.ChLBDS.FormattingEnabled = true;
             this.ChLBDS.Items.AddRange(new object[] {
             "Простой уровень сложности",
-            "Средний уроень сложности",
-            "Высокий уровень сложности"});
-            this.ChLBDS.Location = new System.Drawing.Point(121, 65);
+            "Средний уровень сложности"});
+            this.ChLBDS.Location = new System.Drawing.Point(121, 71);
             this.ChLBDS.Name = "ChLBDS";
-            this.ChLBDS.Size = new System.Drawing.Size(366, 94);
+            this.ChLBDS.Size = new System.Drawing.Size(366, 64);
             this.ChLBDS.TabIndex = 8;
             this.ChLBDS.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
@@ -194,19 +195,28 @@ namespace Gomoku
             this.GBDS.TabIndex = 12;
             this.GBDS.TabStop = false;
             // 
+            // GBDS2
+            // 
+            this.GBDS2.Controls.Add(this.RBNoTimeDS);
+            this.GBDS2.Controls.Add(this.RBTimerDS);
+            this.GBDS2.Location = new System.Drawing.Point(46, 202);
+            this.GBDS2.Name = "GBDS2";
+            this.GBDS2.Size = new System.Drawing.Size(328, 100);
+            this.GBDS2.TabIndex = 13;
+            this.GBDS2.TabStop = false;
+            // 
             // DifficultySelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(605, 416);
+            this.Controls.Add(this.GBDS2);
             this.Controls.Add(this.GBDS);
             this.Controls.Add(this.L4DS);
             this.Controls.Add(this.ChLBDS);
             this.Controls.Add(this.L3DS);
             this.Controls.Add(this.TBTimerDS);
-            this.Controls.Add(this.RBTimerDS);
-            this.Controls.Add(this.RBNoTimeDS);
             this.Controls.Add(this.L2DS);
             this.Controls.Add(this.BStartDS);
             this.Controls.Add(this.L1DS);
@@ -216,6 +226,8 @@ namespace Gomoku
             this.Load += new System.EventHandler(this.DifficultySelection_Load);
             this.GBDS.ResumeLayout(false);
             this.GBDS.PerformLayout();
+            this.GBDS2.ResumeLayout(false);
+            this.GBDS2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,5 +248,6 @@ namespace Gomoku
         private System.Windows.Forms.RadioButton RBBlackDS;
         private System.Windows.Forms.RadioButton RBWhiteDS;
         private System.Windows.Forms.GroupBox GBDS;
+        private System.Windows.Forms.GroupBox GBDS2;
     }
 }

@@ -206,33 +206,46 @@ namespace Gomoku
                         // Ход бота
                         if (!botPlayer.GetGameIsOver())
                         {
-                            int botI;
-                            int botJ;
-                            Panel botCell;
-                            do
+
+                            List<(int, int)> botMove = botPlayer.DoStep(); //бот делает ход
+                            int botI = botMove[0].Item1;
+                            int botJ = botMove[0].Item2;
+                            if (botPlayer.rightCoordination(botI, botJ))
                             {
-                                List<(int, int)> botMove = botPlayer.DoStep(); //бот делает ход
-                                botI = botMove[0].Item1;
-                                botJ = botMove[0].Item2;
-                                botCell = tableLayoutPanel1.GetControlFromPosition(botJ, botI) as Panel;
-                            } while (botCell.BackgroundImage != null);
-                            
-                            if (botCell != null && botCell.BackgroundImage == null)
-                            {
-                                botCell.BackgroundImageLayout = ImageLayout.Center;
-                                botPlayer.NextTurn(botI, botJ, botPlayer.GetBotPlayerSide());
-                                UpdateGameUI(botCell, botI, botJ);
-                                result = botPlayer.CheckWinner(botI, botJ);
-                                if (result == 0)
+                                Panel botCell = tableLayoutPanel1.GetControlFromPosition(botJ, botI) as Panel;
+                                if (botCell.BackgroundImage != null)
                                 {
-                                    MessageBox.Show("Ничья!");
-                                    botPlayer.SetGameIsOver(true);
-                                    return;
+                                    DialogResult resultdialog = MessageBox.Show("Клетка, в которую противник-компьютер хочет поставить свой камень, уже занята!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    if (resultdialog == DialogResult.OK)
+                                    {
+                                        this.Close();
+                                    }
                                 }
-                                else if (result == 10)
+                                if (botCell != null && botCell.BackgroundImage == null)
                                 {
-                                    EndGame(botPlayer.GetBotPlayerSide());
-                                    return;
+                                    botCell.BackgroundImageLayout = ImageLayout.Center;
+                                    botPlayer.NextTurn(botI, botJ, botPlayer.GetBotPlayerSide());
+                                    UpdateGameUI(botCell, botI, botJ);
+                                    result = botPlayer.CheckWinner(botI, botJ);
+                                    if (result == 0)
+                                    {
+                                        MessageBox.Show("Ничья!");
+                                        botPlayer.SetGameIsOver(true);
+                                        return;
+                                    }
+                                    else if (result == 10)
+                                    {
+                                        EndGame(botPlayer.GetBotPlayerSide());
+                                        return;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                DialogResult resultdialog = MessageBox.Show($"Индексы {botI} и {botJ} вне границ игрового поля, которые равны {botPlayer.GetBoard().Length}!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                if (resultdialog == DialogResult.OK)
+                                {
+                                    this.Close();
                                 }
                             }
                         }
@@ -292,10 +305,7 @@ namespace Gomoku
             game.ChangeCurrentPlayer();
             PaintChoosePanel();
         }
-            
-
-
-        
+           
 
         private void EndGame(char player)
         {
@@ -372,6 +382,53 @@ namespace Gomoku
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, e.CellBounds, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid);
+        }
+
+
+        private void modulationFork3x3()
+        {
+            BHelp.Visible = false;
+            DialogResult dialogResult = MessageBox.Show("Тест Вилка 3х3\tБот новичок\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //модуляция вилки 3 на 3
+                DialogResult dialogResult2 = MessageBox.Show("Тест Вилка 3х3\tОпытный бот\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+                if (dialogResult2 == DialogResult.Yes)
+                {
+                    //вилка 3 на 3 с простым ботом
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void modulationFork4x4()
+        {
+            BHelp.Visible = false;
+            DialogResult dialogResult = MessageBox.Show("Тест Вилка 3х3\tБот новичок\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //модуляция вилки 4 на 4
+                DialogResult dialogResult2 = MessageBox.Show("Тест Вилка 3х3\tОпытный бот\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+                if (dialogResult2 == DialogResult.Yes)
+                {
+                    ///вилка 4 на 4 с опытным ботом
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }

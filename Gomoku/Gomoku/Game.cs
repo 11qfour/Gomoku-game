@@ -8,19 +8,20 @@ namespace Gomoku
 {
     class Game 
     {
-        const int size = 15;
-        //const int size = 6;
+        const int size = 15; //для реальной симуляции
+        //const int size = 6; //для теста
         char[,] board = new char[size,size]; //элементы: W-белые, B - черные, E - пустая
         char[] players = { 'B', 'W' };
         List<(int, int)> sequenceOfMoves = new List<(int, int)>();
         bool GameIsOver; //флаг - показатель завершенности игры
         char currentPlayer;
-        List<int[]> available = new List<int[]>();
         List<int[]> SuccessSteps = new List<int[]>(); //массив выигрышных ходов, нужно для отображения
 
         private int black_steps;
         private int steps;
         private int white_steps;
+
+        Profile profile;
 
         public void ChangeCurrentPlayer()
         {
@@ -40,12 +41,12 @@ namespace Gomoku
             board[i, j] = side; //присвоении ячейки игроку
         }
 
-        public List<(int, int)> GetSequenceOfMoves()
+        public List<(int, int)> GetSequenceOfMoves() // возвращает последовательность ходов
         {
             return sequenceOfMoves;
         }
 
-        public void CancelTurn(ref int i, ref int j)
+        public void CancelTurn(ref int i, ref int j) // отменяет ход
         {
             if (sequenceOfMoves.Count > 0)
             {
@@ -67,6 +68,13 @@ namespace Gomoku
             board[i, j] = 'E'; //клетка пуста
             steps --;
         }
+
+
+        public void AddToFile(string result, char Opponent, char sideopp) //запись сыгранного матча в файл
+        {
+            profile.LoadDatas() ;
+        }
+
 
         public int CheckWinner(int i, int j)
         {
@@ -228,6 +236,7 @@ namespace Gomoku
 
         public Game()
         {
+            profile = new Profile("Sanya"); //подумать над тем как сохранять в тот же файл
             this.white_steps = 0;
             this.black_steps = 0;
             this.steps = 0;
@@ -237,7 +246,6 @@ namespace Gomoku
                 for (int i = 0; i < board.GetLength(1); i++)
                 {
                     board[i, j] = 'E';
-                    available.Add(new int[] { i, j }); //??
                 }
         }
 
@@ -309,164 +317,5 @@ namespace Gomoku
         {
             return board;
         } 
-        /////////////////////////////////
-
-        private int MiniMaxAlgorithm(int depth, bool isMaximizingPlayer, int MaxDepth)
-        {
-            /*if (depth >= maxDepth || gameIsOver)
-            {
-                return Evaluate(); // Оценка текущего состояния игры на достигнутой глубине или в терминальном узле
-            }*/
-
-            int score = Evaluate();
-
-            if (score == 10)
-                return score;
-            if (score == -10)
-                return score;
-            if (!IsMovesLeft())
-                return 0;
-
-            if (isMaximizingPlayer)
-            {
-                int bestScore = int.MinValue;
-
-                for (int i = 0; i < board.GetLength(0); i++)
-                {
-                    for (int j = 0; j < board.GetLength(1); j++)
-                    {
-                        if (board[i, j] == 'e')
-                        {
-                            board[i, j] = 'X';
-                            bestScore = Math.Max(bestScore, MiniMaxAlgorithm(depth + 1, !isMaximizingPlayer, MaxDepth));
-                            board[i, j] = 'e';
-                        }
-                    }
-                }
-
-                return bestScore;
-            }
-            else
-            {
-                int bestScore = int.MaxValue;
-
-                for (int i = 0; i < board.GetLength(0); i++)
-                {
-                    for (int j = 0; j < board.GetLength(1); j++)
-                    {
-                        if (board[i, j] == 'e')
-                        {
-                            board[i, j] = 'O';
-                            bestScore = Math.Min(bestScore, MiniMaxAlgorithm(depth + 1, !isMaximizingPlayer, MaxDepth));
-                            board[i, j] = 'e';
-                        }
-                    }
-                }
-
-                return bestScore;
-            }
-        }
-
-        private bool IsMovesLeft()
-        {
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if (board[i, j] == 'e')
-                    {
-                        return true; // есть доступные ходы
-                    }
-                }
-            }
-            return false; // Нет доступных ходов
-        }
-
-        public void MakeMove(string difficultyLevel) //сделать ход
-        {
-            int bestScore;
-            bool isMaximizingPlayer;
-            if (difficultyLevel == "middle")
-            {
-                int maxdepth = 3;
-                isMaximizingPlayer = false;
-                bestScore = MiniMaxAlgorithm(0, isMaximizingPlayer, maxdepth);
-            }
-            else if (difficultyLevel == "hard")
-            {
-                int maxdepth = 6;
-                isMaximizingPlayer = true;
-                bestScore = MiniMaxAlgorithm(0, isMaximizingPlayer, maxdepth);
-            }
-            else if (difficultyLevel == "easy")
-            {
-                //функция случайного выбора хода
-
-            }
-            else
-            {
-                throw new ArgumentException("Присвоена некорректная сложность. Сложности игры с противником-компьютером: Низкая, Средняя и Высокая сложности.");
-            }
-
-            /*int bestMove = -1;
-            int bestScore = int.MinValue;
-
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if (board[i, j] == 'e')
-                    {
-                        board[i, j] = isMaximizingPlayer ? 'X' : 'O';
-                        int score = MiniMaxAlgorithm(0, !isMaximizingPlayer, maxDepth);
-                        board[i, j] = 'e';
-
-                        if (score > bestScore)
-                        {
-                            bestScore = score;
-                            bestMove = i * board.GetLength(1) + j; // Преобразование индексов в одномерное представление
-                        }
-                    }
-                }
-            }*/
-
-            //реализация хода используя бестмув
-
-        }
-
-        private int Evaluate()
-        {
-            int WScore = EvaluatePlayerScore('w'); //Оценка для белых
-            int BScore = EvaluatePlayerScore('b'); // Оценка для черны[
-            // Возвращаем разницу между оценками игроков
-            return WScore - BScore;
-        }
-
-        private int EvaluatePlayerScore(char player)
-        {
-            int score = 0;
-
-            // Подсчет количества рядов и столбцов с фишками игрока
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                int rowCount = 0;
-                int colCount = 0;
-
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if (board[i, j] == player)
-                        rowCount++;
-
-                    if (board[j, i] == player)
-                        colCount++;
-                }
-
-                // Увеличиваем оценку на количество рядов и столбцов с фишками игрока
-                score += rowCount + colCount;
-            }
-
-            // Возвращаем общую оценку для игрока
-            return score;
-        }
     }
 }
