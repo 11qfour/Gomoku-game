@@ -31,6 +31,8 @@ namespace Gomoku
             this.gameWithBot = flag;
         }
 
+     
+
         public GameWithPC()
         {
             InitializeComponent();
@@ -218,7 +220,7 @@ namespace Gomoku
                             DialogResult dr = MessageBox.Show("Это была достойная борьба!", "Ничья!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (dr == DialogResult.OK)
                             {
-                                this.FormClosing += GameWithPC_FormClosing;
+                                this.Close();
                             }
                             return;
                         }
@@ -429,14 +431,10 @@ namespace Gomoku
             ControlPaint.DrawBorder(e.Graphics, e.CellBounds, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid);
         }
 
-        private void GameWithPC_FormClosing(object sender, FormClosingEventArgs e)//действия перед закрытием формы
-        {
-            this.FormClosed += GameWithPC_FormClosed;
-        }
-
         private void GameWithPC_FormClosed(object sender, FormClosedEventArgs e)//действия уже после закрытия формы
         {
             timer.Stop();
+            timer.Dispose();
         }
 
         private void BExit_Click(object sender, EventArgs e)
@@ -535,11 +533,9 @@ namespace Gomoku
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            int currentValue = all_sec;
             all_sec++;
-            currentValue++;
-            int minuts = (currentValue / 60);
-            int seconds = (currentValue % 60);
+            int minuts = (all_sec / 60);
+            int seconds = (all_sec % 60);
             if (minuts == 0)
             {
                 LTimeMin.Visible = false;
@@ -550,6 +546,20 @@ namespace Gomoku
             }
             LTimeMin.Text = minuts.ToString() + " Мин.";
             LTimeSec.Text = seconds.ToString() + " Сек.";
+            dataTimeLimit -= 1000; // Уменьшаем время ограничения на 1 секунду
+            if (dataTimeLimit <= 0)
+            {
+                timer.Stop();
+                DialogResult dR = MessageBox.Show("Время вышло! ⏰","",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                if (dR == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                //MessageBox.Show($"Оставшееся время: {dataTimeLimit / 1000} сек.");
+            }
         }
 
         private void GameWithPC_Resize(object sender, EventArgs e)

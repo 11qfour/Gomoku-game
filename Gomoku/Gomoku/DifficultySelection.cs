@@ -15,6 +15,7 @@ namespace Gomoku
         public DifficultySelection()
         {
             InitializeComponent();
+            toolTip1.SetToolTip(TBTimerDS, "Введите ограничение в формате <мин>:<сек>");
         }
 
         private void startGame(char level, int time, bool hasTimeLimit, char botPlayer, string botName)
@@ -24,6 +25,49 @@ namespace Gomoku
             gamewithpc.SetOppName(botName);
             gamewithpc.SetGameWithBot(true);
             gamewithpc.Show();
+        }
+
+        private int parsesTimerLimit(string timeLimit)
+        {
+            try
+            {
+                string[] parts = timeLimit.Split(':');
+
+                int minutes = 0;
+                int seconds = 0;
+                int filledValues = 0;
+
+
+                if (parts.Length >= 1)
+                {
+                    minutes = int.Parse(parts[0]);
+                    filledValues++;
+                }
+
+                if (parts.Length >= 2)
+                {
+                    seconds = int.Parse(parts[1]);
+                    filledValues++;
+                }
+
+                if (filledValues < 2)
+                {
+                    throw new Exception("Данные должны быть введены в формате <мин>:<сек>");
+                }
+                if (minutes==0 && seconds < 15)
+                {
+                    throw new Exception("Минимальное ограничение по времени 15 секунд");
+                }
+                // Рассчитываем общее количество миллисекунд
+                int totalMilliseconds = (minutes * 60 + seconds) * 1000;
+
+                return totalMilliseconds;
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message, "Данные введены неверно!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -10000;
+            }
         }
 
         private void BStartDS_Click(object sender, EventArgs e)
@@ -54,19 +98,26 @@ namespace Gomoku
 
                     if (RBTimerDS.Checked) //ограничение на время
                     {
-                        time = int.Parse(TBTimerDS.Text);
+                        string timers = TBTimerDS.Text;
+                        time = parsesTimerLimit(timers);
                         hasTimeLimit = true;
                     }
 
                     if (ChLBDS.GetItemChecked(0)) // простой уровень
                     {
                         level = 'S'; // simple
-                        startGame(level, time, hasTimeLimit, BotPlayer, "Бот новичок");
+                        if (time != 10000 && time >= 15000)
+                        {
+                            startGame(level, time, hasTimeLimit, BotPlayer, "Бот новичок");
+                        }
                     }
                     else if (ChLBDS.GetItemChecked(1)) // средний уровень
                     {
                         level = 'M'; // medium
-                        startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
+                        if (time != 10000 && time >= 15000)
+                        {
+                            startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
+                        }
                     }
                 }
                 else

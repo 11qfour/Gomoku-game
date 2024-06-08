@@ -2934,7 +2934,6 @@ namespace Gomoku
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GameWithPC";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameWithPC_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWithPC_FormClosed);
             this.Load += new System.EventHandler(this.GameWithPC_Load);
             this.Resize += new System.EventHandler(this.GameWithPC_Resize);
