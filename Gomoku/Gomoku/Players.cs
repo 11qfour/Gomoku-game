@@ -20,20 +20,5 @@ namespace Gomoku
             this.PlayerMarker = playerMarker;
             this.PlayerID = playerID;
         }
-
-       /* public char GetPlayerMarker()
-        {
-            return this.PlayerMarker;
-        }
-
-        public int GetPlayerID()
-        {
-            return this.PlayerID;
-        }
-
-        public Player GetPlayer()
-        {
-            return this.Player;
-        }*/
     }
 }

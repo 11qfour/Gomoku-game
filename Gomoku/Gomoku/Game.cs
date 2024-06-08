@@ -8,8 +8,8 @@ namespace Gomoku
 {
     class Game 
     {
-        //private const int size = 15; //для реальной симуляции
-        private const int size = 6; //для теста
+        private const int size = 15; //для реальной симуляции
+        //private const int size = 6; //для теста
         private char[,] board = new char[size,size]; //элементы: W-белые, B - черные, E - пустая
         private char[] players = { 'B', 'W' };
         private List<(int, int)> sequenceOfMoves = new List<(int, int)>();

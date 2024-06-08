@@ -25,10 +25,6 @@ namespace Gomoku
         public Experiment()
         {
             InitializeComponent();
-            /*timer = new Timer();
-            timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
-            timer.Tick += timer_Tick;
-            timer.Start();*/
         }
 
         private void Experiment_Load(object sender, EventArgs e)
@@ -43,15 +39,6 @@ namespace Gomoku
             this.gameWithBot = flag;
         }
 
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            int currentValue = all_sec;
-            all_sec++;
-            currentValue++;
-            int minuts = (currentValue / 60);
-            int seconds = (currentValue % 60);
-            TimeLabel.Text = seconds.ToString() + " Сек.";
-        }
         /*private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля при игре 1 на 1
         {
             try
@@ -341,7 +328,7 @@ namespace Gomoku
 
         private void Experiment_FormClosed(object sender, FormClosedEventArgs e)
         {
-            timer.Stop();//подумать над сохранением в формклоусед
+
         }
 
         private void LoadPanels() //закраска панелей
@@ -385,7 +372,6 @@ namespace Gomoku
             ControlPaint.DrawBorder(e.Graphics, e.CellBounds, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid);
         }
 
-        private Timer delayTimer;
         private void UIFork3x3()                //модуляция вилки 3 на 3
         {
             //черные

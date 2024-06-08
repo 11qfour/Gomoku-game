@@ -15,6 +15,11 @@ namespace Gomoku
         Players[] players = new Players[2];
         string[] patterns = new string[24]; //всевозможные ситуации на игровом поле
 
+        public Players GetPlayers (int order)
+        {
+            return this.players[order];
+        }
+
         public char GetLevel()
         {
             return this.GameLevel;
@@ -128,7 +133,7 @@ namespace Gomoku
 
 
 
-        private List<(int, int)> bestMove(Players players)
+        public List<(int, int)> bestMove(Players players)
         {
             List<(int, int)> BotStep = new List<(int, int)> { (stepI, stepJ) };
             
