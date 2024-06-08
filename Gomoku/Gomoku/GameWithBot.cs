@@ -17,7 +17,17 @@ namespace Gomoku
 
         public char GetLevel()
         {
-            return GameLevel;
+            return this.GameLevel;
+        }
+
+        public void SetBotPlayerSide(char side)
+        {
+            this.botPlayerSide = side;
+        }
+
+        public void SetLevel(char level)
+        {
+            this.GameLevel = level ;
         }
 
         public char GetBotPlayerSide()
@@ -50,10 +60,10 @@ namespace Gomoku
             return true;
         }
 
-        public char GetGameLevel()
+        /*public char GetGameLevel()
         {
             return this.GameLevel;
-        }
+        }*/
         public List<(int, int)> DoStep()
         {
             if (GameLevel == 'S')
@@ -120,41 +130,20 @@ namespace Gomoku
 
         private List<(int, int)> bestMove(Players players)
         {
-            bool changing = false;
             List<(int, int)> BotStep = new List<(int, int)> { (stepI, stepJ) };
-            int bestScore = int.MinValue;
-            for (int i = 0; i < GetBoard().GetLength(0); i++)
-            {
-                for (int j = 0; j < GetBoard().GetLength(1); j++)
-                {
-                    if (GetBoardValue(i, j) == 'E')
-                    {
-                        /*SetBoardValue(i, j, players.PlayerMarker);*/
-                        int moveScore = evaluation(GetOpponent(players));
-                       /* SetBoardValue(i, j, 'E');*/
-                        if (moveScore > bestScore)
-                        {
-                            bestScore = moveScore;
-                            changing = true;
-                            BotStep.Clear();
-                            BotStep.Add((stepI, stepJ)); //добавляем координаты оптимального хода
-                        }
-                    }
-                }
-            }
-            if (GetBoardValue(stepI, stepJ) != 'E')
-                changing = false;
-            if (!changing) //если не нашлось подходящих паттернов
+            
+            int moveScore = evaluation(GetOpponent(players));
+            if (moveScore==int.MinValue)
             {
                 while (!checkEmptyPanel(stepI, stepJ))
                 {
                     Random rand = new Random();
                     stepI = rand.Next(0, GetBoard().Length - 1);
                     stepJ = rand.Next(0, GetBoard().Length - 1);
-                    BotStep.Clear();
-                    BotStep.Add((stepI, stepJ));
                 }
             }
+            BotStep.Clear();
+            BotStep.Add((stepI, stepJ));
             return BotStep;
         }
 
@@ -221,89 +210,169 @@ namespace Gomoku
             patterns[22] = closeOppFirst1;
             patterns[23] = closeOppFirst2;
         }
-        private int positionValue(Players currentPlayer, int i, int j) //получаем лучшее эвристическое значение клетки
+        private int positionValue(Players currentPlayer, ref int i, ref int j) //получаем лучшее эвристическое значение клетки
         {
             char player = GetBoardValue(i, j);
             initPattens(currentPlayer);
-            if (CheckPatternHorizontal(i, j, patterns[0]) || CheckPatternVertical(i,j,patterns[0]) || CheckPatternAscendingDiagonal(i,j,patterns[0]) || CheckPatternDescendingDiagonal(i, j, patterns[0]))
+            bool endCheck = false;
+            if (CheckPatternHorizontal(ref i, ref j, patterns[0], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[0], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[0], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[0],ref endCheck))
+            {
+                //нашлась открытая 4ка возвращается координаты первой клетки по обходу
                 return 100000000;
-            if (CheckPatternHorizontal(i, j, patterns[1]) || CheckPatternVertical(i, j, patterns[1]) || CheckPatternAscendingDiagonal(i, j, patterns[1]) || CheckPatternDescendingDiagonal(i, j, patterns[1]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[1], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[1], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[1], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[1], ref endCheck))
+            {
+                //нашлась закрытая 4ка возвращается координаты первой клетки по обходу
                 return 100000000;
-            if (CheckPatternHorizontal(i, j, patterns[2]) || CheckPatternVertical(i, j, patterns[2]) || CheckPatternAscendingDiagonal(i, j, patterns[2]) || CheckPatternDescendingDiagonal(i, j, patterns[2]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[2], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[2], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[2], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[2], ref endCheck))
+            {
+                //нашлась закрытая 4ка возвращается координаты первой клетки по обходу
                 return 100000000;
-            if (CheckPatternHorizontal(i, j, patterns[3]) || CheckPatternVertical(i, j, patterns[3]) || CheckPatternAscendingDiagonal(i, j, patterns[3]) || CheckPatternDescendingDiagonal(i, j, patterns[3]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[3], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[3], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[3], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[3], ref endCheck))
+            {
                 return 99999999;
-            if (CheckPatternHorizontal(i, j, patterns[4]) || CheckPatternVertical(i, j, patterns[4]) || CheckPatternAscendingDiagonal(i, j, patterns[4]) || CheckPatternDescendingDiagonal(i, j, patterns[4]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[4], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[4], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[4], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[4], ref endCheck))
+            {
                 return 4000000;
-            if (CheckPatternHorizontal(i, j, patterns[5]) || CheckPatternVertical(i, j, patterns[5]) || CheckPatternAscendingDiagonal(i, j, patterns[5]) || CheckPatternDescendingDiagonal(i, j, patterns[5]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[5], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[5], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[5], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[5], ref endCheck))
+            {
                 return 4000000;
-            if (CheckPatternHorizontal(i, j, patterns[6]) || CheckPatternVertical(i, j, patterns[6]) || CheckPatternAscendingDiagonal(i, j, patterns[6]) || CheckPatternDescendingDiagonal(i, j, patterns[6]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[6], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[6], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[6], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[6], ref endCheck))
+            {
                 return 500;
-            if (CheckPatternHorizontal(i, j, patterns[7]) || CheckPatternVertical(i, j, patterns[7]) || CheckPatternAscendingDiagonal(i, j, patterns[7]) || CheckPatternDescendingDiagonal(i, j, patterns[7]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[7], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[7], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[7], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[7], ref endCheck))
+            {
                 return 50;
-            if (CheckPatternHorizontal(i, j, patterns[8]) || CheckPatternVertical(i, j, patterns[8]) || CheckPatternAscendingDiagonal(i, j, patterns[8]) || CheckPatternDescendingDiagonal(i, j, patterns[8]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[8], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[8], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[8], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[8], ref endCheck))
+            {
                 return 50;
-            if (CheckPatternHorizontal(i, j, patterns[9]) || CheckPatternVertical(i, j, patterns[9]) || CheckPatternAscendingDiagonal(i, j, patterns[9]) || CheckPatternDescendingDiagonal(i, j, patterns[9]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[9], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[9], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[9], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[9], ref endCheck))
+            {
                 return 25;
-            if (CheckPatternHorizontal(i, j, patterns[10]) || CheckPatternVertical(i, j, patterns[10]) || CheckPatternAscendingDiagonal(i, j, patterns[10]) || CheckPatternDescendingDiagonal(i, j, patterns[10]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[10], ref endCheck) || CheckPatternVertical(ref i, ref  j, patterns[10], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[10], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[10], ref endCheck))
+            {
                 return 25;
-            if (CheckPatternHorizontal(i, j, patterns[11]) || CheckPatternVertical(i, j, patterns[11]) || CheckPatternAscendingDiagonal(i, j, patterns[11]) || CheckPatternDescendingDiagonal(i, j, patterns[11]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[11], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[11], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[11], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[11], ref endCheck))
+            {
                 return 25;
+            }
 
-            if (CheckPatternHorizontal(i, j, patterns[12]) || CheckPatternVertical(i, j, patterns[12]) || CheckPatternAscendingDiagonal(i, j, patterns[12]) || CheckPatternDescendingDiagonal(i, j, patterns[12]))
+            if (CheckPatternHorizontal(ref i, ref j, patterns[12], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[12], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[12], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[12], ref endCheck))
+            {
                 return -100000000;
-            if (CheckPatternHorizontal(i, j, patterns[13]) || CheckPatternVertical(i, j, patterns[13]) || CheckPatternAscendingDiagonal(i, j, patterns[13]) || CheckPatternDescendingDiagonal(i, j, patterns[13]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[13], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[13], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[13], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[13], ref endCheck))
+            {
                 return -100000000;
-            if (CheckPatternHorizontal(i, j, patterns[14]) || CheckPatternVertical(i, j, patterns[14]) || CheckPatternAscendingDiagonal(i, j, patterns[14]) || CheckPatternDescendingDiagonal(i, j, patterns[14]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[14], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[14], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[14], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[14], ref endCheck))
+            {
                 return -100000000;
-            if (CheckPatternHorizontal(i, j, patterns[15]) || CheckPatternVertical(i, j, patterns[15]) || CheckPatternAscendingDiagonal(i, j, patterns[15]) || CheckPatternDescendingDiagonal(i, j, patterns[15]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[15], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[15], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[15], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[15], ref endCheck))
+            {
                 return -99999999;
-            if (CheckPatternHorizontal(i, j, patterns[16]) || CheckPatternVertical(i, j, patterns[16]) || CheckPatternAscendingDiagonal(i, j, patterns[16]) || CheckPatternDescendingDiagonal(i, j, patterns[16]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[16], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[16], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[16], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[16], ref endCheck))
+            {
                 return -4000000;
-            if (CheckPatternHorizontal(i, j, patterns[17]) || CheckPatternVertical(i, j, patterns[17]) || CheckPatternAscendingDiagonal(i, j, patterns[17]) || CheckPatternDescendingDiagonal(i, j, patterns[17]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[17], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[17], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[17], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[17], ref endCheck))
+            {
                 return -4000000;
-            if (CheckPatternHorizontal(i, j, patterns[18]) || CheckPatternVertical(i, j, patterns[18]) || CheckPatternAscendingDiagonal(i, j, patterns[18]) || CheckPatternDescendingDiagonal(i, j, patterns[18]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[18], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[18], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[18], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[18], ref endCheck))
+            {
                 return -500;
-            if (CheckPatternHorizontal(i, j, patterns[19]) || CheckPatternVertical(i, j, patterns[19]) || CheckPatternAscendingDiagonal(i, j, patterns[19]) || CheckPatternDescendingDiagonal(i, j, patterns[19]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[19], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[19], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[19], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[19], ref endCheck))
+            {
                 return -50;
-            if (CheckPatternHorizontal(i, j, patterns[20]) || CheckPatternVertical(i, j, patterns[20]) || CheckPatternAscendingDiagonal(i, j, patterns[20]) || CheckPatternDescendingDiagonal(i, j, patterns[20]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[20], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[20], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[20], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[20], ref endCheck))
+            {
                 return -50;
-            if (CheckPatternHorizontal(i, j, patterns[21]) || CheckPatternVertical(i, j, patterns[21]) || CheckPatternAscendingDiagonal(i, j, patterns[21]) || CheckPatternDescendingDiagonal(i, j, patterns[21]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[21], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[21], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[21], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[21], ref endCheck))
+            {
                 return -25;
-            if (CheckPatternHorizontal(i, j, patterns[22]) || CheckPatternVertical(i, j, patterns[22]) || CheckPatternAscendingDiagonal(i, j, patterns[22]) || CheckPatternDescendingDiagonal(i, j, patterns[22]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[22], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[22], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[22], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[22], ref endCheck))
+            {
                 return -25;
-            if (CheckPatternHorizontal(i, j, patterns[23]) || CheckPatternVertical(i, j, patterns[23]) || CheckPatternAscendingDiagonal(i, j, patterns[23]) || CheckPatternDescendingDiagonal(i, j, patterns[23]))
+            }
+            if (CheckPatternHorizontal(ref i, ref j, patterns[23], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[23], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[23], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[23], ref endCheck))
+            {
                 return -25;
+            }
             return int.MinValue;  //шаблона не найдено
         }
 
-        private bool CheckPatternHorizontal(int row, int col, string pattern) //проверка паттерна по горизонтали
+        private bool CheckPatternHorizontal(ref int row, ref int col, string pattern, ref bool endCheck) //проверка паттерна по горизонтали
         {
-            bool flag = true; ;
-            for (int i = 0; i < pattern.Length; i++)
+            if (!endCheck)
             {
-                if (col + i >= GetBoard().GetLength(0) || GetBoardValue(row, col + i) != pattern[i])
+                int tempI = row;
+                int tempJ = col;
+                bool flag = true;
+                for (int i = 0; i < pattern.Length; i++)
                 {
-                    flag=false;
-                    break;
+                    if (col + i >= GetBoard().GetLength(0) || GetBoardValue(row, col + i) != pattern[i])
+                    {
+                        flag = false;
+                        break;
+                    }
+                    if (pattern[i] == 'E') //если встретилась пустая клетка в паттерне и он подойдет то мы вернем координаты пустой клетки паттерна
+                    {
+                        tempJ = col + i;
+                    }
                 }
-            }
-            if (flag)
+                if (flag)
+                {
+                    endCheck = true;
+                    row = tempI;
+                    col = tempJ;
+                    return flag;
+                }
+                flag = true;
+                for (int i = 0; i < pattern.Length; i++)
+                {
+                    if ((col - i) < 0 || GetBoardValue(row, col - i) != pattern[i])
+                    {
+                        flag = false;
+                        break;
+                    }
+                    if (pattern[i] == 'E') //если встретилась пустая клетка в паттерне и он подойдет то мы вернем координаты пустой клетки паттерна
+                    {
+                        tempJ = col - i;
+                    }
+                }
+                if (flag)
+                {
+                    endCheck = true;
+                    row = tempI;
+                    col = tempJ;
+                }
                 return flag;
-            flag = true;
-            for (int i = 0; i < pattern.Length; i++)
-            {
-                if ((col - i) < 0 || GetBoardValue(row, col - i) != pattern[i])
-                {
-                    flag = false;
-                    break;
-                }
             }
-            return flag;
+            return true;
         }
 
-        private bool CheckPatternVertical(int row, int col, string pattern) //проверка паттерна по вертикали
+        private bool CheckPatternVertical(ref int row, ref int col, string pattern,ref  bool endCheck) //проверка паттерна по вертикали
         {
+            if (!endCheck) { 
+            int tempI = row;
+            int tempJ = col;
             bool flag = true; ;
             for (int i = 0; i < pattern.Length; i++)
             {
@@ -312,9 +381,18 @@ namespace Gomoku
                     flag = false;
                     break;
                 }
+                if (pattern[i] == 'E') //если встретилась пустая клетка в паттерне и он подойдет то мы вернем координаты пустой клетки паттерна
+                {
+                    tempI = row + i;
+                }
             }
             if (flag)
+            {
+                    endCheck = true;
+                    row = tempI;
+                col = tempJ;
                 return flag;
+            }
             flag = true;
             for (int i = 0; i < pattern.Length; i++)
             {
@@ -323,32 +401,80 @@ namespace Gomoku
                     flag = false;
                     break;
                 }
+                if (pattern[i] == 'E') //если встретилась пустая клетка в паттерне и он подойдет то мы вернем координаты пустой клетки паттерна
+                {
+                    tempI = row - i;
+                }
+            }
+            if (flag)
+            {
+                    endCheck = true;
+                    row = tempI;
+                col = tempJ;
             }
             return flag;
-        }
-
-        private bool CheckPatternAscendingDiagonal(int row, int col, string pattern) //проверка паттерна по восходящей диагонали
-        {
-            for (int i = 0; i < pattern.Length; i++)
-            {
-                if (row - i < 0 || col + i >= GetBoard().GetLength(1) || GetBoardValue(row - i, col + i) != pattern[i])
-                {
-                    return false;
-                }
             }
             return true;
         }
 
-        private bool CheckPatternDescendingDiagonal(int row, int col, string pattern) //проверка по главной диагонали(нисходящей)
+        private bool CheckPatternAscendingDiagonal(ref int row, ref int col, string pattern, ref bool endCheck) //проверка паттерна по восходящей диагонали
         {
-            for (int i = 0; i < pattern.Length; i++)
+            if (!endCheck)
             {
-                if (row + i >= GetBoard().GetLength(0) || col + i >= GetBoard().GetLength(1) || GetBoardValue(row + i, col + i) != pattern[i])
+                bool flag = true;
+                int tempI = row;
+                int tempJ = col;
+                for (int i = 0; i < pattern.Length; i++)
                 {
-                    return false;
+                    if (row - i < 0 || col + i >= GetBoard().GetLength(1) || GetBoardValue(row - i, col + i) != pattern[i])
+                    {
+                        return false;
+                    }
+                    if (pattern[i] == 'E')
+                    {
+                        tempI = row - i;
+                        tempJ = col + i;
+                    }
+                }
+                if (flag)
+                {
+                    endCheck = true;
+                    row = tempI;
+                    col = tempJ;
+                }
+                return flag;
+            }
+            return true;
+        }
+
+        private bool CheckPatternDescendingDiagonal(ref int row, ref int col, string pattern, ref bool endCheck) //проверка по главной диагонали(нисходящей)
+        {
+            if (!endCheck)
+            {
+                bool flag = true;
+                int tempI = row;
+                int tempJ = col;
+                for (int i = 0; i < pattern.Length; i++)
+                {
+                    if (row + i >= GetBoard().GetLength(0) || col + i >= GetBoard().GetLength(1) || GetBoardValue(row + i, col + i) != pattern[i])
+                    {
+                        return false;
+                    }
+                    if (pattern[i] == 'E')
+                    {
+                        tempI = row + i;
+                        tempJ = col + i;
+                    }
+                }
+                if (flag)
+                {
+                    endCheck = true;
+                    row = tempI;
+                    col = tempJ;
                 }
             }
             return true;
+
         }
 
         private int evaluation(Players currentPlayer)
@@ -357,13 +483,15 @@ namespace Gomoku
             char[,] tempBoard = GetBoard();
             for (int i = 0; i < tempBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < tempBoard.GetLength(1); j++)
+                for (int j =0; j < tempBoard.GetLength(1); j++)
                 {
-                    int score = positionValue(currentPlayer,i, j);
+                    int tempI = i;
+                    int tempJ = j;
+                    int score = positionValue(currentPlayer,ref tempI, ref tempJ);
                     if (score > bestScore)
                     {
-                        stepI = i;
-                        stepJ = j;
+                        stepI = tempI;
+                        stepJ = tempJ;
                         bestScore = score;
                         //break;
                     }
@@ -374,50 +502,52 @@ namespace Gomoku
 
         private int AplhaBetaPruning(int depth, Players currentPlayer, int alpha, int beta)
         {
-            if (evaluation(currentPlayer) == int.MinValue)
+            if (IsWinner(currentPlayer))
+                return 10;
+            currentPlayer = GetOpponent(currentPlayer);
+            if (IsWinner(currentPlayer))
+                return 10;
+            currentPlayer = GetOpponent(currentPlayer);
+            if (IsEmptySquares() || depth == 3)
+                return 0;
+
+            int bestValue = currentPlayer.Player == Player.BotPlayer ? int.MinValue : int.MaxValue;
+
+            for (int i = 0; i < GetBoard().GetLength(0); i++)
             {
-                if (IsEmptySquares())
-                    return 0; //ничья
-                int bestValue = currentPlayer.Player == Player.BotPlayer ? int.MinValue : int.MaxValue;
-
-                for (int i = 0; i < GetBoard().GetLength(0); i++)
+                for (int j = 0; j < GetBoard().GetLength(1); j++)
                 {
-                    for (int j = 0; j < GetBoard().GetLength(1); j++)
+                    if (GetBoardValue(i, j) == 'E')
                     {
-                        if (GetBoardValue(i, j) == 'E')
-                        {
-                            SetBoardValue(i, j, currentPlayer.PlayerMarker);
-                            int moveValue = AplhaBetaPruning(depth + 1, GetOpponent(currentPlayer), alpha, beta);
-                            SetBoardValue(i, j, 'E');
+                        SetBoardValue(i, j, currentPlayer.PlayerMarker);
+                        int moveValue = AplhaBetaPruning(depth + 1, GetOpponent(currentPlayer), alpha, beta);
+                        SetBoardValue(i, j, 'E');
 
-                            if (currentPlayer.Player == Player.BotPlayer)
+                        if (currentPlayer.Player == Player.BotPlayer)
+                        {
+                            bestValue = Math.Max(bestValue, moveValue);
+                            alpha = Math.Max(alpha, bestValue);
+                            stepI = i;
+                            stepJ = j;
+                            if (beta <= alpha)
                             {
-                                bestValue = Math.Max(bestValue, moveValue);
-                                alpha = Math.Max(alpha, bestValue);
-                                stepI = i;
-                                stepJ = j;
-                                if (beta <= alpha)
-                                {
-                                    break;
-                                }
+                                break;
                             }
-                            else
+                        }
+                        else
+                        {
+                            bestValue = Math.Min(bestValue, moveValue);
+                            beta = Math.Min(beta, bestValue);
+                            if (beta <= alpha)
                             {
-                                bestValue = Math.Min(bestValue, moveValue);
-                                beta = Math.Min(beta, bestValue);
-                                if (beta <= alpha)
-                                {
-                                    break;
-                                }
+                                break;
                             }
                         }
                     }
                 }
-
-                return bestValue;
             }
-            else
-                return evaluation(currentPlayer);
+
+            return bestValue;
         }
 
         private Players GetOpponent(Players curentPlayer) //смена игрока для алгоритма

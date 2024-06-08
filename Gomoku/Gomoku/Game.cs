@@ -8,20 +8,32 @@ namespace Gomoku
 {
     class Game 
     {
-        const int size = 15; //для реальной симуляции
-        //const int size = 6; //для теста
-        char[,] board = new char[size,size]; //элементы: W-белые, B - черные, E - пустая
-        char[] players = { 'B', 'W' };
-        List<(int, int)> sequenceOfMoves = new List<(int, int)>();
-        bool GameIsOver; //флаг - показатель завершенности игры
-        char currentPlayer;
-        List<int[]> SuccessSteps = new List<int[]>(); //массив выигрышных ходов, нужно для отображения
+        //private const int size = 15; //для реальной симуляции
+        private const int size = 6; //для теста
+        private char[,] board = new char[size,size]; //элементы: W-белые, B - черные, E - пустая
+        private char[] players = { 'B', 'W' };
+        private List<(int, int)> sequenceOfMoves = new List<(int, int)>();
+        private bool GameIsOver; //флаг - показатель завершенности игры
+        private char currentPlayer;
+        private List<int[]> SuccessSteps = new List<int[]>(); //массив выигрышных ходов, нужно для отображения
 
         private int black_steps;
         private int steps;
         private int white_steps;
 
         Profile profile;
+        
+        public void SetClearBoard()
+        {
+            for (int i = 0; i< board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    board[i, j] = 'E';
+                }
+            }
+        }
+
 
         public void ChangeCurrentPlayer()
         {

@@ -517,6 +517,7 @@ namespace Gomoku
             this.BBotStepExp.TabIndex = 10;
             this.BBotStepExp.Text = "Ход Бота";
             this.BBotStepExp.UseVisualStyleBackColor = false;
+            this.BBotStepExp.Click += new System.EventHandler(this.BBotStepExp_Click);
             // 
             // Experiment
             // 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Gomoku
 {
     public partial class Experiment : Form
@@ -16,7 +17,7 @@ namespace Gomoku
         Image black = Image.FromFile("blacknew.png");
         Image white = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
-        Game game = new Game();
+        //Game game = new Game();
         GameWithBot botPlayer;
         bool gameWithBot = true;
         private int dataTimeLimit = int.MaxValue; //ограничение по времени
@@ -24,10 +25,10 @@ namespace Gomoku
         public Experiment()
         {
             InitializeComponent();
-            timer = new Timer();
+            /*timer = new Timer();
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
-            timer.Start();
+            timer.Start();*/
         }
 
         private void Experiment_Load(object sender, EventArgs e)
@@ -51,7 +52,7 @@ namespace Gomoku
             int seconds = (currentValue % 60);
             TimeLabel.Text = seconds.ToString() + " Сек.";
         }
-        private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля при игре 1 на 1
+        /*private void Cell_Click(object sender, EventArgs e) //нажатие на ячейку игрового поля при игре 1 на 1
         {
             try
             {
@@ -89,7 +90,7 @@ namespace Gomoku
             {
                 MessageBox.Show(ee.Message);
             }
-        }
+        }*/
 
         private void PaintWinnerPanels(List<int[]> array) //закраска выигрышнх клеток
         {
@@ -144,7 +145,7 @@ namespace Gomoku
                             prevCell.BackColor = Color.Transparent;
                     }
                 }
-                else
+               /* else
                 {
                     if (game.GetSequenceOfMoves().Count == 1) //первый ход всегда в центр
                     {
@@ -170,7 +171,7 @@ namespace Gomoku
                         else
                             prevCell.BackColor = Color.Transparent;
                     }
-                }
+                }*/
             }
             catch (Exception ee)
             {
@@ -213,7 +214,7 @@ namespace Gomoku
                             if (botPlayer.rightCoordination(botI, botJ))
                             {
                                 Panel botCell = tableLayoutPanel1.GetControlFromPosition(botJ, botI) as Panel;
-                                if (botCell.BackgroundImage != null)
+                                if (botPlayer.GetBoardValue(botI, botJ)!='E')
                                 {
                                     DialogResult resultdialog = MessageBox.Show("Клетка, в которую противник-компьютер хочет поставить свой камень, уже занята!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     if (resultdialog == DialogResult.OK)
@@ -284,7 +285,7 @@ namespace Gomoku
                     }
                 }
             }
-            else
+            /*else
             {
 
                 if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
@@ -301,8 +302,8 @@ namespace Gomoku
                     game.SetWhiteSteps(game.GetWhiteSteps() + 1);
                     WhoStep.Text = "Черных";
                 }
-            }
-            game.ChangeCurrentPlayer();
+                game.ChangeCurrentPlayer();
+            }*/
             PaintChoosePanel();
         }
            
@@ -316,14 +317,14 @@ namespace Gomoku
                 PaintWinnerPanels(botPlayer.GetSuccessSteps());
                 if (botPlayer.GetBotPlayerSide() == player) //так как уже поменяли в nextturn при ходе
                 {
-                    MessageBox.Show("Вы проиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetBlackSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetWhiteSteps());
+                    MessageBox.Show("Вы проиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов противника: " + botPlayer.GetBlackSteps() + "\nКоличество ходов пользователя: " + botPlayer.GetWhiteSteps());
                 }
                 else
                 {
-                    MessageBox.Show("Вы выиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetBlackSteps());
+                    MessageBox.Show("Вы выиграли!\nВсего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов пользователя: " + botPlayer.GetWhiteSteps() + "\nКоличество ходов противника: " + botPlayer.GetBlackSteps());
                 }
             }
-            else
+            /*else
             {
                 game.SetGameIsOver(true);
                 PaintWinnerPanels(game.GetSuccessSteps());
@@ -335,7 +336,7 @@ namespace Gomoku
                 {
                     MessageBox.Show("Белые выиграли!\nВсего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps());
                 }
-            }
+            }*/
         }
 
         private void Experiment_FormClosed(object sender, FormClosedEventArgs e)
@@ -353,8 +354,8 @@ namespace Gomoku
                     Panel cell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
                     if (gameWithBot)
                         cell.Click += Cell_Click_Bot; //игру с ботом
-                    else
-                        cell.Click += Cell_Click; // добавляем обработчик события клика на ячейку
+                    /*else
+                        cell.Click += Cell_Click; // добавляем обработчик события клика на ячейку*/
                     if (i == 7 && j == 7)
                     {
                         cell.BackColor = Color.Gray;
@@ -384,6 +385,73 @@ namespace Gomoku
             ControlPaint.DrawBorder(e.Graphics, e.CellBounds, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid, Color.Black, 1, ButtonBorderStyle.Solid);
         }
 
+        private Timer delayTimer;
+        private void UIFork3x3()                //модуляция вилки 3 на 3
+        {
+            //черные
+            botPlayer.SetBoardValue(2, 3, 'B');
+            Panel cell = tableLayoutPanel1.GetControlFromPosition(3, 2) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = black;
+            botPlayer.SetBoardValue(4, 2, 'B');
+            cell = tableLayoutPanel1.GetControlFromPosition(2, 4) as Panel; 
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = black;
+            botPlayer.SetBoardValue(3, 3, 'B');
+            cell = tableLayoutPanel1.GetControlFromPosition(3, 3) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = black;
+            botPlayer.SetBoardValue(4, 1, 'B');
+            cell = tableLayoutPanel1.GetControlFromPosition(1, 4) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = black;
+            //белые
+            botPlayer.SetBoardValue(3, 0, 'W');
+            cell = tableLayoutPanel1.GetControlFromPosition(0, 3) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = white;
+            botPlayer.SetBoardValue(1, 2, 'W');
+            cell = tableLayoutPanel1.GetControlFromPosition(2, 1) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = white;
+            botPlayer.SetBoardValue(2, 2, 'W');
+            cell = tableLayoutPanel1.GetControlFromPosition(2, 2) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = white;
+            botPlayer.SetBoardValue(3, 2, 'W');
+            cell = tableLayoutPanel1.GetControlFromPosition(2, 3) as Panel;
+            cell.BackgroundImageLayout = ImageLayout.Center;
+            cell.BackgroundImage = white;
+
+        }
+
+        private void modulationBotStep()
+        {
+            botPlayer.SetCurrentPlayer('W');
+            List<(int, int)> botMove = botPlayer.DoStep();
+            int botI = botMove[0].Item1;
+            int botJ = botMove[0].Item2;
+            if (botPlayer.rightCoordination(botI, botJ))
+            {
+                Panel botCell = tableLayoutPanel1.GetControlFromPosition(botJ, botI) as Panel;
+                if (botPlayer.GetBoardValue(botI, botJ) != 'E')
+                {
+                    DialogResult resultdialog = MessageBox.Show("Клетка, в которую противник-компьютер хочет поставить свой камень, уже занята!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (resultdialog == DialogResult.OK)
+                    {
+                        this.Close();
+                    }
+                }
+                if (botCell != null && botCell.BackgroundImage == null)
+                {
+                    botCell.BackgroundImageLayout = ImageLayout.Center;
+                    botPlayer.NextTurn(botI, botJ, botPlayer.GetBotPlayerSide());
+                    UpdateGameUI(botCell, botI, botJ);
+                }
+            }
+        }
+
+     
 
         private void modulationFork3x3()
         {
@@ -391,11 +459,20 @@ namespace Gomoku
             DialogResult dialogResult = MessageBox.Show("Тест Вилка 3х3\tБот новичок\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
             if (dialogResult == DialogResult.Yes)
             {
-                //модуляция вилки 3 на 3
+                UIFork3x3();
+                botPlayer.SetLevel('S');
+                botPlayer.SetBotPlayerSide('B');
+                modulationBotStep();
+
                 DialogResult dialogResult2 = MessageBox.Show("Тест Вилка 3х3\tОпытный бот\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
                 if (dialogResult2 == DialogResult.Yes)
                 {
-                    //вилка 3 на 3 с простым ботом
+                    botPlayer.SetClearBoard();//сброс
+                    botPlayer.SetSteps(botPlayer.GetSteps() - 1); //сбрасываем количество шагов для грамотного отображения UI
+                    UIFork3x3();
+                    botPlayer.SetLevel('M');
+                    botPlayer.SetBotPlayerSide('B');
+                    modulationBotStep();
                 }
                 else
                 {
@@ -403,32 +480,19 @@ namespace Gomoku
                 }
             }
             else
+            {
+                this.Close();
+            }
+            DialogResult dialogResult3 = MessageBox.Show("Режим модуляции завершен. Желаете закрыть форму?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            if (dialogResult3 == DialogResult.Yes)
             {
                 this.Close();
             }
         }
 
-        private void modulationFork4x4()
+        private void BBotStepExp_Click(object sender, EventArgs e)
         {
-            BHelp.Visible = false;
-            DialogResult dialogResult = MessageBox.Show("Тест Вилка 3х3\tБот новичок\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
-            if (dialogResult == DialogResult.Yes)
-            {
-                //модуляция вилки 4 на 4
-                DialogResult dialogResult2 = MessageBox.Show("Тест Вилка 3х3\tОпытный бот\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
-                if (dialogResult2 == DialogResult.Yes)
-                {
-                    ///вилка 4 на 4 с опытным ботом
-                }
-                else
-                {
-                    this.Close();
-                }
-            }
-            else
-            {
-                this.Close();
-            }
+            modulationFork3x3();
         }
     }
 }
