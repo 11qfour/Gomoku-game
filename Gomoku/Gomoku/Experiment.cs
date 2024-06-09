@@ -14,14 +14,12 @@ namespace Gomoku
     public partial class Experiment : Form
     {
         int all_sec = 0;
-        Image black = Image.FromFile("blacknew.png");
-        Image white = Image.FromFile("whitenew.png");
+        Image blackStone = Image.FromFile("blacknew.png");
+        Image whiteStone = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
         //Game game = new Game();
         GameWithBot botPlayer;
         bool gameWithBot = true;
-        private int dataTimeLimit = int.MaxValue; //ограничение по времени
-        private bool IsTimeLimit; //есть ограничение по времени или нет
         public Experiment()
         {
             InitializeComponent();
@@ -258,14 +256,14 @@ namespace Gomoku
                 {
                     if (botPlayer.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                     {
-                        cell.BackgroundImage = black;
+                        cell.BackgroundImage = blackStone;
                         botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                         botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
                         WhoStep.Text = "Белых";
                     }
                     else // устанавливаем белый цвет фишки
                     {
-                        cell.BackgroundImage = white;
+                        cell.BackgroundImage = whiteStone;
                         botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                         botPlayer.SetWhiteSteps(botPlayer.GetWhiteSteps() + 1);
                         WhoStep.Text = "Черных";
@@ -350,7 +348,7 @@ namespace Gomoku
                         {
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             botPlayer.SetBoardValue(i, j, 'B');
-                            cell.BackgroundImage = black;
+                            cell.BackgroundImage = blackStone;
                             botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
                             botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                         }
@@ -378,37 +376,36 @@ namespace Gomoku
             botPlayer.SetBoardValue(2, 3, 'B');
             Panel cell = tableLayoutPanel1.GetControlFromPosition(3, 2) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = black;
+            cell.BackgroundImage = blackStone;
             botPlayer.SetBoardValue(4, 2, 'B');
             cell = tableLayoutPanel1.GetControlFromPosition(2, 4) as Panel; 
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = black;
+            cell.BackgroundImage = blackStone;
             botPlayer.SetBoardValue(3, 3, 'B');
             cell = tableLayoutPanel1.GetControlFromPosition(3, 3) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = black;
+            cell.BackgroundImage = blackStone;
             botPlayer.SetBoardValue(4, 1, 'B');
             cell = tableLayoutPanel1.GetControlFromPosition(1, 4) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = black;
+            cell.BackgroundImage = blackStone;
             //белые
             botPlayer.SetBoardValue(3, 0, 'W');
             cell = tableLayoutPanel1.GetControlFromPosition(0, 3) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = white;
+            cell.BackgroundImage = whiteStone;
             botPlayer.SetBoardValue(1, 2, 'W');
             cell = tableLayoutPanel1.GetControlFromPosition(2, 1) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = white;
+            cell.BackgroundImage = whiteStone;
             botPlayer.SetBoardValue(2, 2, 'W');
             cell = tableLayoutPanel1.GetControlFromPosition(2, 2) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = white;
+            cell.BackgroundImage = whiteStone;
             botPlayer.SetBoardValue(3, 2, 'W');
             cell = tableLayoutPanel1.GetControlFromPosition(2, 3) as Panel;
             cell.BackgroundImageLayout = ImageLayout.Center;
-            cell.BackgroundImage = white;
-
+            cell.BackgroundImage = whiteStone;
         }
 
         private void modulationBotStep()
@@ -420,6 +417,7 @@ namespace Gomoku
             if (botPlayer.rightCoordination(botI, botJ))
             {
                 Panel botCell = tableLayoutPanel1.GetControlFromPosition(botJ, botI) as Panel;
+                botPlayer.SetSequenceStepsValue(botI, botJ);
                 if (botPlayer.GetBoardValue(botI, botJ) != 'E')
                 {
                     DialogResult resultdialog = MessageBox.Show("Клетка, в которую противник-компьютер хочет поставить свой камень, уже занята!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -448,11 +446,17 @@ namespace Gomoku
                 UIFork3x3();
                 botPlayer.SetLevel('S');
                 botPlayer.SetBotPlayerSide('B');
+                botPlayer.SetSequenceStepsValue(3,2);
                 modulationBotStep();
 
                 DialogResult dialogResult2 = MessageBox.Show("Тест Вилка 3х3\tОпытный бот\nПродолжить?", "Режим модуляции", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
                 if (dialogResult2 == DialogResult.Yes)
                 {
+                    var lastMove = botPlayer.GetSequenceOfMoves()[botPlayer.GetSequenceOfMoves().Count - 1];
+                    int i = lastMove.Item1; // Последний x
+                    int j = lastMove.Item2; // Последний y
+                    Panel lastCell = tableLayoutPanel1.GetControlFromPosition(j, i) as Panel;
+                    lastCell.BackgroundImage = null;
                     botPlayer.SetClearBoard();//сброс
                     botPlayer.SetSteps(botPlayer.GetSteps() - 1); //сбрасываем количество шагов для грамотного отображения UI
                     UIFork3x3();

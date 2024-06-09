@@ -127,8 +127,6 @@
     </Compile>
     <Compile Include="Profile.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Prompt.cs" />
-    <Compile Include="PromptBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RulesForm.cs">
       <SubType>Form</SubType>

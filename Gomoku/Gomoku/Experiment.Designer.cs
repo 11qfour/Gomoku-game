@@ -498,11 +498,11 @@ namespace Gomoku
             this.LModulationExp.AutoSize = true;
             this.LModulationExp.Font = new System.Drawing.Font("Segoe UI Symbol", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LModulationExp.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.LModulationExp.Location = new System.Drawing.Point(1031, 238);
+            this.LModulationExp.Location = new System.Drawing.Point(1026, 259);
             this.LModulationExp.Name = "LModulationExp";
-            this.LModulationExp.Size = new System.Drawing.Size(348, 60);
+            this.LModulationExp.Size = new System.Drawing.Size(403, 60);
             this.LModulationExp.TabIndex = 11;
-            this.LModulationExp.Text = "Чтобы начать модуляцию, \r\nнажмите на кнопку ниже:";
+            this.LModulationExp.Text = "Чтобы начать моделирование, \r\nнажмите на кнопку ниже";
             // 
             // Experiment
             // 

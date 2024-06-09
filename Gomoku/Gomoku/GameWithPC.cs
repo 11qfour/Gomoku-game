@@ -87,7 +87,7 @@ namespace Gomoku
                         int result = game.CheckWinner(i, j);
                         if (result == 0)
                         {
-                            game.AddToFile("tie",'f',game.GetCurrentPlayer());
+                            game.AddToFile("tie",'f', all_sec);
                             game.SetGameIsOver(true);
                             DialogResult dr = MessageBox.Show("Это была достойная борьба!","Ничья!", MessageBoxButtons.OK,MessageBoxIcon.Information);
                             if (dr == DialogResult.OK)
@@ -215,7 +215,7 @@ namespace Gomoku
                         int result = botPlayer.CheckWinner(i, j);
                         if (result == 0)
                         {
-                            botPlayer.AddToFile("tie", botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
+                            botPlayer.AddToFile("tie", botPlayer.GetLevel(), all_sec);
                             botPlayer.SetGameIsOver(true);
                             DialogResult dr = MessageBox.Show("Это была достойная борьба!", "Ничья!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (dr == DialogResult.OK)
@@ -245,7 +245,7 @@ namespace Gomoku
                                 if (result == 0)
                                 {
                                     timer.Stop();
-                                    botPlayer.AddToFile("tie",botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
+                                    botPlayer.AddToFile("tie",botPlayer.GetLevel(), all_sec);
                                     botPlayer.SetGameIsOver(true);
                                     DialogResult dr = MessageBox.Show("Это была достойная борьба!", "Ничья!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     if (dr == DialogResult.OK)
@@ -339,7 +339,7 @@ namespace Gomoku
                         }
                     }
                 }
-                game.ChangeCurrentPlayer();
+                game.ChangeCurrentPlayer(); //смена активного игрока
             }
             PaintChoosePanel();
         }
@@ -353,13 +353,13 @@ namespace Gomoku
                 PaintWinnerPanels(botPlayer.GetSuccessSteps());
                 if (botPlayer.GetBotPlayerSide() == player) //так как уже поменяли в nextturn при ходе
                 {
-                    botPlayer.AddToFile("human", botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
+                    botPlayer.AddToFile("bot", botPlayer.GetLevel(), all_sec);
                     dialogResult = MessageBox.Show("Всего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetBlackSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetWhiteSteps(), "ВЫ ПРОИГРАЛИ!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     
                 }
                 else
                 {
-                    botPlayer.AddToFile("bot", botPlayer.GetLevel(), botPlayer.GetBotPlayerSide());
+                    botPlayer.AddToFile("human", botPlayer.GetLevel(), all_sec);
                     dialogResult = MessageBox.Show("Всего ходов: " + botPlayer.GetSteps() + "\nКоличество ходов победителя: " + botPlayer.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + botPlayer.GetBlackSteps(), "ВЫ ВЫИГРАЛИ!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
@@ -369,12 +369,12 @@ namespace Gomoku
                 PaintWinnerPanels(game.GetSuccessSteps());
                 if (game.GetCurrentPlayer() == 'W')//так как уже поменяли в nextturn при ходе
                 {
-                    game.AddToFile("черные",'f', game.GetCurrentPlayer());
+                    game.AddToFile("черные",'f', all_sec);
                     dialogResult = MessageBox.Show("Всего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetBlackSteps() + "\nКоличество ходов проигравшего: " + game.GetWhiteSteps(), "Черные выиграли!",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
                 else
                 {
-                    game.AddToFile("белые", 'f', game.GetCurrentPlayer());
+                    game.AddToFile("белые", 'f', all_sec);
                     dialogResult = MessageBox.Show("Всего ходов: " + game.GetSteps() + "\nКоличество ходов победителя: " + game.GetWhiteSteps() + "\nКоличество ходов проигравшего: " + game.GetBlackSteps(), "Белые выиграли!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
@@ -478,7 +478,7 @@ namespace Gomoku
                     int repeat = 2;
                     while (repeat != 0) //2 отмены хода: посл. ход бота и игрока
                     {
-                        botPlayer.CancelTurn(ref i, ref j);
+                        botPlayer.сancelTurn(ref i, ref j);
                         if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
                         {
                             Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;
@@ -503,7 +503,7 @@ namespace Gomoku
                 }
                 else
                 {
-                    game.CancelTurn(ref i, ref j);
+                    game.сancelTurn(ref i, ref j);
                     if (i >= 0 && i < 15 && j >= 0 && j < 15) //проверка попадания и правимльного отбора из списка
                     {
                         Panel cell = LayGameFieldPC.GetControlFromPosition(j, i) as Panel;

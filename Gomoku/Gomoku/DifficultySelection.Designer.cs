@@ -30,6 +30,7 @@ namespace Gomoku
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DifficultySelection));
             this.L1DS = new System.Windows.Forms.Label();
             this.BStartDS = new System.Windows.Forms.Button();
             this.L2DS = new System.Windows.Forms.Label();
@@ -94,6 +95,7 @@ namespace Gomoku
             this.RBNoTimeDS.TabStop = true;
             this.RBNoTimeDS.Text = "Нет ограничения по времени";
             this.RBNoTimeDS.UseVisualStyleBackColor = true;
+            this.RBNoTimeDS.CheckedChanged += new System.EventHandler(this.RBNoTimeDS_CheckedChanged);
             // 
             // RBTimerDS
             // 
@@ -220,6 +222,7 @@ namespace Gomoku
             this.Controls.Add(this.L2DS);
             this.Controls.Add(this.BStartDS);
             this.Controls.Add(this.L1DS);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DifficultySelection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор сложности игры противника-компьютера";

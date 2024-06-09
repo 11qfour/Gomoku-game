@@ -64,9 +64,11 @@ namespace Gomoku
             this.ClientSize = new System.Drawing.Size(605, 460);
             this.Controls.Add(this.ExitMainButton);
             this.Controls.Add(this.RichTBDatasInfo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Info";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Руководство к приложению";
+            this.Load += new System.EventHandler(this.Info_Load);
             this.ResumeLayout(false);
 
         }

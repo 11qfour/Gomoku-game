@@ -23,6 +23,11 @@ namespace Gomoku
 
         Profile profile;
         
+        public void SetSequenceStepsValue(int i, int j)
+        {
+            this.sequenceOfMoves.Add((i, j));
+        }
+
         public void SetClearBoard()
         {
             for (int i = 0; i< board.GetLength(0); i++)
@@ -58,7 +63,7 @@ namespace Gomoku
             return sequenceOfMoves;
         }
 
-        public void CancelTurn(ref int i, ref int j) // отменяет ход
+        public void сancelTurn(ref int i, ref int j) // отменяет ход
         {
             if (sequenceOfMoves.Count > 0)
             {
@@ -82,9 +87,61 @@ namespace Gomoku
         }
 
 
-        public void AddToFile(string result, char Opponent, char sideopp) //запись сыгранного матча в файл
+        public void AddToFile(string result, char Opponent, int time) //запись сыгранного матча в файл
         {
-            profile.LoadDatas() ;
+            string opp="";
+            if (result == "bot" && Opponent == 'M')
+            {
+                result = "Выиграл Опытный Бот";
+                opp = "Опытный Бот";
+            }
+            else if (result == "bot" && Opponent == 'S')
+            {
+                result = "Выиграл Бот Новичок";
+                opp = "Бот Новичок";
+            }
+            else if (result == "human" && Opponent == 'M')
+            {
+                result = "Вы выиграли Опытного Бота";
+                opp = "Опытный Бот";
+            }
+            else if (result == "human" && Opponent == 'S')
+            {
+                result = "Вы выиграли Бота Новичка";
+                opp = "Бот Новичок";
+            }
+            else if (result == "черные" && Opponent == 'f')
+            {
+                result = "Сторона черных победила";
+                opp = "Друг";
+            }
+            else if (result == "белые" && Opponent == 'f')
+            {
+                result = "Сторона белых победила";
+                opp = "Друг";
+            }
+            else if (result == "Tie") {
+                if (Opponent == 'S')
+                {
+                    result = "Ничья в матче с Ботом новичком";
+                    opp = "Бот Новичок";
+                }
+                else if (Opponent == 'M')
+                {
+                    result = "Ничья в матче с опытным Ботом";
+                    opp = "Опытный Бот";
+                }
+                else
+                {
+                    result = "Ничья в матче с другом";
+                    opp = "Друг";
+                }
+            }
+            int hours = time / 3600;
+            int minutes = time / 60;
+            int seconds = time % 60;
+            string times = hours.ToString() + ':'.ToString()+minutes.ToString() + ':'.ToString() + seconds.ToString();
+            profile.AddMatchToProfileFile(result, opp, steps,times);
         }
 
 
@@ -101,7 +158,7 @@ namespace Gomoku
             int horizontalCount = 1; //по умолчанию 1, т.к. не считаем саму ячейку, где уже есть player
             int verticalCount = 1;
             //проверка горизонтали
-            while (j < (size - 1) && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5/*если длинный ряд, прерывается*/)
+            while (j < (size - 1) && (board[i, j] == 'E'|| board[i, j] == player) && verticalCount < 5/*если длинный ряд, прерывается*/)
             {
                 j++; //вправо
                 if (board[i, j] == player)
@@ -116,7 +173,7 @@ namespace Gomoku
             verticalCount = 1;
             j = finish;
             i = start;
-            while (j > 0 && (board[i, j] == 0 || board[i, j] == player) && verticalCount < 5)
+            while (j > 0 && (board[i, j] == 'E' || board[i, j] == player) && verticalCount < 5)
             {
                 j--; //влево
                 if (board[i, j] == player)
@@ -131,7 +188,7 @@ namespace Gomoku
             //проверка вертикали
             j = finish;
             i = start;
-            while (i < (size - 1) && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            while (i < (size - 1) && (board[i, j] == 'E' || board[i, j] == player) && horizontalCount < 5)
             {
                 i++; //вверх
                 if (board[i, j] == player)
@@ -146,7 +203,7 @@ namespace Gomoku
             horizontalCount = 1;
             i = start;
             j = finish;
-            while (i > 0 && (board[i, j] == 0 || board[i, j] == player) && horizontalCount < 5)
+            while (i > 0 && (board[i, j] == 'E' || board[i, j] == player) && horizontalCount < 5)
             {
                 i--; //вниз
                 if (board[i, j] == player)
@@ -223,7 +280,7 @@ namespace Gomoku
                 }
             }
             SuccessSteps.Clear();
-            if (IsEmptySquares()) //(available.Count == 0)
+            if (IsEmptySquares()) 
                 return 0; //ничья
             return 1;  //продолжить игру 
         }
@@ -248,7 +305,7 @@ namespace Gomoku
 
         public Game()
         {
-            profile = new Profile("Sanya"); //подумать над тем как сохранять в тот же файл
+            profile = new Profile("Gamer"); //подумать над тем как сохранять в тот же файл
             this.white_steps = 0;
             this.black_steps = 0;
             this.steps = 0;

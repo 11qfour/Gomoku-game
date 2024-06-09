@@ -21,5 +21,13 @@ namespace Gomoku
         {
             this.Close();
         }
+
+        private void Info_Load(object sender, EventArgs e)
+        {
+            RichTBDatasInfo.ReadOnly = true;
+            RichTBDatasInfo.ScrollBars = RichTextBoxScrollBars.Both;
+            RichTBDatasInfo.SelectionStart = 0;
+            RichTBDatasInfo.SelectionLength = 0;
+        }
     }
 }

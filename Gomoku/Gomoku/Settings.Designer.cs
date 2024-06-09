@@ -36,44 +36,44 @@ namespace Gomoku
             this.LLastMatches = new System.Windows.Forms.Label();
             this.LSett1 = new System.Windows.Forms.Label();
             this.TLPSett2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox20 = new System.Windows.Forms.TextBox();
-            this.textBox19 = new System.Windows.Forms.TextBox();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.tb14 = new System.Windows.Forms.TextBox();
+            this.tb13 = new System.Windows.Forms.TextBox();
+            this.tb16 = new System.Windows.Forms.TextBox();
+            this.tb15 = new System.Windows.Forms.TextBox();
+            this.tb10 = new System.Windows.Forms.TextBox();
+            this.tb11 = new System.Windows.Forms.TextBox();
+            this.tb12 = new System.Windows.Forms.TextBox();
+            this.tb7 = new System.Windows.Forms.TextBox();
+            this.tb8 = new System.Windows.Forms.TextBox();
+            this.tb9 = new System.Windows.Forms.TextBox();
+            this.tb6 = new System.Windows.Forms.TextBox();
+            this.tb3 = new System.Windows.Forms.TextBox();
+            this.tb2 = new System.Windows.Forms.TextBox();
+            this.tb5 = new System.Windows.Forms.TextBox();
+            this.tb4 = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.tb1 = new System.Windows.Forms.TextBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.BExit = new System.Windows.Forms.Button();
             this.BSaveSett = new System.Windows.Forms.Button();
             this.TLPSett = new System.Windows.Forms.TableLayoutPanel();
-            this.TBPanelSet13 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet14 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet15 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet10 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet9 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet12 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet11 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet8 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet5 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet6 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet7 = new System.Windows.Forms.TextBox();
+            this.TBPanel10 = new System.Windows.Forms.TextBox();
+            this.TBPanel11 = new System.Windows.Forms.TextBox();
+            this.TBPanel12 = new System.Windows.Forms.TextBox();
+            this.TBPanel7 = new System.Windows.Forms.TextBox();
+            this.TBPanel6 = new System.Windows.Forms.TextBox();
+            this.TBPanel9 = new System.Windows.Forms.TextBox();
+            this.TBPanel8 = new System.Windows.Forms.TextBox();
+            this.TBPanel5 = new System.Windows.Forms.TextBox();
+            this.TBPanel2 = new System.Windows.Forms.TextBox();
+            this.TBPanel3 = new System.Windows.Forms.TextBox();
+            this.TBPanel4 = new System.Windows.Forms.TextBox();
             this.TBPanelSet1 = new System.Windows.Forms.TextBox();
             this.TBPanelSet0 = new System.Windows.Forms.TextBox();
             this.TBPanelSet2 = new System.Windows.Forms.TextBox();
-            this.TBPanelSet4 = new System.Windows.Forms.TextBox();
+            this.TBPanel1 = new System.Windows.Forms.TextBox();
             this.TBPanelSet3 = new System.Windows.Forms.TextBox();
             this.LSett2 = new System.Windows.Forms.Label();
             this.TBRapidSett = new System.Windows.Forms.TextBox();
@@ -158,25 +158,25 @@ namespace Gomoku
             this.TLPSett2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.TLPSett2.Controls.Add(this.textBox20, 0, 4);
-            this.TLPSett2.Controls.Add(this.textBox19, 0, 4);
-            this.TLPSett2.Controls.Add(this.textBox18, 0, 4);
-            this.TLPSett2.Controls.Add(this.textBox17, 0, 4);
-            this.TLPSett2.Controls.Add(this.textBox1, 0, 3);
-            this.TLPSett2.Controls.Add(this.textBox2, 0, 3);
-            this.TLPSett2.Controls.Add(this.textBox3, 0, 3);
-            this.TLPSett2.Controls.Add(this.textBox4, 0, 2);
-            this.TLPSett2.Controls.Add(this.textBox5, 0, 2);
-            this.TLPSett2.Controls.Add(this.textBox6, 0, 2);
-            this.TLPSett2.Controls.Add(this.textBox7, 0, 2);
-            this.TLPSett2.Controls.Add(this.textBox8, 0, 1);
-            this.TLPSett2.Controls.Add(this.textBox9, 0, 1);
-            this.TLPSett2.Controls.Add(this.textBox10, 0, 1);
-            this.TLPSett2.Controls.Add(this.textBox11, 0, 1);
+            this.TLPSett2.Controls.Add(this.tb14, 0, 4);
+            this.TLPSett2.Controls.Add(this.tb13, 0, 4);
+            this.TLPSett2.Controls.Add(this.tb16, 0, 4);
+            this.TLPSett2.Controls.Add(this.tb15, 0, 4);
+            this.TLPSett2.Controls.Add(this.tb10, 0, 3);
+            this.TLPSett2.Controls.Add(this.tb11, 0, 3);
+            this.TLPSett2.Controls.Add(this.tb12, 0, 3);
+            this.TLPSett2.Controls.Add(this.tb7, 0, 2);
+            this.TLPSett2.Controls.Add(this.tb8, 0, 2);
+            this.TLPSett2.Controls.Add(this.tb9, 0, 2);
+            this.TLPSett2.Controls.Add(this.tb6, 0, 2);
+            this.TLPSett2.Controls.Add(this.tb3, 0, 1);
+            this.TLPSett2.Controls.Add(this.tb2, 0, 1);
+            this.TLPSett2.Controls.Add(this.tb5, 0, 1);
+            this.TLPSett2.Controls.Add(this.tb4, 0, 1);
             this.TLPSett2.Controls.Add(this.textBox12, 0, 0);
             this.TLPSett2.Controls.Add(this.textBox13, 0, 0);
             this.TLPSett2.Controls.Add(this.textBox14, 0, 0);
-            this.TLPSett2.Controls.Add(this.textBox15, 0, 0);
+            this.TLPSett2.Controls.Add(this.tb1, 0, 0);
             this.TLPSett2.Controls.Add(this.textBox16, 0, 0);
             this.TLPSett2.Enabled = false;
             this.TLPSett2.Location = new System.Drawing.Point(0, 632);
@@ -190,155 +190,155 @@ namespace Gomoku
             this.TLPSett2.Size = new System.Drawing.Size(1896, 254);
             this.TLPSett2.TabIndex = 14;
             // 
-            // textBox20
+            // tb14
             // 
-            this.textBox20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox20.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox20.Location = new System.Drawing.Point(477, 203);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(468, 45);
-            this.textBox20.TabIndex = 21;
-            this.textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb14.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb14.Location = new System.Drawing.Point(477, 203);
+            this.tb14.Name = "tb14";
+            this.tb14.Size = new System.Drawing.Size(468, 43);
+            this.tb14.TabIndex = 21;
+            this.tb14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox19
+            // tb13
             // 
-            this.textBox19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox19.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox19.Location = new System.Drawing.Point(3, 203);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(468, 45);
-            this.textBox19.TabIndex = 20;
-            this.textBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb13.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb13.Location = new System.Drawing.Point(3, 203);
+            this.tb13.Name = "tb13";
+            this.tb13.Size = new System.Drawing.Size(468, 43);
+            this.tb13.TabIndex = 20;
+            this.tb13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox18
+            // tb16
             // 
-            this.textBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox18.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox18.Location = new System.Drawing.Point(1425, 203);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(468, 45);
-            this.textBox18.TabIndex = 19;
-            this.textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb16.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb16.Location = new System.Drawing.Point(1425, 203);
+            this.tb16.Name = "tb16";
+            this.tb16.Size = new System.Drawing.Size(468, 43);
+            this.tb16.TabIndex = 19;
+            this.tb16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox17
+            // tb15
             // 
-            this.textBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox17.Font = new System.Drawing.Font("Segoe UI Symbol", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox17.Location = new System.Drawing.Point(951, 203);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(468, 45);
-            this.textBox17.TabIndex = 18;
-            this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb15.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb15.Location = new System.Drawing.Point(951, 203);
+            this.tb15.Name = "tb15";
+            this.tb15.Size = new System.Drawing.Size(468, 43);
+            this.tb15.TabIndex = 18;
+            this.tb15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox1
+            // tb10
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(477, 153);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(468, 46);
-            this.textBox1.TabIndex = 17;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb10.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb10.Location = new System.Drawing.Point(477, 153);
+            this.tb10.Name = "tb10";
+            this.tb10.Size = new System.Drawing.Size(468, 43);
+            this.tb10.TabIndex = 17;
+            this.tb10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox2
+            // tb11
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(951, 153);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(468, 46);
-            this.textBox2.TabIndex = 16;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb11.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb11.Location = new System.Drawing.Point(951, 153);
+            this.tb11.Name = "tb11";
+            this.tb11.Size = new System.Drawing.Size(468, 43);
+            this.tb11.TabIndex = 16;
+            this.tb11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox3
+            // tb12
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(1425, 153);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(468, 46);
-            this.textBox3.TabIndex = 15;
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb12.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb12.Location = new System.Drawing.Point(1425, 153);
+            this.tb12.Name = "tb12";
+            this.tb12.Size = new System.Drawing.Size(468, 43);
+            this.tb12.TabIndex = 15;
+            this.tb12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox4
+            // tb7
             // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(951, 103);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(468, 46);
-            this.textBox4.TabIndex = 14;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb7.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb7.Location = new System.Drawing.Point(951, 103);
+            this.tb7.Name = "tb7";
+            this.tb7.Size = new System.Drawing.Size(468, 43);
+            this.tb7.TabIndex = 14;
+            this.tb7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox5
+            // tb8
             // 
-            this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox5.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(1425, 103);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(468, 46);
-            this.textBox5.TabIndex = 13;
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb8.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb8.Location = new System.Drawing.Point(1425, 103);
+            this.tb8.Name = "tb8";
+            this.tb8.Size = new System.Drawing.Size(468, 43);
+            this.tb8.TabIndex = 13;
+            this.tb8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox6
+            // tb9
             // 
-            this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(3, 153);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(468, 46);
-            this.textBox6.TabIndex = 12;
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb9.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb9.Location = new System.Drawing.Point(3, 153);
+            this.tb9.Name = "tb9";
+            this.tb9.Size = new System.Drawing.Size(468, 43);
+            this.tb9.TabIndex = 12;
+            this.tb9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox7
+            // tb6
             // 
-            this.textBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox7.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(477, 103);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(468, 46);
-            this.textBox7.TabIndex = 11;
-            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb6.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb6.Location = new System.Drawing.Point(477, 103);
+            this.tb6.Name = "tb6";
+            this.tb6.Size = new System.Drawing.Size(468, 43);
+            this.tb6.TabIndex = 11;
+            this.tb6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox8
+            // tb3
             // 
-            this.textBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox8.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(951, 53);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(468, 46);
-            this.textBox8.TabIndex = 10;
-            this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb3.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb3.Location = new System.Drawing.Point(951, 53);
+            this.tb3.Name = "tb3";
+            this.tb3.Size = new System.Drawing.Size(468, 43);
+            this.tb3.TabIndex = 10;
+            this.tb3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox9
+            // tb2
             // 
-            this.textBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox9.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(477, 53);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(468, 46);
-            this.textBox9.TabIndex = 9;
-            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb2.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb2.Location = new System.Drawing.Point(477, 53);
+            this.tb2.Name = "tb2";
+            this.tb2.Size = new System.Drawing.Size(468, 43);
+            this.tb2.TabIndex = 9;
+            this.tb2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox10
+            // tb5
             // 
-            this.textBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox10.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(3, 103);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(468, 46);
-            this.textBox10.TabIndex = 8;
-            this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb5.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb5.Location = new System.Drawing.Point(3, 103);
+            this.tb5.Name = "tb5";
+            this.tb5.Size = new System.Drawing.Size(468, 43);
+            this.tb5.TabIndex = 8;
+            this.tb5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox11
+            // tb4
             // 
-            this.textBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox11.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(1425, 53);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(468, 46);
-            this.textBox11.TabIndex = 7;
-            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb4.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb4.Location = new System.Drawing.Point(1425, 53);
+            this.tb4.Name = "tb4";
+            this.tb4.Size = new System.Drawing.Size(468, 43);
+            this.tb4.TabIndex = 7;
+            this.tb4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox12
             // 
@@ -359,7 +359,7 @@ namespace Gomoku
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(468, 46);
             this.textBox13.TabIndex = 5;
-            this.textBox13.Text = "Матч состоялся";
+            this.textBox13.Text = "Результат матча";
             this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox14
@@ -373,15 +373,15 @@ namespace Gomoku
             this.textBox14.Text = "Количество ходов";
             this.textBox14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox15
+            // tb1
             // 
-            this.textBox15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox15.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox15.Location = new System.Drawing.Point(3, 53);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(468, 46);
-            this.textBox15.TabIndex = 3;
-            this.textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb1.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb1.Location = new System.Drawing.Point(3, 53);
+            this.tb1.Name = "tb1";
+            this.tb1.Size = new System.Drawing.Size(468, 43);
+            this.tb1.TabIndex = 3;
+            this.tb1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox16
             // 
@@ -432,21 +432,21 @@ namespace Gomoku
             this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.TLPSett.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.TLPSett.Controls.Add(this.TBPanelSet13, 0, 3);
-            this.TLPSett.Controls.Add(this.TBPanelSet14, 0, 3);
-            this.TLPSett.Controls.Add(this.TBPanelSet15, 0, 3);
-            this.TLPSett.Controls.Add(this.TBPanelSet10, 0, 2);
-            this.TLPSett.Controls.Add(this.TBPanelSet9, 0, 2);
-            this.TLPSett.Controls.Add(this.TBPanelSet12, 0, 2);
-            this.TLPSett.Controls.Add(this.TBPanelSet11, 0, 2);
-            this.TLPSett.Controls.Add(this.TBPanelSet8, 0, 1);
-            this.TLPSett.Controls.Add(this.TBPanelSet5, 0, 1);
-            this.TLPSett.Controls.Add(this.TBPanelSet6, 0, 1);
-            this.TLPSett.Controls.Add(this.TBPanelSet7, 0, 1);
+            this.TLPSett.Controls.Add(this.TBPanel10, 0, 3);
+            this.TLPSett.Controls.Add(this.TBPanel11, 0, 3);
+            this.TLPSett.Controls.Add(this.TBPanel12, 0, 3);
+            this.TLPSett.Controls.Add(this.TBPanel7, 0, 2);
+            this.TLPSett.Controls.Add(this.TBPanel6, 0, 2);
+            this.TLPSett.Controls.Add(this.TBPanel9, 0, 2);
+            this.TLPSett.Controls.Add(this.TBPanel8, 0, 2);
+            this.TLPSett.Controls.Add(this.TBPanel5, 0, 1);
+            this.TLPSett.Controls.Add(this.TBPanel2, 0, 1);
+            this.TLPSett.Controls.Add(this.TBPanel3, 0, 1);
+            this.TLPSett.Controls.Add(this.TBPanel4, 0, 1);
             this.TLPSett.Controls.Add(this.TBPanelSet1, 0, 0);
             this.TLPSett.Controls.Add(this.TBPanelSet0, 0, 0);
             this.TLPSett.Controls.Add(this.TBPanelSet2, 0, 0);
-            this.TLPSett.Controls.Add(this.TBPanelSet4, 0, 0);
+            this.TLPSett.Controls.Add(this.TBPanel1, 0, 0);
             this.TLPSett.Controls.Add(this.TBPanelSet3, 0, 0);
             this.TLPSett.Enabled = false;
             this.TLPSett.Location = new System.Drawing.Point(0, 315);
@@ -469,115 +469,115 @@ namespace Gomoku
             this.TLPSett.Size = new System.Drawing.Size(1896, 198);
             this.TLPSett.TabIndex = 11;
             // 
-            // TBPanelSet13
+            // TBPanel10
             // 
-            this.TBPanelSet13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet13.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet13.Location = new System.Drawing.Point(477, 150);
-            this.TBPanelSet13.Name = "TBPanelSet13";
-            this.TBPanelSet13.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet13.TabIndex = 17;
-            this.TBPanelSet13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel10.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel10.Location = new System.Drawing.Point(477, 150);
+            this.TBPanel10.Name = "TBPanel10";
+            this.TBPanel10.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel10.TabIndex = 17;
+            this.TBPanel10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet14
+            // TBPanel11
             // 
-            this.TBPanelSet14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet14.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet14.Location = new System.Drawing.Point(951, 150);
-            this.TBPanelSet14.Name = "TBPanelSet14";
-            this.TBPanelSet14.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet14.TabIndex = 16;
-            this.TBPanelSet14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel11.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel11.Location = new System.Drawing.Point(951, 150);
+            this.TBPanel11.Name = "TBPanel11";
+            this.TBPanel11.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel11.TabIndex = 16;
+            this.TBPanel11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet15
+            // TBPanel12
             // 
-            this.TBPanelSet15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet15.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet15.Location = new System.Drawing.Point(1425, 150);
-            this.TBPanelSet15.Name = "TBPanelSet15";
-            this.TBPanelSet15.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet15.TabIndex = 15;
-            this.TBPanelSet15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel12.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel12.Location = new System.Drawing.Point(1425, 150);
+            this.TBPanel12.Name = "TBPanel12";
+            this.TBPanel12.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel12.TabIndex = 15;
+            this.TBPanel12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet10
+            // TBPanel7
             // 
-            this.TBPanelSet10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet10.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet10.Location = new System.Drawing.Point(951, 101);
-            this.TBPanelSet10.Name = "TBPanelSet10";
-            this.TBPanelSet10.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet10.TabIndex = 14;
-            this.TBPanelSet10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel7.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel7.Location = new System.Drawing.Point(951, 101);
+            this.TBPanel7.Name = "TBPanel7";
+            this.TBPanel7.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel7.TabIndex = 14;
+            this.TBPanel7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet9
+            // TBPanel6
             // 
-            this.TBPanelSet9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet9.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet9.Location = new System.Drawing.Point(477, 101);
-            this.TBPanelSet9.Name = "TBPanelSet9";
-            this.TBPanelSet9.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet9.TabIndex = 13;
-            this.TBPanelSet9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel6.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel6.Location = new System.Drawing.Point(477, 101);
+            this.TBPanel6.Name = "TBPanel6";
+            this.TBPanel6.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel6.TabIndex = 13;
+            this.TBPanel6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet12
+            // TBPanel9
             // 
-            this.TBPanelSet12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet12.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet12.Location = new System.Drawing.Point(3, 150);
-            this.TBPanelSet12.Name = "TBPanelSet12";
-            this.TBPanelSet12.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet12.TabIndex = 12;
-            this.TBPanelSet12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel9.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel9.Location = new System.Drawing.Point(3, 150);
+            this.TBPanel9.Name = "TBPanel9";
+            this.TBPanel9.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel9.TabIndex = 12;
+            this.TBPanel9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet11
+            // TBPanel8
             // 
-            this.TBPanelSet11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet11.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet11.Location = new System.Drawing.Point(1425, 101);
-            this.TBPanelSet11.Name = "TBPanelSet11";
-            this.TBPanelSet11.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet11.TabIndex = 11;
-            this.TBPanelSet11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel8.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel8.Location = new System.Drawing.Point(1425, 101);
+            this.TBPanel8.Name = "TBPanel8";
+            this.TBPanel8.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel8.TabIndex = 11;
+            this.TBPanel8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet8
+            // TBPanel5
             // 
-            this.TBPanelSet8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet8.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet8.Location = new System.Drawing.Point(3, 101);
-            this.TBPanelSet8.Name = "TBPanelSet8";
-            this.TBPanelSet8.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet8.TabIndex = 10;
-            this.TBPanelSet8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel5.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel5.Location = new System.Drawing.Point(3, 101);
+            this.TBPanel5.Name = "TBPanel5";
+            this.TBPanel5.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel5.TabIndex = 10;
+            this.TBPanel5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet5
+            // TBPanel2
             // 
-            this.TBPanelSet5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet5.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet5.Location = new System.Drawing.Point(477, 52);
-            this.TBPanelSet5.Name = "TBPanelSet5";
-            this.TBPanelSet5.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet5.TabIndex = 9;
-            this.TBPanelSet5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel2.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel2.Location = new System.Drawing.Point(477, 52);
+            this.TBPanel2.Name = "TBPanel2";
+            this.TBPanel2.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel2.TabIndex = 9;
+            this.TBPanel2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet6
+            // TBPanel3
             // 
-            this.TBPanelSet6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet6.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet6.Location = new System.Drawing.Point(951, 52);
-            this.TBPanelSet6.Name = "TBPanelSet6";
-            this.TBPanelSet6.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet6.TabIndex = 8;
-            this.TBPanelSet6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel3.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel3.Location = new System.Drawing.Point(951, 52);
+            this.TBPanel3.Name = "TBPanel3";
+            this.TBPanel3.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel3.TabIndex = 8;
+            this.TBPanel3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet7
+            // TBPanel4
             // 
-            this.TBPanelSet7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet7.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet7.Location = new System.Drawing.Point(1425, 52);
-            this.TBPanelSet7.Name = "TBPanelSet7";
-            this.TBPanelSet7.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet7.TabIndex = 7;
-            this.TBPanelSet7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel4.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel4.Location = new System.Drawing.Point(1425, 52);
+            this.TBPanel4.Name = "TBPanel4";
+            this.TBPanel4.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel4.TabIndex = 7;
+            this.TBPanel4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TBPanelSet1
             // 
@@ -598,7 +598,7 @@ namespace Gomoku
             this.TBPanelSet0.Name = "TBPanelSet0";
             this.TBPanelSet0.Size = new System.Drawing.Size(468, 46);
             this.TBPanelSet0.TabIndex = 5;
-            this.TBPanelSet0.Text = "Матч состоялся";
+            this.TBPanelSet0.Text = "Результат матча";
             this.TBPanelSet0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TBPanelSet2
@@ -612,15 +612,15 @@ namespace Gomoku
             this.TBPanelSet2.Text = "Количество ходов";
             this.TBPanelSet2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TBPanelSet4
+            // TBPanel1
             // 
-            this.TBPanelSet4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TBPanelSet4.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBPanelSet4.Location = new System.Drawing.Point(3, 52);
-            this.TBPanelSet4.Name = "TBPanelSet4";
-            this.TBPanelSet4.Size = new System.Drawing.Size(468, 46);
-            this.TBPanelSet4.TabIndex = 3;
-            this.TBPanelSet4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TBPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TBPanel1.Font = new System.Drawing.Font("Segoe UI Symbol", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBPanel1.Location = new System.Drawing.Point(3, 52);
+            this.TBPanel1.Name = "TBPanel1";
+            this.TBPanel1.Size = new System.Drawing.Size(468, 43);
+            this.TBPanel1.TabIndex = 3;
+            this.TBPanel1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TBPanelSet3
             // 
@@ -737,6 +737,7 @@ namespace Gomoku
             this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(1904, 1061);
             this.Controls.Add(this.PagesSett);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings";
             this.Text = "Настройки и профиль";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -760,46 +761,46 @@ namespace Gomoku
         private System.Windows.Forms.Label LDesignStonesSett;
         private System.Windows.Forms.Label LThemSett;
         private System.Windows.Forms.TableLayoutPanel TLPSett2;
-        private System.Windows.Forms.TextBox textBox20;
-        private System.Windows.Forms.TextBox textBox19;
-        private System.Windows.Forms.TextBox textBox18;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox tb14;
+        private System.Windows.Forms.TextBox tb13;
+        private System.Windows.Forms.TextBox tb16;
+        private System.Windows.Forms.TextBox tb15;
+        private System.Windows.Forms.TextBox tb10;
+        private System.Windows.Forms.TextBox tb11;
+        private System.Windows.Forms.TextBox tb12;
+        private System.Windows.Forms.TextBox tb7;
+        private System.Windows.Forms.TextBox tb8;
+        private System.Windows.Forms.TextBox tb9;
+        private System.Windows.Forms.TextBox tb6;
+        private System.Windows.Forms.TextBox tb3;
+        private System.Windows.Forms.TextBox tb2;
+        private System.Windows.Forms.TextBox tb5;
+        private System.Windows.Forms.TextBox tb4;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.TextBox tb1;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.Label LLastMatches;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button BExit;
         private System.Windows.Forms.Button BSaveSett;
         private System.Windows.Forms.TableLayoutPanel TLPSett;
-        private System.Windows.Forms.TextBox TBPanelSet13;
-        private System.Windows.Forms.TextBox TBPanelSet14;
-        private System.Windows.Forms.TextBox TBPanelSet15;
-        private System.Windows.Forms.TextBox TBPanelSet10;
-        private System.Windows.Forms.TextBox TBPanelSet9;
-        private System.Windows.Forms.TextBox TBPanelSet12;
-        private System.Windows.Forms.TextBox TBPanelSet11;
-        private System.Windows.Forms.TextBox TBPanelSet8;
-        private System.Windows.Forms.TextBox TBPanelSet5;
-        private System.Windows.Forms.TextBox TBPanelSet6;
-        private System.Windows.Forms.TextBox TBPanelSet7;
+        private System.Windows.Forms.TextBox TBPanel10;
+        private System.Windows.Forms.TextBox TBPanel11;
+        private System.Windows.Forms.TextBox TBPanel12;
+        private System.Windows.Forms.TextBox TBPanel7;
+        private System.Windows.Forms.TextBox TBPanel6;
+        private System.Windows.Forms.TextBox TBPanel9;
+        private System.Windows.Forms.TextBox TBPanel8;
+        private System.Windows.Forms.TextBox TBPanel5;
+        private System.Windows.Forms.TextBox TBPanel2;
+        private System.Windows.Forms.TextBox TBPanel3;
+        private System.Windows.Forms.TextBox TBPanel4;
         private System.Windows.Forms.TextBox TBPanelSet1;
         private System.Windows.Forms.TextBox TBPanelSet0;
         private System.Windows.Forms.TextBox TBPanelSet2;
-        private System.Windows.Forms.TextBox TBPanelSet4;
+        private System.Windows.Forms.TextBox TBPanel1;
         private System.Windows.Forms.TextBox TBPanelSet3;
         private System.Windows.Forms.Label LSett2;
         private System.Windows.Forms.TextBox TBRapidSett;

@@ -54,9 +54,9 @@ namespace Gomoku
                 {
                     throw new Exception("Данные должны быть введены в формате <мин>:<сек>");
                 }
-                if (minutes==0 && seconds < 15)
+                if ((minutes==0 && seconds < 15) || minutes>60)
                 {
-                    throw new Exception("Минимальное ограничение по времени 15 секунд");
+                    throw new Exception("Минимальное ограничение по времени 15 секунд\nМаксимальное ограничение по времени 60 минут");
                 }
                 // Рассчитываем общее количество миллисекунд
                 int totalMilliseconds = (minutes * 60 + seconds) * 1000;
@@ -93,7 +93,7 @@ namespace Gomoku
                     }
 
                     char level;
-                    int time = 0;
+                    int time = -10000;
                     bool hasTimeLimit = false;
 
                     if (RBTimerDS.Checked) //ограничение на время
@@ -102,11 +102,19 @@ namespace Gomoku
                         time = parsesTimerLimit(timers);
                         hasTimeLimit = true;
                     }
-
+                    if (RBNoTimeDS.Checked)
+                    {
+                        hasTimeLimit = false;
+                        time = 0;
+                    }
                     if (ChLBDS.GetItemChecked(0)) // простой уровень
                     {
                         level = 'S'; // simple
                         if (time != 10000 && time >= 15000)
+                        {
+                            startGame(level, time, hasTimeLimit, BotPlayer, "Бот новичок");
+                        }
+                        else if (time == 0 && !hasTimeLimit)
                         {
                             startGame(level, time, hasTimeLimit, BotPlayer, "Бот новичок");
                         }
@@ -115,6 +123,10 @@ namespace Gomoku
                     {
                         level = 'M'; // medium
                         if (time != 10000 && time >= 15000)
+                        {
+                            startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
+                        }
+                        else if (time == 0 && !hasTimeLimit)
                         {
                             startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
                         }
@@ -164,5 +176,11 @@ namespace Gomoku
         {
              
         }
+
+        private void RBNoTimeDS_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

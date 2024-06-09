@@ -217,7 +217,6 @@ namespace Gomoku
         }
         private int positionValue(Players currentPlayer, ref int i, ref int j) //получаем лучшее эвристическое значение клетки
         {
-            char player = GetBoardValue(i, j);
             initPattens(currentPlayer);
             bool endCheck = false;
             if (CheckPatternHorizontal(ref i, ref j, patterns[0], ref endCheck) || CheckPatternVertical(ref i, ref j, patterns[0], ref endCheck) || CheckPatternAscendingDiagonal(ref i, ref j, patterns[0], ref endCheck) || CheckPatternDescendingDiagonal(ref i, ref j, patterns[0],ref endCheck))
@@ -485,10 +484,9 @@ namespace Gomoku
         private int evaluation(Players currentPlayer)
         {
             int bestScore = int.MinValue;
-            char[,] tempBoard = GetBoard();
-            for (int i = 0; i < tempBoard.GetLength(0); i++)
+            for (int i = 0; i < GetBoard().GetLength(0); i++)
             {
-                for (int j =0; j < tempBoard.GetLength(1); j++)
+                for (int j =0; j < GetBoard().GetLength(1); j++)
                 {
                     int tempI = i;
                     int tempJ = j;
@@ -498,7 +496,6 @@ namespace Gomoku
                         stepI = tempI;
                         stepJ = tempJ;
                         bestScore = score;
-                        //break;
                     }
                 }
             }
