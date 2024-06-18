@@ -25,6 +25,7 @@ namespace Gomoku
             gamewithpc.SetOppName(botName);
             gamewithpc.SetGameWithBot(true);
             gamewithpc.Show();
+            this.Close();
         }
 
         private int parsesTimerLimit(string timeLimit)
@@ -129,6 +130,7 @@ namespace Gomoku
                         else if (time == 0 && !hasTimeLimit)
                         {
                             startGame(level, time, hasTimeLimit, BotPlayer, "Опытный Бот");
+                            
                         }
                     }
                 }
@@ -171,16 +173,5 @@ namespace Gomoku
                 MessageBox.Show(ee.Message);
             }
         }
-
-        private void DifficultySelection_Load(object sender, EventArgs e)
-        {
-             
-        }
-
-        private void RBNoTimeDS_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

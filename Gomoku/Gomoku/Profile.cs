@@ -135,63 +135,71 @@ namespace Gomoku
 
         private int ChangingRapid(char typeEnemy, int result) //смена рейтинга
         {
-            this.CountMatches++;
-            int PresRapid = this.Rapid; //присвоение рапида в настоящее время
-            if (result == 0) //ничья
+            try
             {
-                this.Paritet++;
+                this.CountMatches++;
+                int PresRapid = this.Rapid; //присвоение рапида в настоящее время
+                if (result == 0) //ничья
+                {
+                    this.Paritet++;
+                }
+                else if (typeEnemy == 'S')
+                { //легкий уровень
+                    if (result == 10)
+                    {
+                        PresRapid += 3;
+                        this.WinEasyMode++;
+                    }
+                    else
+                    {
+                        PresRapid -= 2;
+                        this.LoseEasyMode++;
+                    }
+                }
+                else if (typeEnemy == 'M')
+                { //средний уровень
+                    if (result == 10)
+                    {
+                        PresRapid += 5;
+                        this.WinMediumMode++;
+                    }
+                    else
+                    {
+                        PresRapid -= 4;
+                        this.LoseMediumMode++;
+                    }
+                }
+
+                int updatedRapid = PresRapid;
+                int updatedWinEasy = this.WinEasyMode;
+                int updatedWinMedium = this.WinMediumMode;
+                int updatedLoseEasy = this.LoseEasyMode;
+                int updatedLoseMedium = this.LoseMediumMode;
+                int updatedDraw = this.Paritet;
+                int updatedTotalMatches = this.CountMatches;
+
+                string filename = Name + "_matches.txt";
+                string[] lines = File.ReadAllLines(filename);
+
+                // Обновление данных
+                lines[1] = updatedRapid.ToString();
+                lines[2] = updatedWinEasy.ToString();
+                lines[3] = updatedWinMedium.ToString();
+                lines[4] = updatedLoseEasy.ToString();
+                lines[5] = updatedLoseMedium.ToString();
+                lines[6] = updatedDraw.ToString();
+                lines[7] = updatedTotalMatches.ToString();
+
+                // Запись обновленных данных обратно в файл
+                File.WriteAllLines(filename, lines);
+
+                return PresRapid;
             }
-            else if (typeEnemy == 'S')
-            { //легкий уровень
-                if (result == 10)
-                {
-                    PresRapid += 3;
-                    this.WinEasyMode++;
-                }
-                else
-                {
-                    PresRapid -= 2;
-                    this.LoseEasyMode++;
-                }
+            catch(Exception ee)
+            {
+                MessageBox.Show("произошла ошибка при изменении рейтинга!");
+                return this.Rapid;
             }
-            else if (typeEnemy == 'M')
-            { //средний уровень
-                if (result == 10)
-                {
-                    PresRapid += 5;
-                    this.WinMediumMode++;
-                }
-                else
-                {
-                    PresRapid -= 4;
-                    this.LoseMediumMode++;
-                }
-            }
-
-            int updatedRapid = PresRapid;
-            int updatedWinEasy = this.WinEasyMode;
-            int updatedWinMedium = this.WinMediumMode;
-            int updatedLoseEasy = this.LoseEasyMode;
-            int updatedLoseMedium = this.LoseMediumMode;
-            int updatedDraw = this.Paritet;
-            int updatedTotalMatches = this.CountMatches;
-
-            string filename = Name + "_matches.txt";
-            string[] lines = File.ReadAllLines(filename);
-
-            // Обновление данных
-            lines[1] = updatedRapid.ToString();
-            lines[2] = updatedWinEasy.ToString();
-            lines[3] = updatedWinMedium.ToString();
-            lines[4] = updatedLoseEasy.ToString();
-            lines[5] = updatedLoseMedium.ToString();
-            lines[6] = updatedDraw.ToString();
-            lines[7] = updatedTotalMatches.ToString();
-
-            // Запись обновленных данных обратно в файл
-            File.WriteAllLines(filename, lines);
-
-            return PresRapid;
         }
 
         public void EditGamerInfo(string newName)
@@ -209,26 +217,6 @@ namespace Gomoku
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при переименовании файла: " + ex.Message);
-            }
-        }
-
-        public void SaveToFile(string fileName)
-        {
-            if (File.Exists(fileName))
-            {
-                using (StreamWriter writer = new StreamWriter(fileName, append: true))
-                {
-                    writer.WriteLine(this.Name);
-                    writer.WriteLine(this.Rapid);
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    writer.WriteLine(this.Name);
-                    writer.WriteLine(this.Rapid);
-                }
             }
         }
 

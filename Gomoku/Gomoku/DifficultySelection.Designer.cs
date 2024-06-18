@@ -95,7 +95,6 @@ namespace Gomoku
             this.RBNoTimeDS.TabStop = true;
             this.RBNoTimeDS.Text = "Нет ограничения по времени";
             this.RBNoTimeDS.UseVisualStyleBackColor = true;
-            this.RBNoTimeDS.CheckedChanged += new System.EventHandler(this.RBNoTimeDS_CheckedChanged);
             // 
             // RBTimerDS
             // 
@@ -226,7 +225,6 @@ namespace Gomoku
             this.Name = "DifficultySelection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор сложности игры противника-компьютера";
-            this.Load += new System.EventHandler(this.DifficultySelection_Load);
             this.GBDS.ResumeLayout(false);
             this.GBDS.PerformLayout();
             this.GBDS2.ResumeLayout(false);

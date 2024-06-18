@@ -139,12 +139,13 @@ namespace Gomoku
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(827, 754);
+            this.button1.Location = new System.Drawing.Point(843, 939);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(234, 66);
             this.button1.TabIndex = 9;
             this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainMenu

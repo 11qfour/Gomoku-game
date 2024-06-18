@@ -17,10 +17,9 @@ namespace Gomoku
         private char currentPlayer;
         private List<int[]> SuccessSteps = new List<int[]>(); //массив выигрышных ходов, нужно для отображения
 
-        private int black_steps;
-        private int steps;
-        private int white_steps;
-
+        private int blackSteps; //кол-во черных камней
+        private int steps; //количество камней
+        private int whiteSteps; //количество белых камней
         Profile profile;
         
         public void SetSequenceStepsValue(int i, int j)
@@ -75,12 +74,12 @@ namespace Gomoku
             if (board[i, j] == 'W')
             {
                 currentPlayer = 'W';
-                white_steps--;
+                whiteSteps--;
             }
             else
             {
                 currentPlayer = 'B';
-                black_steps--;
+                blackSteps--;
             }
             board[i, j] = 'E'; //клетка пуста
             steps --;
@@ -120,7 +119,7 @@ namespace Gomoku
                 result = "Сторона белых победила";
                 opp = "Друг";
             }
-            else if (result == "Tie") {
+            else if (result == "tie") {
                 if (Opponent == 'S')
                 {
                     result = "Ничья в матче с Ботом новичком";
@@ -306,8 +305,8 @@ namespace Gomoku
         public Game()
         {
             profile = new Profile("Gamer"); //подумать над тем как сохранять в тот же файл
-            this.white_steps = 0;
-            this.black_steps = 0;
+            this.whiteSteps = 0;
+            this.blackSteps = 0;
             this.steps = 0;
             currentPlayer = 'B';
             GameIsOver = false;
@@ -325,12 +324,12 @@ namespace Gomoku
 
         public void SetBlackSteps(int cnt)
         {
-            this.black_steps = cnt;
+            this.blackSteps = cnt;
         }
 
         public void SetWhiteSteps(int cnt)
         {
-            this.white_steps = cnt;
+            this.whiteSteps = cnt;
         }
 
         public void SetSteps(int cnt)
@@ -339,12 +338,12 @@ namespace Gomoku
         }
         public int GetBlackSteps()
         {
-            return this.black_steps;
+            return this.blackSteps;
         }
 
         public int GetWhiteSteps()
         {
-            return this.white_steps;
+            return this.whiteSteps;
         }
 
         public int GetSteps()

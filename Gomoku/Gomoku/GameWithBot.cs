@@ -65,10 +65,7 @@ namespace Gomoku
             return true;
         }
 
-        /*public char GetGameLevel()
-        {
-            return this.GameLevel;
-        }*/
+        
         public List<(int, int)> DoStep()
         {
             if (GameLevel == 'S')
@@ -81,7 +78,7 @@ namespace Gomoku
             }
         }
 
-        public List<(int, int)> RandomSelection()
+        public List<(int, int)> RandomSelection() //улучшенный алгоритм случайного выбора хода
         {
             List<(int, int)> tempSeqOfMoves = GetSequenceOfMoves();
             Random rand = new Random();
@@ -99,7 +96,7 @@ namespace Gomoku
                     stepJ = tempMoore[RandNum, 1];
                     cntAvailableSteps--;
                 }
-            } while (!checkEmptyPanel(stepI, stepJ) && cntAvailableSteps != 0);
+            } while (!checkEmptyPanel(stepI, stepJ) && cntAvailableSteps != 0); //пока есть доступные клетки в окрестности Мура
             while (!checkEmptyPanel(stepI, stepJ))
             {
                 stepI = rand.Next(0, GetBoard().Length-1);
@@ -133,7 +130,7 @@ namespace Gomoku
 
 
 
-        public List<(int, int)> bestMove(Players players)
+        public List<(int, int)> bestMove(Players players) //кортеж координат клетки оптимального хода
         {
             List<(int, int)> BotStep = new List<(int, int)> { (stepI, stepJ) };
             
@@ -157,11 +154,11 @@ namespace Gomoku
             char currValue = currentPlayer.PlayerMarker;
             char oppValue = (currValue == 'B') ? 'W' : 'B';
 
-            string openForth = "E"+new string (currValue,4)+"E";
+            string openForth = "E"+new string (currValue,4)+"E"; //открытая 4
             string closeForth1 = "E" + new string(currValue, 4) + oppValue.ToString();
             string closeForth2 = oppValue.ToString() + new string(currValue, 4) + "E";
 
-            string openThird = "E" + new string(currValue, 3) + "E";
+            string openThird = "E" + new string(currValue, 3) + "E"; //открытая 3
             string closeThird1 = "E"+new string(currValue, 3)+ oppValue.ToString();
             string closeThird2 = oppValue.ToString() + new string(currValue, 3) + "E";
 
@@ -502,56 +499,6 @@ namespace Gomoku
             return bestScore;
         }
 
-        private int AplhaBetaPruning(int depth, Players currentPlayer, int alpha, int beta)
-        {
-            if (IsWinner(currentPlayer))
-                return 10;
-            currentPlayer = GetOpponent(currentPlayer);
-            if (IsWinner(currentPlayer))
-                return 10;
-            currentPlayer = GetOpponent(currentPlayer);
-            if (IsEmptySquares() || depth == 3)
-                return 0;
-
-            int bestValue = currentPlayer.Player == Player.BotPlayer ? int.MinValue : int.MaxValue;
-
-            for (int i = 0; i < GetBoard().GetLength(0); i++)
-            {
-                for (int j = 0; j < GetBoard().GetLength(1); j++)
-                {
-                    if (GetBoardValue(i, j) == 'E')
-                    {
-                        SetBoardValue(i, j, currentPlayer.PlayerMarker);
-                        int moveValue = AplhaBetaPruning(depth + 1, GetOpponent(currentPlayer), alpha, beta);
-                        SetBoardValue(i, j, 'E');
-
-                        if (currentPlayer.Player == Player.BotPlayer)
-                        {
-                            bestValue = Math.Max(bestValue, moveValue);
-                            alpha = Math.Max(alpha, bestValue);
-                            stepI = i;
-                            stepJ = j;
-                            if (beta <= alpha)
-                            {
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            bestValue = Math.Min(bestValue, moveValue);
-                            beta = Math.Min(beta, bestValue);
-                            if (beta <= alpha)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return bestValue;
-        }
-
         private Players GetOpponent(Players curentPlayer) //смена игрока для алгоритма
         {
             foreach (var player in players)
@@ -563,21 +510,5 @@ namespace Gomoku
             }
             return null;
         }
-
-        private bool IsWinner(Players player)
-        {
-            char tempplayerMarker = player.PlayerMarker; // Присваиваем маркер в зависимости от типа перечисления
-            for (int row = 0; row < GetBoard().GetLength(0); row++)
-            {
-                for (int col = 0; col < GetBoard().GetLength(1); col++)
-                {
-                    if (GetBoardValue(row, col) == tempplayerMarker)
-                        if (CheckWinner(row, col) != 1) //если игра не продолжается
-                            return true;
-                }
-            }
-            return false;
-        }
-
     }
 }

@@ -12,13 +12,10 @@ namespace Gomoku
         public Player Player;
         public char PlayerMarker; //сторона игрока
 
-        public int PlayerID;
-
         public Players(Player players, char playerMarker, int playerID)
         {
             this.Player = players;
             this.PlayerMarker = playerMarker;
-            this.PlayerID = playerID;
         }
     }
 }

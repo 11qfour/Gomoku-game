@@ -411,7 +411,7 @@ namespace Gomoku
             // 
             this.BSaveSett.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.BSaveSett.Image = ((System.Drawing.Image)(resources.GetObject("BSaveSett.Image")));
-            this.BSaveSett.Location = new System.Drawing.Point(421, 131);
+            this.BSaveSett.Location = new System.Drawing.Point(501, 131);
             this.BSaveSett.Name = "BSaveSett";
             this.BSaveSett.Size = new System.Drawing.Size(50, 46);
             this.BSaveSett.TabIndex = 12;
@@ -659,7 +659,7 @@ namespace Gomoku
             this.TBNameSett.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.TBNameSett.Enabled = false;
             this.TBNameSett.Font = new System.Drawing.Font("Segoe UI Symbol", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBNameSett.Location = new System.Drawing.Point(3, 129);
+            this.TBNameSett.Location = new System.Drawing.Point(79, 128);
             this.TBNameSett.Name = "TBNameSett";
             this.TBNameSett.Size = new System.Drawing.Size(392, 46);
             this.TBNameSett.TabIndex = 2;
@@ -670,11 +670,12 @@ namespace Gomoku
             this.BChngeNameSett.BackColor = System.Drawing.Color.Peru;
             this.BChngeNameSett.Font = new System.Drawing.Font("Segoe UI Symbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BChngeNameSett.Image = ((System.Drawing.Image)(resources.GetObject("BChngeNameSett.Image")));
-            this.BChngeNameSett.Location = new System.Drawing.Point(536, 130);
+            this.BChngeNameSett.Location = new System.Drawing.Point(595, 129);
             this.BChngeNameSett.Name = "BChngeNameSett";
             this.BChngeNameSett.Size = new System.Drawing.Size(47, 48);
             this.BChngeNameSett.TabIndex = 6;
             this.BChngeNameSett.UseVisualStyleBackColor = false;
+            this.BChngeNameSett.Visible = false;
             this.BChngeNameSett.Click += new System.EventHandler(this.BChngeNameSett_Click);
             this.BChngeNameSett.MouseEnter += new System.EventHandler(this.BChngeNameSett_MouseEnter);
             this.BChngeNameSett.MouseLeave += new System.EventHandler(this.BChngeNameSett_MouseLeave);

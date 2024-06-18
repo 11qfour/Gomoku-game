@@ -177,7 +177,7 @@ namespace Gomoku
             this.Controls.Add(this.BNext);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RulesForm";
-            this.Text = "Rules";
+            this.Text = "Правила";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Rules_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PB2Rules)).EndInit();

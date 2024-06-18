@@ -14,8 +14,8 @@ namespace Gomoku
     public partial class GameWithPC : Form
     {
         int all_sec = 0;
-        Image black = Image.FromFile("blacknew.png");
-        Image white = Image.FromFile("whitenew.png");
+        Image blackStone = Image.FromFile("blacknew.png");
+        Image whiteStone = Image.FromFile("whitenew.png");
         ToolTip toolTip1 = new ToolTip();
         Game game = new Game();
 
@@ -31,8 +31,6 @@ namespace Gomoku
             this.gameWithBot = flag;
         }
 
-     
-
         public GameWithPC()
         {
             InitializeComponent();
@@ -44,7 +42,6 @@ namespace Gomoku
             timer.Interval = 1000; // Интервал в миллисекундах (1 секунда)
             timer.Tick += timer_Tick;
             timer.Start();
-
             //_loggerService = new LoggerService<Game>(_fileService);
         }
 
@@ -58,11 +55,6 @@ namespace Gomoku
                 botPlayer.SetCurrentPlayer('B');
             else
                 botPlayer.SetCurrentPlayer('W');
-        }
-
-        private void SetTimeLimit(bool flag) //контроль за временными ограничениями
-        {
-            //описание таймеров
         }
 
         public void SetOppName(string s) //вывод имени противника
@@ -279,7 +271,7 @@ namespace Gomoku
                     if (cell.BackColor == Color.Gray)
                     {
                         this.WindowState = FormWindowState.Maximized;
-                        cell.BackgroundImage = black;
+                        cell.BackgroundImage = blackStone;
                         botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                         botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
                         LWhoStep.Text = "Белых";
@@ -291,14 +283,14 @@ namespace Gomoku
                     {
                         if (botPlayer.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                         {
-                            cell.BackgroundImage = black;
+                            cell.BackgroundImage = blackStone;
                             botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                             botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
                             LWhoStep.Text = "Белых";
                         }
                         else // устанавливаем белый цвет фишки
                         {
-                            cell.BackgroundImage = white;
+                            cell.BackgroundImage = whiteStone;
                             botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                             botPlayer.SetWhiteSteps(botPlayer.GetWhiteSteps() + 1);
                             LWhoStep.Text = "Черных";
@@ -313,7 +305,7 @@ namespace Gomoku
                     if (cell.BackColor == Color.Gray)
                     {
                         this.WindowState = FormWindowState.Maximized;
-                        cell.BackgroundImage = black;
+                        cell.BackgroundImage = blackStone;
                         game.SetSteps(game.GetSteps() + 1);
                         game.SetBlackSteps(game.GetBlackSteps() + 1);
                         LWhoStep.Text = "Белых";
@@ -325,14 +317,14 @@ namespace Gomoku
                     {
                         if (game.GetSteps() % 2 == 0) // устанавливаем черный цвет фишки
                         {
-                            cell.BackgroundImage = black;
+                            cell.BackgroundImage = blackStone;
                             game.SetSteps(game.GetSteps() + 1);
                             game.SetBlackSteps(game.GetBlackSteps() + 1);
                             LWhoStep.Text = "Белых";
                         }
                         else // устанавливаем белый цвет фишки
                         {
-                            cell.BackgroundImage = white;
+                            cell.BackgroundImage = whiteStone;
                             game.SetSteps(game.GetSteps() + 1);
                             game.SetWhiteSteps(game.GetWhiteSteps() + 1);
                             LWhoStep.Text = "Черных";
@@ -349,6 +341,7 @@ namespace Gomoku
             DialogResult dialogResult = DialogResult.OK;
             if (gameWithBot)
             {
+                timer.Stop();
                 botPlayer.SetGameIsOver(true);
                 PaintWinnerPanels(botPlayer.GetSuccessSteps());
                 if (botPlayer.GetBotPlayerSide() == player) //так как уже поменяли в nextturn при ходе
@@ -365,6 +358,7 @@ namespace Gomoku
             }
             else
             {
+                timer.Stop();
                 game.SetGameIsOver(true);
                 PaintWinnerPanels(game.GetSuccessSteps());
                 if (game.GetCurrentPlayer() == 'W')//так как уже поменяли в nextturn при ходе
@@ -403,7 +397,7 @@ namespace Gomoku
                         {
                             cell.BackgroundImageLayout = ImageLayout.Center;
                             botPlayer.SetBoardValue(i, j, 'B');
-                            cell.BackgroundImage = black;
+                            cell.BackgroundImage = blackStone;
                             botPlayer.SetBlackSteps(botPlayer.GetBlackSteps() + 1);
                             botPlayer.SetSteps(botPlayer.GetSteps() + 1);
                         }
@@ -550,6 +544,8 @@ namespace Gomoku
             if (dataTimeLimit <= 0)
             {
                 timer.Stop();
+                botPlayer.AddToFile("tie", botPlayer.GetLevel(), all_sec);
+                botPlayer.SetGameIsOver(true);
                 DialogResult dR = MessageBox.Show("Время вышло! ⏰","",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 if (dR == DialogResult.OK)
                 {

@@ -2932,7 +2932,7 @@ namespace Gomoku
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameWithPC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GameWithPC";
+            this.Text = "Игровое поле";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWithPC_FormClosed);
             this.Load += new System.EventHandler(this.GameWithPC_Load);

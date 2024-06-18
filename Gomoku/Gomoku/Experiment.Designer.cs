@@ -518,7 +518,7 @@ namespace Gomoku
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Experiment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Experiment";
+            this.Text = "Тестирование";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Experiment_FormClosed);
             this.Load += new System.EventHandler(this.Experiment_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
